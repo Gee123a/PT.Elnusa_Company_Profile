@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/','home');
-Route::get('/project',[ProjectsController::class, 'index']);  
+Route::get('/project',[ProjectController::class, 'index']);  
