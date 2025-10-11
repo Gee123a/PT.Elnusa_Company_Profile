@@ -19,7 +19,8 @@ class Project extends Model
         'budget',
         'status',
         'description',
-        'address'
+        'address',
+        'image_url'
     ];
 
     // Konversi otomatis ke tipe data yang sesuai

@@ -13,8 +13,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        // ❌ SALAH: ->orderBy('name')
-        // ✅ BENAR: ->orderBy('nama')
+        $totalEmployee = Employee::count();
         
         $employees = Employee::with('projects')
                             ->orderBy('nama')  // ← Ubah 'name' jadi 'nama'
@@ -30,15 +29,7 @@ class EmployeeController extends Controller
             return str_contains(strtolower($emp->position ?? ''), 'engineer');
         });
         
-        return view('team', compact('employees', 'management', 'engineers'));
+        return view('team', compact('employees', 'management', 'engineers', 'totalEmployee'));
     }
 
-    /**
-     * Tampilkan profile detail employee
-     */
-    public function show($id)
-    {
-        $employee = Employee::with('projects')->findOrFail($id);
-        return view('team-detail', compact('employee'));
-    }
 }

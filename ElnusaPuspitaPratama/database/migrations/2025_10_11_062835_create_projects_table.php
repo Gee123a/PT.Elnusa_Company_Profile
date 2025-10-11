@@ -36,6 +36,7 @@ return new class extends Migration
             $table->enum('status', ['Planning', 'In Progress', 'Delayed', 'Completed'])->default('Planning');
             $table->text('description')->nullable();
             $table->text('address')->nullable();
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

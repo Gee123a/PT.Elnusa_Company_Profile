@@ -19,25 +19,10 @@
     </main>
 
     @include('layout.footer')
-    
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-PJsz6Ctp1JQ2ChJt2LbHYXHt2MIEl/T0ZJj3QA5NjY5Di6lXzDL2bBLxZqRMfT0W" crossorigin="anonymous">
-    </script>
-    <script>
-        // Smooth scroll untuk semua anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
     </script>
 </body>
 

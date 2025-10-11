@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             ClientSeeder::class,      // 1. Buat clients dulu
             EmployeeSeeder::class,    // 2. Buat employees dulu
             ProjectSeeder::class,     // 3. Baru buat projects (yang punya foreign key)
+            ReviewSeeder::class,      // 4. Buat review
         ]);
     }
 }

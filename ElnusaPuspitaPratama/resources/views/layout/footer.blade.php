@@ -13,24 +13,24 @@
                 </p>
                 <!-- Social Media -->
                 <div class="d-flex gap-2">
-                    <a href="https://wa.me/6281234567890" target="_blank" 
-                       class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center" 
-                       style="width: 40px; height: 40px;" title="WhatsApp">
+                    <a href="https://wa.me/6281234567890" target="_blank"
+                        class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;" title="WhatsApp">
                         <i class="bi bi-whatsapp"></i>
                     </a>
-                    <a href="https://instagram.com/elnusapuspitapratama" target="_blank" 
-                       class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center" 
-                       style="width: 40px; height: 40px;" title="Instagram">
+                    <a href="https://instagram.com/elnusapuspitapratama" target="_blank"
+                        class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;" title="Instagram">
                         <i class="bi bi-instagram"></i>
                     </a>
-                    <a href="https://linkedin.com/company/elnusapuspitapratama" target="_blank" 
-                       class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center" 
-                       style="width: 40px; height: 40px;" title="LinkedIn">
+                    <a href="https://linkedin.com/company/elnusapuspitapratama" target="_blank"
+                        class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;" title="LinkedIn">
                         <i class="bi bi-linkedin"></i>
                     </a>
-                    <a href="mailto:contact@elnusapp.co.id" 
-                       class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center" 
-                       style="width: 40px; height: 40px;" title="Email">
+                    <a href="mailto:contact@elnusapp.co.id"
+                        class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;" title="Email">
                         <i class="bi bi-envelope"></i>
                     </a>
                 </div>
@@ -43,17 +43,20 @@
                     <div class="col-6">
                         <ul class="list-unstyled">
                             <li class="mb-2">
-                                <a href="/" class="text-white-50 text-decoration-none d-inline-flex align-items-center">
+                                <a href="/"
+                                    class="text-white-50 text-decoration-none d-inline-flex align-items-center">
                                     <i class="bi bi-chevron-right me-1"></i> Home
                                 </a>
                             </li>
                             <li class="mb-2">
-                                <a href="/project" class="text-white-50 text-decoration-none d-inline-flex align-items-center">
+                                <a href="/project"
+                                    class="text-white-50 text-decoration-none d-inline-flex align-items-center">
                                     <i class="bi bi-chevron-right me-1"></i> Projects
                                 </a>
                             </li>
                             <li class="mb-2">
-                                <a href="/team" class="text-white-50 text-decoration-none d-inline-flex align-items-center">
+                                <a href="/team"
+                                    class="text-white-50 text-decoration-none d-inline-flex align-items-center">
                                     <i class="bi bi-chevron-right me-1"></i> Our Team
                                 </a>
                             </li>
@@ -62,12 +65,14 @@
                     <div class="col-6">
                         <ul class="list-unstyled">
                             <li class="mb-2">
-                                <a href="/clients" class="text-white-50 text-decoration-none d-inline-flex align-items-center">
+                                <a href="/clients"
+                                    class="text-white-50 text-decoration-none d-inline-flex align-items-center">
                                     <i class="bi bi-chevron-right me-1"></i> Our Clients
                                 </a>
                             </li>
                             <li class="mb-2">
-                                <a href="/contact" class="text-white-50 text-decoration-none d-inline-flex align-items-center">
+                                <a href="/contact"
+                                    class="text-white-50 text-decoration-none d-inline-flex align-items-center">
                                     <i class="bi bi-chevron-right me-1"></i> Contact
                                 </a>
                             </li>
@@ -123,7 +128,7 @@
         padding-left: 5px;
         transition: all 0.3s ease;
     }
-    
+
     .btn-outline-light:hover {
         background-color: #ffc107;
         border-color: #ffc107;

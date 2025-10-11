@@ -22,7 +22,8 @@ class ProjectSeeder extends Seeder
                 'budget' => 5000000000.00, // 5 Miliar
                 'status' => 'Completed',
                 'description' => 'Pemasangan jaringan fiber optic untuk area Jakarta Selatan dengan total panjang 50 km, meliputi instalasi kabel, splicing, dan testing konektivitas.',
-                'address' => 'Jakarta Selatan, DKI Jakarta'
+                'address' => 'Jakarta Selatan, DKI Jakarta',
+                'image_url' => 'image/image.jpg'
             ],
             [
                 'project_name' => 'Smart City Infrastructure - Semarang',
@@ -33,7 +34,8 @@ class ProjectSeeder extends Seeder
                 'budget' => 15000000000.00, // 15 Miliar
                 'status' => 'In Progress',
                 'description' => 'Pembangunan infrastruktur smart city di Kota Semarang, mencakup instalasi sensor IoT, network infrastructure, dan integrated control center.',
-                'address' => 'Semarang, Jawa Tengah'
+                'address' => 'Semarang, Jawa Tengah',
+                'image_url' => 'image/image.jpg'
             ],
             [
                 'project_name' => 'Data Center Setup - Bandung',
@@ -44,7 +46,8 @@ class ProjectSeeder extends Seeder
                 'budget' => 8000000000.00, // 8 Miliar
                 'status' => 'In Progress',
                 'description' => 'Membangun data center dengan kapasitas 100 rack, termasuk cooling system, power backup, dan fire suppression system.',
-                'address' => 'Bandung, Jawa Barat'
+                'address' => 'Bandung, Jawa Barat',
+                'image_url' => 'image/image.jpg'
             ],
             [
                 'project_name' => 'Campus Network Upgrade - Yogyakarta',
@@ -55,7 +58,8 @@ class ProjectSeeder extends Seeder
                 'budget' => 3000000000.00, // 3 Miliar
                 'status' => 'In Progress',
                 'description' => 'Upgrade infrastruktur jaringan di 5 kampus besar di Yogyakarta dengan teknologi WiFi 6 dan fiber backbone.',
-                'address' => 'Yogyakarta, DI Yogyakarta'
+                'address' => 'Yogyakarta, DI Yogyakarta',
+                'image_url' => 'image/image.jpg'
             ],
             [
                 'project_name' => 'Telecommunication Tower Construction',
@@ -66,7 +70,8 @@ class ProjectSeeder extends Seeder
                 'budget' => 4500000000.00, // 4.5 Miliar
                 'status' => 'Planning',
                 'description' => 'Pembangunan 3 menara telekomunikasi setinggi 60 meter di daerah terpencil untuk meningkatkan coverage sinyal.',
-                'address' => 'Papua Barat'
+                'address' => 'Papua Barat',
+                'image_url' => 'image/image.jpg'
             ],
             [
                 'project_name' => 'Home Network Installation',
@@ -77,7 +82,8 @@ class ProjectSeeder extends Seeder
                 'budget' => 50000000.00, // 50 Juta
                 'status' => 'Planning',
                 'description' => 'Instalasi jaringan rumah pintar dengan sistem keamanan terintegrasi dan automation.',
-                'address' => 'Surabaya, Jawa Timur'
+                'address' => 'Surabaya, Jawa Timur',
+                'image_url' => 'image/image.jpg'
             ],
         ];
 
