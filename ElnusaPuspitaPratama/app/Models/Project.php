@@ -9,43 +9,53 @@ class Project extends Model
 {
     use HasFactory;
 
-    // Nama tabel
-    protected $table = 'projects';
-
-    // Kolom yang boleh diisi mass assignment
+    // Kolom yang boleh diisi
     protected $fillable = [
-        'title',
-        'description',
-        'image',
-        'location',
+        'project_name',
+        'client_id',
+        'project_manager_id',
         'start_date',
-        'end_date',
+        'deadline',
+        'budget',
         'status',
-        'is_featured'
+        'description',
+        'address'
     ];
 
-    // Cast tipe data
+    // Konversi otomatis ke tipe data yang sesuai
     protected $casts = [
         'start_date' => 'date',
-        'end_date' => 'date',
-        'is_featured' => 'boolean',
+        'deadline' => 'date',
+        'budget' => 'decimal:2', // 2 angka di belakang koma
     ];
 
-    // Scope untuk featured projects
-    public function scopeFeatured($query)
+    // RELASI: Project milik satu Client
+    public function client()
     {
-        return $query->where('is_featured', true);
+        return $this->belongsTo(Client::class, 'client_id');
     }
 
-    // Scope untuk completed projects
+    // RELASI: Project dikelola oleh satu Employee (Project Manager)
+    public function projectManager()
+    {
+        return $this->belongsTo(Employee::class, 'project_manager_id');
+    }
+
+    // SCOPE: Ambil project berdasarkan status
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    // SCOPE: Ambil project yang sudah selesai
     public function scopeCompleted($query)
     {
-        return $query->where('status', 'completed');
+        return $query->where('status', 'Completed');
     }
 
-    // Scope untuk ongoing projects
-    public function scopeOngoing($query)
+    // SCOPE: Ambil project yang sedang berjalan
+    public function scopeInProgress($query)
     {
-        return $query->where('status', 'ongoing');
+        return $query->where('status', 'In Progress');
     }
 }

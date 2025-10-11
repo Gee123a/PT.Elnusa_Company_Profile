@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 fixed-top border-bottom border-white border-opacity-10" id="mainNav" style="backdrop-filter: blur(10px);">
     <div class="container">
         <!-- Brand/Logo -->
@@ -24,8 +25,19 @@
                     </a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link fw-medium text-white-50" href="#find-us">
-                        Find Us
+                    <a class="nav-link fw-medium {{ Request::is('team') ? 'active text-warning' : 'text-white-50' }}" href="/team">
+                        Our Team
+                    </a>
+                </li>
+                <li class="nav-item mx-3">
+                    <a class="nav-link fw-medium {{ Request::is('clients') ? 'active text-warning' : 'text-white-50' }}" href="/clients">
+                        Our Clients
+                    </a>
+                </li>
+                <!-- ✅ Contact di PALING KANAN -->
+                <li class="nav-item ms-3">
+                    <a class="nav-link fw-medium {{ Request::is('contact') ? 'active' : '' }} btn btn-warning text-dark px-4 py-2" href="/contact">
+                        <i class="bi bi-envelope-fill me-2"></i>Contact Us
                     </a>
                 </li>
             </ul>
@@ -51,7 +63,7 @@
         transition: color 0.3s ease;
     }
 
-    .nav-link::after {
+    .nav-link:not(.btn)::after {
         content: '';
         position: absolute;
         width: 0;
@@ -63,13 +75,25 @@
         transform: translateX(-50%);
     }
 
-    .nav-link:hover::after,
-    .nav-link.active::after {
+    .nav-link:not(.btn):hover::after,
+    .nav-link:not(.btn).active::after {
         width: 100%;
     }
 
-    .nav-link:hover {
+    .nav-link:not(.btn):hover {
         color: #ffc107 !important;
+    }
+
+    /* Button Contact special styling */
+    .nav-link.btn-warning {
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link.btn-warning:hover {
+        background-color: #ffb800;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(255, 193, 7, 0.3);
     }
 </style>
 
