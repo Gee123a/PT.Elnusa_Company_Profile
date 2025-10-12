@@ -1,7 +1,7 @@
 <div class="col-lg-4 col-md-6" data-aos="fade-up">
     <div class="p-4 rounded-3 shadow-lg h-100 text-center card-hover">
         <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center team-avatar bg-white bg-opacity-20 border border-warning border-opacity-50">
-            <i class="bi bi-person-fill fs-1 text-white"></i>
+            <i class="bi bi-person-fill fs-1 text-warning"></i>
         </div>
         <h5 class="fw-bold mb-2 text-white">{{ $employee->nama }}</h5>
         <small class="fw-semibold text-white">{{ $employee->position }}</small>
