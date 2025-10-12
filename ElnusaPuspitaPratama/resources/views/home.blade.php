@@ -5,7 +5,7 @@
     {{-- Hero Section: Menampilkan slogan, deskripsi, dan nama perusahaan di bagian atas halaman --}}
     <section id="hero" class="position-relative vh-100 d-flex align-items-center overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920') center/cover no-repeat; z-index: -1;">
+            style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920') center/cover no-repeat; z-index: -1;">
         </div>
         <div class="container">
             <div class="row align-items-center">
