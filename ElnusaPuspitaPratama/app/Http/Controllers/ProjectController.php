@@ -57,20 +57,16 @@ class ProjectController extends Controller
     {
         $project = Project::with(['client', 'projectManager'])->findOrFail($id);
 
-        // Logic status, badge, progress
+        // Logic status dan badge (tanpa progress persentase)
         $status = strtolower($project->status);
         if ($status === 'planning') {
-            $badgeColor = ''; // Tidak ada warna khusus
-            $progress = 25;
+            $badgeColor = '';
         } elseif ($status === 'on progress' || $status === 'in progress') {
-            $badgeColor = 'bg-warning text-dark'; // Kuning
-            $progress = 75;
+            $badgeColor = 'bg-warning text-dark';
         } elseif ($status === 'complete' || $status === 'completed') {
-            $badgeColor = 'bg-success'; // Hijau
-            $progress = 100;
+            $badgeColor = 'bg-success';
         } else {
             $badgeColor = 'bg-secondary';
-            $progress = 0;
         }
 
         // Related projects (contoh ambil 3 project lain)
@@ -78,18 +74,18 @@ class ProjectController extends Controller
         foreach ($relatedProjects as $rp) {
             $rpStatus = strtolower($rp->status);
             if ($rpStatus === 'planning') {
-                $rp->badgeColor = ''; // Tidak ada warna khusus
+                $rp->badgeColor = '';
             } elseif ($rpStatus === 'on progress' || $rpStatus === 'in progress') {
-                $rp->badgeColor = 'bg-warning text-dark'; // Kuning
+                $rp->badgeColor = 'bg-warning text-dark';
             } elseif ($rpStatus === 'complete' || $rpStatus === 'completed') {
-                $rp->badgeColor = 'bg-success'; // Hijau
+                $rp->badgeColor = 'bg-success';
             } else {
                 $rp->badgeColor = 'bg-secondary';
             }
         }
 
         return view('project_detail', compact(
-            'project', 'badgeColor', 'progress', 'relatedProjects'
+            'project', 'badgeColor', 'relatedProjects'
         ));
     }
 

@@ -110,13 +110,6 @@
                             </h6>
                             <span class="badge {{ $badgeColor }} px-3 py-2">{{ ucfirst($project->status) }}</span>
                         </div>
-                        <div class="progress" style="height: 25px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $progress }}%;"
-                                aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
-                                <span class="fw-bold">{{ $progress }}%</span>
-                            </div>
-                        </div>
-                        <small class="text-white text-opacity-85 mt-2 d-block">Project completion rate</small>
                     </div>
                 </div>
             </div>
@@ -129,6 +122,12 @@
             style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('{{ $project->background_image_url ?? 'https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920' }}') center/cover no-repeat; z-index: -1;">
         </div>
         <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    {{-- Judul section similar project --}}
+                    @include('layout.sectionTitle', ['title' => 'SIMILAR PROJECTS'])
+                </div>
+            </div>
             <div class="row g-4">
                 {{-- Daftar card project terkait --}}
                 @foreach ($relatedProjects as $relatedProject)
