@@ -35,7 +35,7 @@
     {{-- Project Content Section: Menampilkan gambar utama dan deskripsi project --}}
     <section id="project-content" class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('{{ $project->background_image_url ?? 'https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920' }}') center/cover no-repeat; z-index: -1;">
+            style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920') center/cover no-repeat; z-index: -1;">
         </div>
         <div class="container py-5">
             <div class="row g-4">
@@ -44,9 +44,11 @@
                     <div class="rounded-3 shadow-lg border border-warning border-opacity-25 overflow-hidden mb-4"
                         data-aos="fade-right"
                         style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25);">
-                        <img src="{{ asset($project->image_url ?? 'image/default_project.jpg') }}" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Project Image">
+                        <img src="{{ asset($project->image_url) }}" class="d-block w-100"
+                            style="height: 500px; object-fit: cover;" alt="Project Image">
                     </div>
-                    <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25"
+                    <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25" data-aos="fade-right"
+                        data-aos-delay="100"
                         style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25);">
                         <h4 class="fw-bold mb-3 text-white">Project Description</h4>
                         <p class="text-white text-opacity-90 mb-0">{{ $project->description }}</p>
@@ -102,8 +104,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-dark text-white p-4 rounded-3 shadow-lg mb-4" data-aos="fade-left"
-                        data-aos-delay="100">
+                    <div class="bg-dark text-white p-4 rounded-3 shadow-lg mb-4" data-aos="fade-left" data-aos-delay="100">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <h6 class="fw-bold mb-0">
                                 <i class="bi bi-graph-up text-warning me-2"></i>Project Status
@@ -119,7 +120,7 @@
     {{-- Related Projects Section: Menampilkan daftar project terkait dalam bentuk card --}}
     <section class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('{{ $project->background_image_url ?? 'https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920' }}') center/cover no-repeat; z-index: -1;">
+            style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920') center/cover no-repeat; z-index: -1;">
         </div>
         <div class="container py-5">
             <div class="row">
@@ -129,44 +130,9 @@
                 </div>
             </div>
             <div class="row g-4">
-                {{-- Daftar card project terkait --}}
-                @foreach ($relatedProjects as $relatedProject)
-                    <div class="col-lg-4 d-flex" data-aos="fade-up">
-                        <div class="p-4 rounded-3 shadow-lg d-flex flex-column h-100 overflow-hidden"
-                            style="background: rgba(255,255,255,0.10); 
-                                backdrop-filter: blur(10px); 
-                                border: 1px solid rgba(255,255,255,0.25); 
-                                transition: all 0.3s ease;">
-                            <div class="position-relative overflow-hidden mb-3">
-                                <img src="{{ asset($relatedProject->image_url ?? 'image/default_project.jpg') }}" class="rounded-3 shadow"
-                                    alt="Related Project"
-                                    style="height: 220px; width: 100%; object-fit: cover; transition: transform 0.3s ease;"
-                                    onmouseover="this.style.transform='scale(1.08)'"
-                                    onmouseout="this.style.transform='scale(1)'">
-                                <span class="position-absolute top-0 end-0 badge {{ $relatedProject->badgeColor }} m-3 px-3 py-2">
-                                    {{ ucfirst($relatedProject->status) }}
-                                </span>
-                            </div>
-                            <div class="flex-grow-1 d-flex flex-column justify-content-between">
-                                <div>
-                                    <h5 class="fw-bold mb-2 text-white">{{ $relatedProject->project_name }}</h5>
-                                    <div class="d-flex align-items-center mb-2">
-                                        <div class="rounded-circle d-flex align-items-center justify-content-center me-2"
-                                            style="width:32px;height:32px;background:rgba(255,193,7,0.10);">
-                                            <i class="bi bi-geo-alt-fill text-white small"></i>
-                                        </div>
-                                        <small class="text-white text-opacity-85">{{ $relatedProject->address }}</small>
-                                    </div>
-                                </div>
-                                <div class="mt-auto pt-2">
-                                    <a href="{{ route('project.show', $relatedProject->id) }}"
-                                        class="btn btn-outline-warning w-100 py-2">
-                                        View Details <i class="bi bi-arrow-right ms-2"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {{-- Daftar card project terkait, gunakan partial projectCard --}}
+                @foreach ($relatedProjects as $project)
+                    @include('card.projectCard', ['project' => $project])
                 @endforeach
             </div>
         </div>

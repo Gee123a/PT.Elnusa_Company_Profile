@@ -1,7 +1,7 @@
 <div class="col-lg-4 col-md-6 d-flex" data-aos="fade-up">
     <div class="p-4 rounded-3 shadow-lg d-flex flex-column h-100 overflow-hidden project-card">
         <div class="position-relative overflow-hidden mb-3">
-            <img src="{{$project->image_url}}"
+            <img src="{{ asset($project->image_url) }}"
                 class="rounded-3 shadow project-img w-100"
                 height="220">
             <div class="position-absolute top-0 start-0 m-3">

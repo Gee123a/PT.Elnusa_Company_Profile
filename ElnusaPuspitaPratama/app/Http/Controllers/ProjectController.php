@@ -13,14 +13,14 @@ class ProjectController extends Controller
     public function index()
     {
         $allProjects = Project::with('client', 'projectManager')
-                            ->orderBy('created_at', 'desc')
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         // Tambahkan badgeColor untuk setiap project
         foreach ($allProjects as $project) {
             $status = strtolower($project->status);
             if ($status === 'planning') {
-                $project->badgeColor = '';
+                $project->badgeColor = 'bg-secondary';
             } elseif ($status === 'on progress' || $status === 'in progress') {
                 $project->badgeColor = 'bg-warning text-dark';
             } elseif ($status === 'complete' || $status === 'completed') {
@@ -32,14 +32,14 @@ class ProjectController extends Controller
 
         // Ambil featured project hanya 1, project dengan budget paling mahal
         $featuredProject = Project::with('client', 'projectManager')
-                            ->orderBy('budget', 'desc')
-                            ->first();
+            ->orderBy('budget', 'desc')
+            ->first();
 
         // Tambahkan badgeColor untuk featuredProjects juga
         if ($featuredProject) {
             $status = strtolower($featuredProject->status);
             if ($status === 'planning') {
-                $featuredProject->badgeColor = '';
+                $featuredProject->badgeColor = 'bg-secondary';
             } elseif ($status === 'on progress' || $status === 'in progress') {
                 $featuredProject->badgeColor = 'bg-warning text-dark';
             } elseif ($status === 'complete' || $status === 'completed') {
@@ -60,7 +60,7 @@ class ProjectController extends Controller
         // Logic status dan badge (tanpa progress persentase)
         $status = strtolower($project->status);
         if ($status === 'planning') {
-            $badgeColor = '';
+            $badgeColor = 'bg-secondary';
         } elseif ($status === 'on progress' || $status === 'in progress') {
             $badgeColor = 'bg-warning text-dark';
         } elseif ($status === 'complete' || $status === 'completed') {
@@ -69,12 +69,12 @@ class ProjectController extends Controller
             $badgeColor = 'bg-secondary';
         }
 
-        // Related projects (contoh ambil 3 project lain)
-        $relatedProjects = Project::where('id', '!=', $project->id)->take(3)->get();
+        // Related projects (ambil 3 project lain secara random, pastikan path image benar)
+        $relatedProjects = Project::where('id', '!=', $project->id)->inRandomOrder()->take(3)->get();
         foreach ($relatedProjects as $rp) {
             $rpStatus = strtolower($rp->status);
             if ($rpStatus === 'planning') {
-                $rp->badgeColor = '';
+                $rp->badgeColor = 'bg-secondary';
             } elseif ($rpStatus === 'on progress' || $rpStatus === 'in progress') {
                 $rp->badgeColor = 'bg-warning text-dark';
             } elseif ($rpStatus === 'complete' || $rpStatus === 'completed') {
@@ -85,8 +85,9 @@ class ProjectController extends Controller
         }
 
         return view('project_detail', compact(
-            'project', 'badgeColor', 'relatedProjects'
+            'project',
+            'badgeColor',
+            'relatedProjects'
         ));
     }
-
 }
