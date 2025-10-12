@@ -104,9 +104,7 @@
                         <div>
                             <p class="text-white text-opacity-85 mb-2">
                                 <strong>Elnusa Puspita Pratama</strong><br>
-                                Jl. Sudirman No. 88<br>
-                                Jakarta Pusat 10220<br>
-                                Indonesia
+                                Jalan Manyar Kertoadi no 93
                             </p>
                         </div>
                         <hr class="my-3 border-warning border-opacity-25">
@@ -119,8 +117,8 @@
                         </div>
                         <div>
                             <p class="text-white text-opacity-85 small mb-0">
-                                Mon-Fri: 08:00 - 17:00<br>
-                                Sat: 08:00 - 12:00 | Sun: Closed
+                                Mon-Sat: 08:00 - 17:00<br>
+                               Sun: Closed
                             </p>
                         </div>
                     </div>
@@ -150,7 +148,7 @@
                                 <small class="text-white text-opacity-85 d-block">WhatsApp</small>
                                 <a href="https://wa.me/6281234567890" target="_blank"
                                     class="text-white text-decoration-none fw-semibold">
-                                    +62 812 3456 7890
+                                    +628811812904
                                 </a>
                             </div>
                         </div>
@@ -173,7 +171,7 @@
                             <i class="bi bi-share-fill text-warning me-2"></i>Follow Us
                         </h5>
                         <div class="d-flex gap-2 flex-wrap">
-                            <a href="https://wa.me/6281234567890" target="_blank"
+                            <a href="https://wa.me/628811812904" target="_blank"
                                 class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
                                 style="width: 45px; height: 45px;">
                                 <i class="bi bi-whatsapp fs-5"></i>
@@ -217,7 +215,7 @@
                     <div class="rounded-3 overflow-hidden shadow-lg border border-warning border-opacity-25"
                         style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25);">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2195794253347!2d106.82090731476898!3d-6.232152995493979!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f150bb0b7d63%3A0xe90edb68d8c34f19!2sJl.%20Sudirman%2C%20Jakarta!5e0!3m2!1sen!2sid!4v1621234567890!5m2!1sen!2sid"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d455.2231510277365!2d112.77185038652816!3d-7.280052460523613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fa3129c99a4f%3A0x6d089073fc6ac2b6!2sJl.%20Manyar%20Kertoarjo%20No.93%2C%20RT.007%2FRW.11%2C%20Mojo%2C%20Kec.%20Gubeng%2C%20Surabaya%2C%20Jawa%20Timur%2060285!5e0!3m2!1sen!2sid!4v1760275044969!5m2!1sen!2sid"
                             width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
                         </iframe>
                     </div>

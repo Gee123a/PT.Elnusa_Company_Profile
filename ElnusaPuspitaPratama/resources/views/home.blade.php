@@ -14,7 +14,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 text-white d-flex flex-column justify-content-center">
                     <h1 class="display-3 fw-bold mb-4" data-aos="fade-right" data-aos-delay="200">
-                        Building Dreams, Creating Reality
+                        General Contractor & Construction Services
                     </h1>
                     <p class="lead mb-4" data-aos="fade-right" data-aos-delay="400">
                         Kami membangun masa depan dengan inovasi, kualitas, dan kepercayaan.
@@ -83,7 +83,7 @@
                                             backdrop-filter: blur(10px);
                                             border: 1px solid rgba(255, 255, 255, 0.3);">
                                     <h4 class="fw-bold text-white mb-1"
-                                        style="text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);">5+</h4>
+                                        style="text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);">2+</h4>
                                     <small class="text-white text-opacity-85">Projects</small>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                             backdrop-filter: blur(10px);
                                             border: 1px solid rgba(255, 255, 255, 0.3);">
                                     <h4 class="fw-bold text-white mb-1"
-                                        style="text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);">15+</h4>
+                                        style="text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);">5+</h4>
                                     <small class="text-white text-opacity-85">Years</small>
                                 </div>
                             </div>

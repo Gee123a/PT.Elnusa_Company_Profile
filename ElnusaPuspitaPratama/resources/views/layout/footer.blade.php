@@ -88,14 +88,12 @@
                 </h5>
                 <p class="text-white-50 mb-2">
                     <strong>Head Office:</strong><br>
-                    Jl. Sudirman No. 88<br>
-                    Jakarta Pusat 10220<br>
-                    Indonesia
+                    Jalan Manyar Kertoadi no 93
                 </p>
                 <p class="text-white-50 mb-3">
                     <i class="bi bi-telephone-fill text-warning me-2"></i>
                     <a href="tel:+622187654321" class="text-white-50 text-decoration-none">
-                        +62 21 8765 4321
+                        +628811812904
                     </a>
                 </p>
                 <a href="/contact" class="btn btn-warning btn-sm">
