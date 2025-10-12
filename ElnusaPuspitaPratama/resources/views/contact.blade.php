@@ -2,7 +2,7 @@
 @section('title', 'Contact Us')
 @section('content')
 
-    {{-- Hero Section --}}
+    {{-- Hero Section: Menampilkan judul, deskripsi, dan statistik kontak di bagian atas halaman --}}
     @include('layout.heroSection', [
         'title' => 'Get In Touch',
         'description' => "Let's discuss your next project. We're here to help bring your vision to life with professional construction services.",
@@ -18,7 +18,7 @@
         'scrollTo' => '#contact-form'
     ])
 
-    <!-- Contact Form & Info - Konsisten dark wood + glass morphism -->
+    {{-- Contact Form Section: Formulir pengiriman pesan dan info kontak kantor --}}
     <section id="contact-form" class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920') center/cover no-repeat; z-index: -1;">
@@ -26,12 +26,13 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">
+                    {{-- Judul section contact --}}
                     @include('layout.sectionTitle', ['title' => 'CONTACT US'])
                 </div>
             </div>
             <div class="row align-items-start g-4">
-                <!-- Contact Form - Style konsisten -->
                 <div class="col-lg-7 mb-4 d-flex flex-column" data-aos="fade-right">
+                    {{-- Formulir kontak --}}
                     <div class="p-4 p-lg-5 rounded-3 shadow-lg border border-warning border-opacity-25 flex-grow-1 d-flex flex-column justify-content-between"
                         style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25); min-height: 520px;">
                         <div>
@@ -89,11 +90,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- Contact Info - Style konsisten -->
                 <div class="col-lg-5" data-aos="fade-left">
+                    {{-- Info kontak kantor dan jam operasional --}}
                     <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 mb-4"
                         style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25);">
-                        <!-- Judul besar di atas, konten di bawah -->
                         <div class="d-flex align-items-center mb-4">
                             <div class="bg-warning bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center me-3"
                                 style="width:56px;height:56px;">
@@ -110,7 +110,6 @@
                             </p>
                         </div>
                         <hr class="my-3 border-warning border-opacity-25">
-                        <!-- Operating Hours style sama dengan Head Office -->
                         <div class="d-flex align-items-center mb-4">
                             <div class="bg-warning bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center me-3"
                                 style="width:56px;height:56px;">
@@ -201,7 +200,7 @@
         </div>
     </section>
 
-    <!-- Google Maps - Dengan container py-5 -->
+    {{-- Location Section: Menampilkan peta lokasi kantor utama --}}
     <section class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920') center/cover no-repeat; z-index: -1;">
@@ -209,6 +208,7 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">
+                    {{-- Judul section lokasi --}}
                     @include('layout.sectionTitle', ['title' => 'OUR LOCATION'])
                 </div>
             </div>
