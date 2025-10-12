@@ -2,7 +2,7 @@
 @section('title', 'Our Clients')
 @section('content')
 
-    {{-- Hero Section: Menampilkan judul, deskripsi, dan statistik klien di bagian atas halaman --}}
+    
     @include('layout.heroSection', [
         'title' => 'Trusted by Industry Leaders',
         'description' => 'Building lasting partnerships through quality and reliability',
@@ -18,7 +18,7 @@
         'scrollTo' => '#clients-section',
     ])
 
-    {{-- Testimonials Section: Menampilkan review/testimoni dari klien --}}
+
     <section id="clients-section"  class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30, 20, 15, 0.85), rgba(30, 20, 15, 0.85)), 
@@ -27,12 +27,12 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">
-                    {{-- Judul section testimoni klien --}}
+                    
                     @include('layout.sectionTitle', ['title' => 'WHAT THEY SAY ABOUT US'])
                 </div>
             </div>
             <div class="row g-4">
-                {{-- Daftar card review/testimoni --}}
+                
                 @foreach ($reviews as $review)
                     @include('card.reviewCard', ['review' => $review])
                 @endforeach

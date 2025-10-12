@@ -2,7 +2,6 @@
 @section('title', 'Our Projects')
 @section('content')
 
-    {{-- Hero Section: Menampilkan judul, deskripsi, dan statistik project di bagian atas halaman --}}
     <section id="projects-hero" class="position-relative vh-100 d-flex align-items-center overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1920') center/cover no-repeat; z-index: -1;">
@@ -42,7 +41,7 @@
         </div>
     </section>
 
-    {{-- Featured Project Section: Menampilkan project unggulan dengan detail dan gambar --}}
+    
     <section id="featured-projects" class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30, 20, 15, 0.75), rgba(30, 20, 15, 0.75)), 
@@ -52,7 +51,6 @@
         <div class="container py-5 position-relative">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">
-                    {{-- Judul section featured project --}}
                     @include('layout.sectionTitle', ['title' => 'FEATURED PROJECTS'])
                 </div>
             </div>
@@ -114,7 +112,6 @@
         </div>
     </section>
 
-    {{-- All Projects Section: Menampilkan seluruh project dalam bentuk grid card --}}
     <section class="py-5 position-relative overflow-hidden" style="min-height: 600px;">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30, 20, 15, 0.85), rgba(30, 20, 15, 0.85)), 
@@ -123,7 +120,7 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">
-                    {{-- Judul section all projects --}}
+                    
                     @include('layout.sectionTitle', ['title' => 'ALL PROJECTS'])
                     <p class="lead text-white text-opacity-90 mt-3" data-aos="fade-up" data-aos-delay="400">
                         Browse through our complete portfolio of construction excellence
@@ -131,7 +128,6 @@
                 </div>
             </div>
             <div class="row g-4">
-                {{-- Daftar card project --}}
                 @foreach ($allProjects as $project)
                     @include('card.projectCard', ['project' => $project])
                 @endforeach

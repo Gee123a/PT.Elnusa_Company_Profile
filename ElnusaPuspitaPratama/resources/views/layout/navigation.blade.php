@@ -1,18 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 fixed-top border-bottom border-white border-opacity-10"
     id="mainNav" style="backdrop-filter: blur(10px);">
     <div class="container">
-        <!-- Brand/Logo -->
+        
         <a class="navbar-brand fw-bold fs-4" href="/" style="letter-spacing: 1px;">
             <span class="text-warning">ELNUSA</span> Puspita Pratama
         </a>
 
-        <!-- Toggler for mobile -->
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Navigation Links -->
+        
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item mx-3">

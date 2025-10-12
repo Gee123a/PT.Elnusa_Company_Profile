@@ -1,7 +1,6 @@
 <footer class="bg-dark text-white pt-5 pb-3">
     <div class="container">
         <div class="row g-4">
-            <!-- Company Info -->
             <div class="col-lg-4 col-md-6">
                 <h3 class="fw-bold mb-3">
                     <span class="text-warning">ELNUSA</span><br>
@@ -11,32 +10,11 @@
                     Your Trusted Construction Partner.<br>
                     Building Dreams, Creating Reality.
                 </p>
-                <!-- Social Media -->
-                <div class="d-flex gap-2">
-                    <a href="https://wa.me/6281234567890" target="_blank"
-                        class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;" title="WhatsApp">
-                        <i class="bi bi-whatsapp"></i>
-                    </a>
-                    <a href="https://instagram.com/elnusapuspitapratama" target="_blank"
-                        class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;" title="Instagram">
-                        <i class="bi bi-instagram"></i>
-                    </a>
-                    <a href="https://linkedin.com/company/elnusapuspitapratama" target="_blank"
-                        class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;" title="LinkedIn">
-                        <i class="bi bi-linkedin"></i>
-                    </a>
-                    <a href="mailto:contact@elnusapp.co.id"
-                        class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px;" title="Email">
-                        <i class="bi bi-envelope"></i>
-                    </a>
-                </div>
+                
+                
             </div>
 
-            <!-- Quick Links -->
+            
             <div class="col-lg-4 col-md-6">
                 <h5 class="fw-bold mb-3 text-warning">Quick Links</h5>
                 <div class="row">
@@ -81,7 +59,7 @@
                 </div>
             </div>
 
-            <!-- Find Us (Lokasi Singkat) -->
+            
             <div class="col-lg-4 col-md-12">
                 <h5 class="fw-bold mb-3 text-warning">
                     <i class="bi bi-geo-alt-fill me-2"></i>Find Us
@@ -104,7 +82,7 @@
 
         <hr class="my-4 border-secondary opacity-25">
 
-        <!-- Copyright -->
+        
         <div class="row">
             <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                 <p class="text-white-50 small mb-0">

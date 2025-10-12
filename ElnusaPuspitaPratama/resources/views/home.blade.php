@@ -2,7 +2,7 @@
 @section('title', 'Home')
 @section('content')
 
-    {{-- Hero Section: Menampilkan slogan, deskripsi, dan nama perusahaan di bagian atas halaman --}}
+    
     <section id="hero" class="position-relative vh-100 d-flex align-items-center overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
         data-aos="fade"
@@ -37,7 +37,7 @@
         </div>
     </section>
 
-    {{-- About Us Section: Glassmorphism profil perusahaan dan statistik utama --}}
+    
     <section id="about-us" class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30, 20, 15, 0.75), rgba(30, 20, 15, 0.75)), 
@@ -47,7 +47,7 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">
-                    {{-- Judul section about us --}}
+                    
                     @include('layout.sectionTitle', ['title' => 'ABOUT US'])
                 </div>
             </div>
@@ -77,7 +77,7 @@
                         </p>
                         <div class="row g-4 mt-4">
                             <div class="col">
-                                {{-- Card statistik jumlah project --}}
+                                
                                 <div class="p-3 rounded text-center"
                                     style="background: rgba(255, 255, 255, 0.15); 
                                             backdrop-filter: blur(10px);
@@ -88,7 +88,6 @@
                                 </div>
                             </div>
                             <div class="col">
-                                {{-- Card statistik tahun pengalaman --}}
                                 <div class="p-3 rounded text-center"
                                     style="background: rgba(255, 255, 255, 0.15); 
                                             backdrop-filter: blur(10px);
@@ -99,7 +98,6 @@
                                 </div>
                             </div>
                             <div class="col">
-                                {{-- Card statistik jumlah project --}}
                                 <div class="p-3 rounded text-center"
                                     style="background: rgba(255, 255, 255, 0.15); 
                                             backdrop-filter: blur(10px);
