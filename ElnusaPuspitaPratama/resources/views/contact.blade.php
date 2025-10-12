@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="row align-items-start g-4">
-                <div class="col-lg-7 mb-4 d-flex flex-column" data-aos="fade-right">
+                <div class="col-lg-7 mb-4 d-flex flex-column" data-aos="fade-right" data-aos-delay="300">
                     {{-- Formulir kontak --}}
                     <div class="p-4 p-lg-5 rounded-3 shadow-lg border border-warning border-opacity-25 flex-grow-1 d-flex flex-column justify-content-between"
                         style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25); min-height: 520px;">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-5" data-aos="fade-left">
+                <div class="col-lg-5" data-aos="fade-left" data-aos-delay="300">
                     {{-- Info kontak kantor dan jam operasional --}}
                     <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 mb-4"
                         style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25);">

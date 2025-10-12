@@ -31,7 +31,7 @@
                 <div class="col-lg-12 text-center mb-5">
                     {{-- Judul Section Tim --}}
                     @include('layout.sectionTitle', ['title' => 'INTRODUCE OUR TEAM'])
-                    <p class="lead text-white text-opacity-90 mt-4" data-aos="fade-up" data-aos-delay="150">
+                    <p class="lead text-white text-opacity-90 mt-4" data-aos="fade-up" data-aos-delay="250">
                         Leadership that drives innovation and excellence
                     </p>
                 </div>

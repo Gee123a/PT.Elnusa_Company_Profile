@@ -8,7 +8,7 @@
                 <h1 class="display-3 fw-bold mb-4" data-aos="fade-right">
                     {{ $title }}
                 </h1>
-                <p class="lead mb-4" data-aos="fade-right" data-aos-delay="100">
+                <p class="lead mb-4" data-aos="fade-right" data-aos-delay="200">
                     {{ $description }}
                 </p>
             </div>
@@ -17,7 +17,7 @@
                     <h2 class="display-1 fw-bold text-warning">{{ $statistic['main'] }}</h2>
                     <h3 class="display-6 fw-light mb-4">{{ $statistic['label'] }}</h3>
                 </div>
-                <div class="row mt-4" data-aos="fade-left" data-aos-delay="100">
+                <div class="row mt-4" data-aos="fade-left" data-aos-delay="350">
                     @foreach($statistic['items'] as $item)
                         <div class="col-6">
                             <h4 class="fw-bold text-warning">{{ $item['value'] }}</h4>

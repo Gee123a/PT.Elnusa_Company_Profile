@@ -5,26 +5,26 @@
     {{-- Hero Section: Menampilkan slogan, deskripsi, dan nama perusahaan di bagian atas halaman --}}
     <section id="hero" class="position-relative vh-100 d-flex align-items-center overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920') center/cover no-repeat; z-index: -1;">
-        </div>
+        data-aos="fade"
+        data-aos-delay="50"
+        data-aos-duration="300"
+        style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920') center/cover no-repeat; z-index: -1;">
+    </div>
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 text-white">
-                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-right">
+                <div class="col-lg-6 text-white d-flex flex-column justify-content-center">
+                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-right" data-aos-delay="200">
                         Building Dreams, Creating Reality
                     </h1>
-                    <p class="lead mb-4" data-aos="fade-right" data-aos-delay="100">
+                    <p class="lead mb-4" data-aos="fade-right" data-aos-delay="400">
                         Kami membangun masa depan dengan inovasi, kualitas, dan kepercayaan.
                     </p>
                 </div>
-                <div class="col-lg-6 text-white text-lg-end mt-5 mt-lg-0">
-                    <h2 class="display-1 fw-bold" data-aos="fade-left" style="letter-spacing: 2px;">
-                        ELNUSA
+                <div class="col-lg-6 text-white text-lg-end d-flex flex-column justify-content-center">
+                    <h2 class="display-1 fw-bold" data-aos="fade-left" style="letter-spacing: 2px;" data-aos-delay="200">
+                        Elnusa Puspita Pratama
                     </h2>
-                    <h3 class="display-4 fw-light" data-aos="fade-left" data-aos-delay="100">
-                        Puspita Pratama
-                    </h3>
-                    <p class="fs-5 mt-3" data-aos="fade-left" data-aos-delay="200">
+                    <p class="fs-5 mt-3" data-aos="fade-left" data-aos-delay="400">
                         Your Trusted Construction Partner
                     </p>
                 </div>
@@ -52,9 +52,13 @@
                 </div>
             </div>
             <div class="row justify-content-center align-items-center g-4">
-                <div class="col-lg-8" data-aos="fade-up">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+                    
                     <div class="p-5 rounded-4 shadow-lg bg-white bg-opacity-10 border border-warning border-opacity-25"
-                        style="backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.25);">
+                        data-aos="fade-in" 
+                        data-aos-duration="650"
+                        style="backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.25); 
+                              transition: backdrop-filter 0.5s ease-in-out, background-color 0.5s ease, box-shadow 0.5s ease;">
                         <div class="d-flex align-items-center mb-4 flex-column flex-md-row">
                             <div class="rounded-circle me-md-4 mb-3 mb-md-0 d-flex align-items-center justify-content-center flex-shrink-0"
                                 style="width: 80px; height: 80px; background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,193,7,0.3); box-shadow: 0 4px 24px rgba(255,193,7,0.10);">

@@ -24,7 +24,7 @@
         style="width: 40px; height: 2px; background: linear-gradient(270deg, transparent, rgba(255, 193, 7, 0.8)); right: -45px;">
     </div>
 </div>
-<div class="d-flex align-items-center justify-content-center mt-4" data-aos="fade-up" data-aos-delay="100">
+<div class="d-flex align-items-center justify-content-center mt-4" data-aos="fade-up" data-aos-delay="200">
     <div style="width: 60px; height: 1px; background: rgba(255, 255, 255, 0.3);"></div>
     <div class="mx-3"
         style="width: 8px; height: 8px; background: #ffc107; transform: rotate(45deg); box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);">

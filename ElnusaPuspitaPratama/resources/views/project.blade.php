@@ -10,19 +10,19 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 text-white">
-                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-right">
+                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-right" data-aos-delay="200">
                         Our Projects
                     </h1>
-                    <p class="lead mb-4" data-aos="fade-right" data-aos-delay="100">
+                    <p class="lead mb-4" data-aos="fade-right" data-aos-delay="400">
                         Transforming visions into remarkable architectural achievements.
                     </p>
                 </div>
                 <div class="col-lg-6 text-white text-lg-end mt-5 mt-lg-0">
-                    <div data-aos="fade-left">
+                    <div data-aos="fade-left" data-aos-delay="200">
                         <h2 class="display-1 fw-bold text-warning">{{ $allProjects->count() - 1 }}+</h2>
                         <h3 class="display-6 fw-light mb-4">Completed Projects</h3>
                     </div>
-                    <div class="row mt-4" data-aos="fade-left" data-aos-delay="100">
+                    <div class="row mt-4" data-aos="fade-left" data-aos-delay="400">
                         <div class="col-6">
                             <h4 class="fw-bold text-warning">98%</h4>
                             <p class="mb-0">Client Satisfaction</p>
@@ -124,7 +124,7 @@
                 <div class="col-lg-12 text-center mb-5">
                     {{-- Judul section all projects --}}
                     @include('layout.sectionTitle', ['title' => 'ALL PROJECTS'])
-                    <p class="lead text-white text-opacity-90 mt-3" data-aos="fade-up" data-aos-delay="200">
+                    <p class="lead text-white text-opacity-90 mt-3" data-aos="fade-up" data-aos-delay="400">
                         Browse through our complete portfolio of construction excellence
                     </p>
                 </div>
