@@ -1,0 +1,35 @@
+    #mainNav {
+        transition: all 0.3s ease-in-out;
+    }
+
+    #mainNav.scrolled {
+        border-bottom-color: rgba(255, 193, 7, 0.5) !important;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: #ffc107;
+        transition: width 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+
+    .nav-link:hover {
+        color: #ffc107 !important;
+    }

@@ -1,0 +1,15 @@
+.review-card {
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.25);
+}
+.review-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255,255,255,0.15);
+}
+.review-avatar {
+    width: 48px;
+    height: 48px;
+    background: rgba(255,193,7,0.15);
+}

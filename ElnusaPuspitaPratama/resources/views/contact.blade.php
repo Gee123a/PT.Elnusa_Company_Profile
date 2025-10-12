@@ -99,7 +99,7 @@
                                 style="width:56px;height:56px;">
                                 <i class="bi bi-building fs-3 text-white"></i>
                             </div>
-                            <h2 class="fw-bold mb-0 text-white" style="font-size:1.5rem;">Head Office</h2>
+                            <h2 class="fw-bold mb-0 text-white fs-4">Head Office</h2>
                         </div>
                         <div>
                             <p class="text-white text-opacity-85 mb-2">
@@ -116,7 +116,7 @@
                                 style="width:56px;height:56px;">
                                 <i class="bi bi-clock fs-3 text-white"></i>
                             </div>
-                            <h2 class="fw-bold mb-0 text-white" style="font-size:1.5rem;">Operating Hours</h2>
+                            <h2 class="fw-bold mb-0 text-white fs-4">Operating Hours</h2>
                         </div>
                         <div>
                             <p class="text-white text-opacity-85 small mb-0">
