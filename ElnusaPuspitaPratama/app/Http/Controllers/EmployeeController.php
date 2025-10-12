@@ -8,18 +8,15 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Tampilkan halaman Our Team
-     */
     public function index()
     {
         $totalEmployee = Employee::count();
         
         $employees = Employee::with('projects')
-                            ->orderBy('nama')  // ← Ubah 'name' jadi 'nama'
+                            ->orderBy('nama') 
                             ->get();
         
-        // Group by position
+        
         $management = $employees->filter(function($emp) {
             return str_contains(strtolower($emp->position ?? ''), 'manager') 
                 || str_contains(strtolower($emp->position ?? ''), 'director');

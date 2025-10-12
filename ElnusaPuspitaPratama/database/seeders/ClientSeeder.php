@@ -7,9 +7,7 @@ use App\Models\Client;
 
 class ClientSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
     public function run(): void
     {
         $clients = [

@@ -1,6 +1,4 @@
 <?php
-// filepath: app/Http/Controllers/ClientController.php
-
 namespace App\Http\Controllers;
 
 use App\Models\Client;
@@ -13,7 +11,7 @@ class ClientController extends Controller
     {
         // Ambil clients dengan jumlah projects mereka
         $clients = Client::withCount('projects')
-                        ->orderBy('nama')  // Ubah dari 'company_name' jadi 'nama'
+                        ->orderBy('nama')  
                         ->get();
         $reviews = Review::all();
         

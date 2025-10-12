@@ -7,9 +7,6 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    /**
-     * Tampilkan halaman projects
-     */
 
     public function index()
     {
@@ -17,6 +14,8 @@ class ProjectController extends Controller
          $allProjects = Project::with('client', 'projectManager')
             ->orderBy('created_at', 'desc')
             ->get();
+
+        
 
         // Tambahkan badgeColor untuk setiap project
         foreach ($allProjects as $project) {
@@ -31,6 +30,8 @@ class ProjectController extends Controller
                 $project->badgeColor = 'bg-secondary';
             }
         }
+
+        $featuredProject = Project::orderByDesc('budget')->first();
 
         // Ambil featured project hanya 1, project dengan budget paling mahal
         $featuredProject = Project::with('client', 'projectManager')
@@ -54,12 +55,12 @@ class ProjectController extends Controller
         return view('project', compact('allProjects', 'featuredProject'));
     }
 
-    // Method untuk halaman detail project
+    
     public function show($id)
     {
         $project = Project::with(['client', 'projectManager'])->findOrFail($id);
 
-        // Logic status dan badge (tanpa progress persentase)
+        
         $status = strtolower($project->status);
         if ($status === 'planning') {
             $badgeColor = 'bg-secondary';
@@ -71,7 +72,7 @@ class ProjectController extends Controller
             $badgeColor = 'bg-secondary';
         }
 
-        // Related projects (ambil 3 project lain secara random, pastikan path image benar)
+        
         $relatedProjects = Project::where('id', '!=', $project->id)->inRandomOrder()->take(3)->get();
         foreach ($relatedProjects as $rp) {
             $rpStatus = strtolower($rp->status);
