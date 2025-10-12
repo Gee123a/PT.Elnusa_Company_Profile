@@ -72,13 +72,13 @@
                                 <small class="text-white text-opacity-85 d-block mb-1">
                                     <i class="bi bi-briefcase-fill text-white me-2"></i>Client
                                 </small>
-                                <h6 class="fw-bold mb-0 text-white">{{ $project->client->company_name }}</h6>
+                                <h6 class="fw-bold mb-0 text-white">{{ $project->client->nama }}</h6>
                             </div>
                             <div class="mb-3 pb-3 border-bottom border-warning border-opacity-25">
                                 <small class="text-white text-opacity-85 d-block mb-1">
                                     <i class="bi bi-person-fill text-white me-2"></i>Project Manager
                                 </small>
-                                <h6 class="fw-bold mb-0 text-white">{{ $project->projectManager->name }}</h6>
+                                <h6 class="fw-bold mb-0 text-white">{{ $project->projectManager->nama }}</h6>
                             </div>
                             <div class="mb-3 pb-3 border-bottom border-warning border-opacity-25">
                                 <small class="text-white text-opacity-85 d-block mb-1">

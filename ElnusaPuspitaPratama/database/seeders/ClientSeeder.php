@@ -14,7 +14,7 @@ class ClientSeeder extends Seeder
     {
         $clients = [
             [
-                'nama' => 'Perorangan',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Budi Santoso',
                 'email' => 'budi@nusantarajaya.com',
                 'phone' => '081234567890',
@@ -23,7 +23,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2022-03-15'
             ],
             [
-                'nama' => 'Perorangan',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Siti Aminah',
                 'email' => 'siti@majubersama.co.id',
                 'phone' => '082198765432',
@@ -32,7 +32,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2021-11-20'
             ],
             [
-                'nama' => 'Perusahaan',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Andi Wijaya',
                 'email' => 'andi@teknologiglobal.com',
                 'phone' => '081355577799',
@@ -41,7 +41,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2023-01-10'
             ],
             [
-                'nama' => 'Perusahaan',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Rina Dewi',
                 'email' => 'rina@sumberrejeki.com',
                 'phone' => '081288899900',
@@ -50,7 +50,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2022-07-05'
             ],
             [
-                'nama' => 'Perusahaan',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Dedi Pratama',
                 'email' => 'dedi@ciptamandiri.co.id',
                 'phone' => '082133344455',
@@ -59,7 +59,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2021-09-18'
             ],
             [
-                'nama' => 'Pemerintah',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Agus Prasetyo',
                 'email' => 'agus@pemprovjatim.go.id',
                 'phone' => '081299988877',
@@ -68,7 +68,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2022-04-12'
             ],
             [
-                'nama' => 'Pemerintah',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Maya Putri',
                 'email' => 'maya@pemkabmalang.go.id',
                 'phone' => '081322233344',
@@ -77,7 +77,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2023-02-28'
             ],
             [
-                'nama' => 'Perusahaan',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Stephanie Jessica Santoso',
                 'email' => 'stephanie@nusantarajaya.com',
                 'phone' => '081234567891',
@@ -86,7 +86,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2022-08-15'
             ],
             [
-                'nama' => 'Perorangan',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Andi Saputra',
                 'email' => 'andi.saputra@gmail.com',
                 'phone' => '081344455566',
@@ -95,7 +95,7 @@ class ClientSeeder extends Seeder
                 'registration_date' => '2021-06-18'
             ],
             [
-                'nama' => 'Pemerintah',
+                'nama' => 'Anonymous',
                 'contact_person' => 'Budi Santoso',
                 'email' => 'budi@pemkotbandung.go.id',
                 'phone' => '081366655544',
