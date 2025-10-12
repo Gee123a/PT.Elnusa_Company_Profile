@@ -2,13 +2,11 @@
 @section('title', $project->project_name)
 @section('content')
 
-    <!-- Hero Section - Konsisten dengan Home -->
+    {{-- Hero Section: Menampilkan detail utama project di bagian atas halaman --}}
     <section class="position-relative d-flex align-items-center overflow-hidden pt-5" style="min-height: 60vh;">
-        <!-- Background Image Overlay -->
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1541976590-713941681591?w=1920') center/cover no-repeat; z-index: -1;">
         </div>
-
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-8 text-white">
@@ -34,21 +32,18 @@
         </div>
     </section>
 
-    <!-- Project Content Section - Gambar Utama & Deskripsi -->
+    {{-- Project Content Section: Menampilkan gambar utama dan deskripsi project --}}
     <section id="project-content" class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('{{ $project->background_image_url ?? 'https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920' }}') center/cover no-repeat; z-index: -1;">
-            <!-- GAMBAR OVERLAY BACKGROUND TIDAK DIGANTI -->
         </div>
-
         <div class="container py-5">
             <div class="row g-4">
-                <!-- Left Side - Project Main Image & Description -->
+                {{-- Kolom kiri: gambar utama dan deskripsi project --}}
                 <div class="col-lg-8 d-flex flex-column">
                     <div class="rounded-3 shadow-lg border border-warning border-opacity-25 overflow-hidden mb-4"
                         data-aos="fade-right"
                         style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.25);">
-                        <!-- TAMPILKAN HANYA 1 GAMBAR UTAMA PROJECT -->
                         <img src="{{ asset($project->image_url ?? 'image/default_project.jpg') }}" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Project Image">
                     </div>
                     <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25"
@@ -58,7 +53,7 @@
                     </div>
                 </div>
 
-                <!-- Right Side - Project Info -->
+                {{-- Kolom kanan: informasi detail project --}}
                 <div class="col-lg-4 d-flex flex-column">
                     <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 mb-4 flex-grow-1 d-flex flex-column justify-content-between"
                         data-aos="fade-left"
@@ -115,27 +110,26 @@
                             </h6>
                             <span class="badge {{ $badgeColor }} px-3 py-2">{{ ucfirst($project->status) }}</span>
                         </div>
-                        <div class="progress" style="height: 25px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $progress }}%;"
-                                aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
-                                <span class="fw-bold">{{ $progress }}%</span>
-                            </div>
-                        </div>
-                        <small class="text-white text-opacity-85 mt-2 d-block">Project completion rate</small>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Related Projects Section - Konsisten Dark Wood Theme -->
+    {{-- Related Projects Section: Menampilkan daftar project terkait dalam bentuk card --}}
     <section class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30,20,15,0.85), rgba(30,20,15,0.85)), url('{{ $project->background_image_url ?? 'https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1920' }}') center/cover no-repeat; z-index: -1;">
-            <!-- GAMBAR OVERLAY BACKGROUND TIDAK DIGANTI -->
         </div>
         <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5">
+                    {{-- Judul section similar project --}}
+                    @include('layout.sectionTitle', ['title' => 'SIMILAR PROJECTS'])
+                </div>
+            </div>
             <div class="row g-4">
+                {{-- Daftar card project terkait --}}
                 @foreach ($relatedProjects as $relatedProject)
                     <div class="col-lg-4 d-flex" data-aos="fade-up">
                         <div class="p-4 rounded-3 shadow-lg d-flex flex-column h-100 overflow-hidden"
@@ -144,7 +138,6 @@
                                 border: 1px solid rgba(255,255,255,0.25); 
                                 transition: all 0.3s ease;">
                             <div class="position-relative overflow-hidden mb-3">
-                                <!-- GANTI DENGAN GAMBAR PROJECT LOKAL -->
                                 <img src="{{ asset($relatedProject->image_url ?? 'image/default_project.jpg') }}" class="rounded-3 shadow"
                                     alt="Related Project"
                                     style="height: 220px; width: 100%; object-fit: cover; transition: transform 0.3s ease;"
