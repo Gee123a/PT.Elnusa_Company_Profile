@@ -14,8 +14,7 @@
                         Building Dreams, Creating Reality
                     </h1>
                     <p class="lead mb-4" data-aos="fade-right" data-aos-delay="100">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                        Kami membangun masa depan dengan inovasi, kualitas, dan kepercayaan.
                     </p>
                 </div>
                 <div class="col-lg-6 text-white text-lg-end mt-5 mt-lg-0">
@@ -32,57 +31,48 @@
             </div>
         </div>
         <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4">
-            <a href="#company-profile" class="text-white text-decoration-none">
+            <a href="#about-us" class="text-white text-decoration-none">
                 <i class="bi bi-chevron-down fs-1"></i>
             </a>
         </div>
     </section>
 
-    {{-- Company Profile Section: Menampilkan profil perusahaan, statistik, dan badge sertifikasi --}}
-    <section id="company-profile" class="py-5 position-relative overflow-hidden">
+    {{-- About Us Section: Glassmorphism profil perusahaan dan statistik utama --}}
+    <section id="about-us" class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30, 20, 15, 0.75), rgba(30, 20, 15, 0.75)), 
-                                url('https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1920') center/cover no-repeat; 
+                    url('https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1920') center/cover no-repeat; 
                     z-index: -1;">
         </div>
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-12 text-center mb-5">
-                    {{-- Judul section profil perusahaan --}}
-                    @include('layout.sectionTitle', ['title' => 'COMPANY PROFILE'])
+                    {{-- Judul section about us --}}
+                    @include('layout.sectionTitle', ['title' => 'ABOUT US'])
                 </div>
             </div>
-            <div class="row align-items-center g-4">
-                <div class="col-lg-6 mb-4" data-aos="fade-right">
-                    {{-- Card profil perusahaan dan statistik --}}
-                    <div class="p-4 p-lg-5 rounded-3 shadow-lg"
-                        style="background: rgba(255, 255, 255, 0.1); 
-                                backdrop-filter: blur(15px); 
-                                -webkit-backdrop-filter: blur(15px);
-                                border: 1px solid rgba(255, 255, 255, 0.25);">
-                        <div class="d-flex align-items-center mb-4">
-                            <div class="rounded-circle me-3 d-flex align-items-center justify-content-center flex-shrink-0"
-                                style="width: 70px; 
-                                        height: 70px;
-                                        background: rgba(255,193,7,0.15); 
-                                        backdrop-filter: blur(10px);
-                                        border: 1px solid rgba(255, 193, 7, 0.3);">
-                                <i class="bi bi-building fs-3 text-white"></i>
+            <div class="row justify-content-center align-items-center g-4">
+                <div class="col-lg-8" data-aos="fade-up">
+                    <div class="p-5 rounded-4 shadow-lg bg-white bg-opacity-10 border border-warning border-opacity-25"
+                        style="backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,0.25);">
+                        <div class="d-flex align-items-center mb-4 flex-column flex-md-row">
+                            <div class="rounded-circle me-md-4 mb-3 mb-md-0 d-flex align-items-center justify-content-center flex-shrink-0"
+                                style="width: 80px; height: 80px; background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,193,7,0.3); box-shadow: 0 4px 24px rgba(255,193,7,0.10);">
+                                <i class="bi bi-building fs-2 text-warning"></i>
                             </div>
-                            <h3 class="fw-bold mb-0 text-white">Tentang Kami</h3>
+                            <div>
+                                <h3 class="fw-bold mb-1 text-white">Elnusa Puspita Pratama</h3>
+                                <p class="text-white text-opacity-85 mb-0 fs-5">Professional Construction & Engineering Company
+                                </p>
+                            </div>
                         </div>
-                        <p class="text-white text-opacity-90 mb-3">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisl eget ultricies
-                            aliquam, nunc nisl aliquet nunc, vitae aliquam nisl nunc vitae nisl. Sed euismod, nisl eget
-                            ultricies aliquam.
+                        <p class="text-white text-opacity-90 mb-3 fs-5">
+                            Kami adalah perusahaan konstruksi berpengalaman lebih dari 15 tahun, berkomitmen memberikan
+                            hasil terbaik untuk setiap proyek. Didukung tim profesional, kami siap mewujudkan visi Anda
+                            dengan inovasi, kualitas, dan integritas.
                         </p>
-                        <p class="text-white text-opacity-90 mb-4">
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.
-                        </p>
-                        <div class="row g-3 mt-4">
-                            <div class="col-6">
+                        <div class="row g-4 mt-4">
+                            <div class="col">
                                 {{-- Card statistik jumlah project --}}
                                 <div class="p-3 rounded text-center"
                                     style="background: rgba(255, 255, 255, 0.15); 
@@ -93,7 +83,7 @@
                                     <small class="text-white text-opacity-85">Projects</small>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col">
                                 {{-- Card statistik tahun pengalaman --}}
                                 <div class="p-3 rounded text-center"
                                     style="background: rgba(255, 255, 255, 0.15); 
@@ -104,26 +94,22 @@
                                     <small class="text-white text-opacity-85">Years</small>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 mb-4" data-aos="fade-left">
-                    {{-- Gambar utama dan badge sertifikasi --}}
-                    <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800"
-                            class="img-fluid rounded-3 shadow-lg" style="border: 5px solid rgba(255, 255, 255, 0.2);">
-                        <div class="position-absolute bottom-0 start-0 m-4 p-3 rounded-3 shadow-lg"
-                            style="background: rgba(255, 193, 7, 0.85); 
-                                    backdrop-filter: blur(10px);
-                                    border: 1px solid rgba(255, 255, 255, 0.3);">
-                            <div class="d-flex align-items-center">
-                                <i class="bi bi-award-fill fs-3 text-white me-2"
-                                    style="filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));"></i>
-                                <div>
-                                    <small class="text-white d-block fw-bold">Certified</small>
-                                    <small class="text-white opacity-90">ISO 9001:2015</small>
+                            <div class="col">
+                                {{-- Card statistik jumlah project --}}
+                                <div class="p-3 rounded text-center"
+                                    style="background: rgba(255, 255, 255, 0.15); 
+                                            backdrop-filter: blur(10px);
+                                            border: 1px solid rgba(255, 255, 255, 0.3);">
+                                    <h4 class="fw-bold text-white mb-1"
+                                        style="text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);">100%</h4>
+                                    <small class="text-white text-opacity-85">Client Satisfaction</small>
                                 </div>
                             </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <a href="/project" class="btn btn-warning px-5 py-3 fw-bold shadow-sm">
+                                Explore Our Projects <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
