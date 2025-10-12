@@ -12,27 +12,44 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        // Ambil SEMUA project dengan relasi client dan project manager
         $allProjects = Project::with('client', 'projectManager')
                             ->orderBy('created_at', 'desc')
                             ->get();
-        
-        // Ambil 3 project COMPLETED untuk featured carousel
-        $featuredProjects = Project::with('client', 'projectManager')
-                                ->where('status', 'Completed')
-                                ->orderBy('budget', 'desc') // Yang budget terbesar
-                                ->take(3)
-                                ->get();
-        
-        // Jika tidak ada completed projects, ambil project terbaru
-        if ($featuredProjects->isEmpty()) {
-            $featuredProjects = Project::with('client', 'projectManager')
-                                    ->orderBy('created_at', 'desc')
-                                    ->take(3)
-                                    ->get();
+
+        // Tambahkan badgeColor untuk setiap project
+        foreach ($allProjects as $project) {
+            $status = strtolower($project->status);
+            if ($status === 'planning') {
+                $project->badgeColor = '';
+            } elseif ($status === 'on progress' || $status === 'in progress') {
+                $project->badgeColor = 'bg-warning text-dark';
+            } elseif ($status === 'complete' || $status === 'completed') {
+                $project->badgeColor = 'bg-success';
+            } else {
+                $project->badgeColor = 'bg-secondary';
+            }
         }
-        
-        return view('project', compact('allProjects', 'featuredProjects'));
+
+        // Ambil featured project hanya 1, project dengan budget paling mahal
+        $featuredProject = Project::with('client', 'projectManager')
+                            ->orderBy('budget', 'desc')
+                            ->first();
+
+        // Tambahkan badgeColor untuk featuredProjects juga
+        if ($featuredProject) {
+            $status = strtolower($featuredProject->status);
+            if ($status === 'planning') {
+                $featuredProject->badgeColor = '';
+            } elseif ($status === 'on progress' || $status === 'in progress') {
+                $featuredProject->badgeColor = 'bg-warning text-dark';
+            } elseif ($status === 'complete' || $status === 'completed') {
+                $featuredProject->badgeColor = 'bg-success';
+            } else {
+                $featuredProject->badgeColor = 'bg-secondary';
+            }
+        }
+
+        return view('project', compact('allProjects', 'featuredProject'));
     }
 
     // Method untuk halaman detail project

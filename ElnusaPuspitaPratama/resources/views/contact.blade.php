@@ -2,46 +2,21 @@
 @section('title', 'Contact Us')
 @section('content')
 
-    <!-- Hero Section - Konsisten dengan Home -->
-    <section class="position-relative vh-100 d-flex align-items-center overflow-hidden">
-        <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920') center/cover no-repeat; z-index: -1;">
-        </div>
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 text-white">
-                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-right">
-                        Get In Touch
-                    </h1>
-                    <p class="lead mb-4" data-aos="fade-right" data-aos-delay="100">
-                        Let's discuss your next project. We're here to help bring your vision to life with professional
-                        construction services.
-                    </p>
-                </div>
-                <div class="col-lg-6 text-white text-lg-end mt-5 mt-lg-0">
-                    <div data-aos="fade-left">
-                        <h2 class="display-1 fw-bold text-warning">24/7</h2>
-                        <h3 class="display-6 fw-light mb-4">Customer Support</h3>
-                    </div>
-                    <div class="row mt-4" data-aos="fade-left" data-aos-delay="100">
-                        <div class="col-6">
-                            <h4 class="fw-bold text-warning">Fast</h4>
-                            <p class="mb-0">Response Time</p>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="fw-bold text-warning">100%</h4>
-                            <p class="mb-0">Satisfaction</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4">
-            <a href="#contact-form" class="text-white text-decoration-none">
-                <i class="bi bi-chevron-down fs-1"></i>
-            </a>
-        </div>
-    </section>
+    {{-- Hero Section --}}
+    @include('layout.heroSection', [
+        'title' => 'Get In Touch',
+        'description' => "Let's discuss your next project. We're here to help bring your vision to life with professional construction services.",
+        'background' => 'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920',
+        'statistic' => [
+            'main' => '24/7',
+            'label' => 'Customer Support',
+            'items' => [
+                ['value' => 'Fast', 'label' => 'Response Time'],
+                ['value' => '100%', 'label' => 'Satisfaction'],
+            ]
+        ],
+        'scrollTo' => '#contact-form'
+    ])
 
     <!-- Contact Form & Info - Konsisten dark wood + glass morphism -->
     <section id="contact-form" class="py-5 position-relative overflow-hidden">

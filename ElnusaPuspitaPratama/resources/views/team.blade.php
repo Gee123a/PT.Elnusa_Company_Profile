@@ -2,55 +2,28 @@
 @section('title', 'Our Team')
 @section('content')
 
-    <!-- Hero Section - Konsisten dengan Home -->
-    <section class="position-relative vh-100 d-flex align-items-center overflow-hidden">
-        <div class="position-absolute top-0 start-0 w-100 h-100"
-            style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920') center/cover no-repeat; z-index: -1;">
-        </div>
+    {{-- Hero Section --}}
+    @include('layout.heroSection', [
+        'title' => 'Meet Our Expert Team',
+        'description' => 'Dedicated professionals committed to excellence in every project',
+        'background' => 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920',
+        'statistic' => [
+            'main' => $totalEmployee,
+            'label' => 'Expert Members',
+            'items' => [
+                ['value' => '15+', 'label' => 'Years Experience'],
+                ['value' => '100%', 'label' => 'Certified'],
+            ]
+        ],
+        'scrollTo' => '#team-section'
+    ])
 
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 text-white">
-                    <h1 class="display-3 fw-bold mb-4" data-aos="fade-right">
-                        Meet Our Expert Team
-                    </h1>
-                    <p class="lead mb-4" data-aos="fade-right" data-aos-delay="100">
-                        Dedicated professionals committed to excellence in every project
-                    </p>
-                </div>
-
-                <div class="col-lg-6 text-white text-lg-end mt-5 mt-lg-0">
-                    <div data-aos="fade-left">
-                        <h2 class="display-1 fw-bold text-warning">{{ $totalEmployee }}</h2>
-                        <h3 class="display-6 fw-light mb-4">Expert Members</h3>
-                    </div>
-                    <div class="row mt-4" data-aos="fade-left" data-aos-delay="100">
-                        <div class="col-6">
-                            <h4 class="fw-bold text-warning">15+</h4>
-                            <p class="mb-0">Years Experience</p>
-                        </div>
-                        <div class="col-6">
-                            <h4 class="fw-bold text-warning">100%</h4>
-                            <p class="mb-0">Certified</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="position-absolute bottom-0 start-50 translate-middle-x mb-4">
-            <a href="#team-section" class="text-white text-decoration-none">
-                <i class="bi bi-chevron-down fs-1"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- Management Team - Dark Wood Theme -->
+    {{-- Management Team Section --}}
     <section id="team-section" class="py-5 position-relative overflow-hidden">
         <div class="position-absolute top-0 start-0 w-100 h-100"
             style="background: linear-gradient(rgba(30, 20, 15, 0.75), rgba(30, 20, 15, 0.75)), 
-                            url('https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1920') center/cover no-repeat; 
-                z-index: -1;">
+                    url('https://images.unsplash.com/photo-1615529182904-14819c35db37?w=1920') center/cover no-repeat; 
+                    z-index: -1;">
         </div>
 
         <div class="container py-5">
@@ -65,45 +38,7 @@
 
             <div class="row g-4">
                 @foreach ($employees as $employee)
-                    <div class="col-lg-4 col-md-6" data-aos="fade-up">
-                        <div class="p-4 rounded-3 shadow-lg h-100"
-                            style="background: rgba(255, 255, 255, 0.1); 
-                                backdrop-filter: blur(15px); 
-                                -webkit-backdrop-filter: blur(15px);
-                                border: 1px solid rgba(255, 255, 255, 0.25);
-                                transition: all 0.3s ease;"
-                            onmouseover="this.style.transform='translateY(-10px)'; this.style.background='rgba(255, 255, 255, 0.15)'"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.background='rgba(255, 255, 255, 0.1)'">
-
-                            <div class="text-center mb-3">
-                                <div class="rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
-                                    style="width: 120px; 
-                                        height: 120px;
-                                        background: rgba(255, 255, 255, 0.2); 
-                                        backdrop-filter: blur(10px);
-                                        border: 3px solid rgba(255, 193, 7, 0.5);">
-                                    <i class="bi bi-person-fill fs-1 text-white"></i>
-                                </div>
-                                <h5 class="fw-bold mb-2 text-white">{{ $employee->nama }}</h5>
-                                <small class="fw-semibold text-white">{{ $employee->position }}</small>
-                            </div>
-
-                            <div class="text-center">
-                                <div class="d-flex align-items-center justify-content-center mb-2">
-
-                                    <i class="bi bi-envelope-fill text-white me-2"></i>
-
-                                    <small class="text-white text-opacity-85">{{ $employee->email }}</small>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-3">
-
-                                    <i class="bi bi-telephone-fill text-white me-2"></i>
-
-                                    <small class="text-white text-opacity-85">{{ $employee->phone }}</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @include('card.teamCard', ['employee' => $employee])
                 @endforeach
             </div>
         </div>
