@@ -93,7 +93,7 @@
                 <p class="text-white-50 mb-3">
                     <i class="bi bi-telephone-fill text-warning me-2"></i>
                     <a href="tel:+622187654321" class="text-white-50 text-decoration-none">
-                        +628811812904
+                        +62 88 1181 2904
                     </a>
                 </p>
                 <a href="/contact" class="btn btn-warning btn-sm">

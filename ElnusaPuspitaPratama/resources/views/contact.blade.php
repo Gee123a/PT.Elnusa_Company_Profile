@@ -5,7 +5,8 @@
     {{-- Hero Section: Menampilkan judul, deskripsi, dan statistik kontak di bagian atas halaman --}}
     @include('layout.heroSection', [
         'title' => 'Get In Touch',
-        'description' => "Let's discuss your next project. We're here to help bring your vision to life with professional construction services.",
+        'description' =>
+            "Let's discuss your next project. We're here to help bring your vision to life with professional construction services.",
         'background' => 'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920',
         'statistic' => [
             'main' => '24/7',
@@ -13,9 +14,9 @@
             'items' => [
                 ['value' => 'Fast', 'label' => 'Response Time'],
                 ['value' => '100%', 'label' => 'Satisfaction'],
-            ]
+            ],
         ],
-        'scrollTo' => '#contact-form'
+        'scrollTo' => '#contact-form',
     ])
 
     {{-- Contact Form Section: Formulir pengiriman pesan dan info kontak kantor --}}
@@ -71,13 +72,12 @@
                                             <option>New Project Inquiry</option>
                                             <option>Request Quote</option>
                                             <option>General Question</option>
-                                            <option>Partnership</option>
                                         </select>
                                     </div>
                                     <div class="col-12 flex-grow-1 d-flex flex-column">
                                         <label class="form-label fw-semibold text-white">Message *</label>
                                         <textarea class="form-control border-warning border-opacity-50 bg-dark text-white flex-grow-1"
-                                            style="height:350px; min-height:350px; max-height:350px; resize:none;" rows="12"
+                                            style="height:185px; min-height:185px; max-height:185px; resize:none;" rows="12"
                                             placeholder="Tell us about your project..." required></textarea>
                                     </div>
                                     <div class="col-12">
@@ -118,7 +118,7 @@
                         <div>
                             <p class="text-white text-opacity-85 small mb-0">
                                 Mon-Sat: 08:00 - 17:00<br>
-                               Sun: Closed
+                                Sun: Closed
                             </p>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                             <div>
                                 <small class="text-white text-opacity-85 d-block">Phone</small>
                                 <a href="tel:+622187654321" class="text-white text-decoration-none fw-semibold">
-                                    +62 21 8765 4321
+                                    +62 88 1181 2904
                                 </a>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                                 <small class="text-white text-opacity-85 d-block">WhatsApp</small>
                                 <a href="https://wa.me/6281234567890" target="_blank"
                                     class="text-white text-decoration-none fw-semibold">
-                                    +628811812904
+                                    +62 88 1181 2904
                                 </a>
                             </div>
                         </div>
@@ -159,38 +159,10 @@
                             </div>
                             <div>
                                 <small class="text-white text-opacity-85 d-block">Email</small>
-                                <a href="mailto:contact@elnusapp.co.id"
-                                    class="text-white text-decoration-none fw-semibold">
-                                    contact@elnusapp.co.id
+                                <a href="mailto:contact@elnusapp.co.id" class="text-white text-decoration-none fw-semibold">
+                                    hrd.elnusaapp@gmail.com
                                 </a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="bg-dark text-white p-4 rounded-3 shadow-lg">
-                        <h5 class="fw-bold mb-3">
-                            <i class="bi bi-share-fill text-warning me-2"></i>Follow Us
-                        </h5>
-                        <div class="d-flex gap-2 flex-wrap">
-                            <a href="https://wa.me/628811812904" target="_blank"
-                                class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                                style="width: 45px; height: 45px;">
-                                <i class="bi bi-whatsapp fs-5"></i>
-                            </a>
-                            <a href="https://instagram.com/elnusapuspitapratama" target="_blank"
-                                class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                                style="width: 45px; height: 45px;">
-                                <i class="bi bi-instagram fs-5"></i>
-                            </a>
-                            <a href="https://facebook.com/elnusapuspitapratama" target="_blank"
-                                class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                                style="width: 45px; height: 45px;">
-                                <i class="bi bi-facebook fs-5"></i>
-                            </a>
-                            <a href="https://linkedin.com/company/elnusapuspitapratama" target="_blank"
-                                class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center"
-                                style="width: 45px; height: 45px;">
-                                <i class="bi bi-linkedin fs-5"></i>
-                            </a>
                         </div>
                     </div>
                 </div>

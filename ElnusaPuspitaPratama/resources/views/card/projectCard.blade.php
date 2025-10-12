@@ -33,8 +33,9 @@
                         <div class="rounded-circle d-flex align-items-center justify-content-center me-2 bg-warning bg-opacity-10" style="width:32px;height:32px;">
                             <i class="bi bi-cash-stack text-white small"></i>
                         </div>
-                        <small class="text-success fw-semibold">Rp
-                            {{ number_format($project->budget / 1000000000, 1) }}B</small>
+                        <small class="text-success fw-semibold">
+                            Rp {{ number_format($project->budget / 1000000, 0) }} Juta
+                        </small>
                     </div>
                 </div>
             </div>

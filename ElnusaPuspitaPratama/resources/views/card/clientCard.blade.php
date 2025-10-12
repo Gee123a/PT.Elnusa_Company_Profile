@@ -7,11 +7,11 @@
             </div>
             <h6 class="fw-bold mb-2 text-white">{{ $client->nama }}</h6>
         </div>
-        <div class="mt-3 d-flex flex-column justify-content-center align-items-center flex-grow-1">
+        {{-- <div class="mt-3 d-flex flex-column justify-content-center align-items-center flex-grow-1">
             <div class="d-flex align-items-center justify-content-center gap-2">
                 <i class="bi bi-geo-alt-fill text-warning"></i>
                 <small class="text-white text-opacity-85">{{ $client->alamat }}</small>
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>

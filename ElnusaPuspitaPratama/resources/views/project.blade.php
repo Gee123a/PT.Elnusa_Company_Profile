@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-lg-6 text-white text-lg-end mt-5 mt-lg-0">
                     <div data-aos="fade-left" data-aos-delay="200">
-                        <h2 class="display-1 fw-bold text-warning">{{ $allProjects->count() - 1 }}+</h2>
+                        <h2 class="display-1 fw-bold text-warning">{{ $allProjects->count()}}</h2>
                         <h3 class="display-6 fw-light mb-4">Completed Projects</h3>
                     </div>
                     <div class="row mt-4" data-aos="fade-left" data-aos-delay="400">
@@ -28,7 +28,7 @@
                             <p class="mb-0">Client Satisfaction</p>
                         </div>
                         <div class="col-6">
-                            <h4 class="fw-bold text-warning">15+</h4>
+                            <h4 class="fw-bold text-warning">5+</h4>
                             <p class="mb-0">Years Experience</p>
                         </div>
                     </div>
@@ -98,8 +98,9 @@
                                         <div class="text-warning mb-1">
                                             <i class="bi bi-cash-stack fs-4"></i>
                                         </div>
-                                        <small class="text-white text-opacity-85">Rp
-                                            {{ number_format($featuredProject->budget / 1000000000, 1) }}B</small>
+                                        <small class="text-white text-opacity-85">
+                                            Rp {{ number_format($featuredProject->budget / 1000000, 0) }} Juta
+                                        </small>
                                     </div>
                                 </div>
                             </div>

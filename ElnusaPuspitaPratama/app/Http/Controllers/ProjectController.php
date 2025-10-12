@@ -10,9 +10,11 @@ class ProjectController extends Controller
     /**
      * Tampilkan halaman projects
      */
+
     public function index()
     {
-        $allProjects = Project::with('client', 'projectManager')
+
+         $allProjects = Project::with('client', 'projectManager')
             ->orderBy('created_at', 'desc')
             ->get();
 

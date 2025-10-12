@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <p class="text-white text-opacity-90 mb-3 fs-5">
-                            Kami adalah perusahaan konstruksi berpengalaman lebih dari 15 tahun, berkomitmen memberikan
+                            Kami adalah perusahaan konstruksi berpengalaman lebih dari 5 tahun, berkomitmen memberikan
                             hasil terbaik untuk setiap proyek. Didukung tim profesional, kami siap mewujudkan visi Anda
                             dengan inovasi, kualitas, dan integritas.
                         </p>
@@ -83,7 +83,7 @@
                                             backdrop-filter: blur(10px);
                                             border: 1px solid rgba(255, 255, 255, 0.3);">
                                     <h4 class="fw-bold text-white mb-1"
-                                        style="text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);">2+</h4>
+                                        style="text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);">10</h4>
                                     <small class="text-white text-opacity-85">Projects</small>
                                 </div>
                             </div>

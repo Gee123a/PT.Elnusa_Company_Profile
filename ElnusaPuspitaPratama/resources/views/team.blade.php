@@ -11,7 +11,7 @@
             'main' => $totalEmployee,
             'label' => 'Expert Members',
             'items' => [
-                ['value' => '15+', 'label' => 'Years Experience'],
+                ['value' => '5+', 'label' => 'Years Experience'],
                 ['value' => '100%', 'label' => 'Certified'],
             ]
         ],
