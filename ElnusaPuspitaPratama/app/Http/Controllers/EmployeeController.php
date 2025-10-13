@@ -16,7 +16,7 @@ class EmployeeController extends Controller
                             ->orderBy('nama') 
                             ->get();
         
-        return view('team', compact('employees', 'management', 'engineers', 'totalEmployee'));
+        return view('team', compact('employees', 'totalEmployee'));
     }
 
 }

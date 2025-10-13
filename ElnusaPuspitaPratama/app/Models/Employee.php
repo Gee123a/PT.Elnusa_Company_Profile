@@ -9,7 +9,7 @@ class Employee extends Model
 {
     use HasFactory;
 
-    // Kolom yang boleh diisi
+    
     protected $fillable = [
         'nama',
         'alamat',
@@ -21,15 +21,11 @@ class Employee extends Model
         'specialization'
     ];
 
-    // Konversi otomatis ke tipe data Date
+    
     protected $casts = [
         'hire_date' => 'date',
     ];
 
-    /**
-     * Relasi Employee memiliki banyak Projects
-     * Satu employee bisa jadi project manager di banyak project
-     */
     public function projects()
     {
         return $this->hasMany(Project::class, 'project_manager_id');
