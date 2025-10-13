@@ -41,21 +41,4 @@ class Project extends Model
     {
         return $this->belongsTo(Employee::class, 'project_manager_id');
     }
-
-    public function scopeByStatus($query, $status)
-    {
-        return $query->where('status', $status);
-    }
-
-    
-    public function scopeCompleted($query)
-    {
-        return $query->where('status', 'Completed');
-    }
-
-    // SCOPE: Ambil project yang sedang berjalan
-    public function scopeInProgress($query)
-    {
-        return $query->where('status', 'In Progress');
-    }
 }

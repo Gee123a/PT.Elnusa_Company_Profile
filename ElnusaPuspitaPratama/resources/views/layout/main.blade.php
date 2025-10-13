@@ -34,7 +34,6 @@
     <script>
         AOS.init();
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize navbar toggler
             const navbarToggler = document.querySelector('.navbar-toggler');
             if (navbarToggler) {
                 navbarToggler.addEventListener('click', function() {
@@ -44,8 +43,7 @@
                     }
                 });
             }
-            
-            // Add scroll effect for navigation
+
             window.addEventListener('scroll', function() {
                 const navbar = document.getElementById('mainNav');
                 if (navbar) {
