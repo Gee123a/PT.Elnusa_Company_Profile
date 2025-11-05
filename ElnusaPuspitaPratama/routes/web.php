@@ -11,3 +11,4 @@ Route::get('/project/{id}', [ProjectController::class, 'show']);
 Route::get('/team', [EmployeeController::class, 'index']);
 Route::get('/clients', [ClientController::class, 'index']);
 Route::view('/contact', 'contact');
+Route::view('/admin', 'dashboard');
