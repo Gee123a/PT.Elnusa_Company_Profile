@@ -112,7 +112,7 @@
                         </div>
                     </div>
                     <div class="d-grid gap-2">
-                        <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-warning btn-lg">
+                        <a href="/admin/projects" class="btn btn-outline-warning btn-lg">
                             <i class="bi bi-list-ul me-2"></i>View All Projects
                         </a>
                     </div>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                     <div class="d-grid gap-2">
-                        <a href="{{ route('admin.employees.index') }}" class="btn btn-outline-warning btn-lg">
+                        <a href="/admin/employees" class="btn btn-outline-warning btn-lg">
                             <i class="bi bi-list-ul me-2"></i>View All Employees
                         </a>
                     </div>

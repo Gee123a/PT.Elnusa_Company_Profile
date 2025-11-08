@@ -77,7 +77,7 @@ class AdminController extends Controller
 
         Project::create($validated);
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully!');
+        return redirect('/admin/projects')->with('success', 'Project created successfully!');
     }
 
     public function projectEdit($id)
@@ -137,7 +137,7 @@ class AdminController extends Controller
 
         $project->update($validated);
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully!');
+        return redirect('/admin/projects')->with('success', 'Project updated successfully!');
     }
 
     public function projectDestroy($id)
@@ -151,7 +151,7 @@ class AdminController extends Controller
         
         $project->delete();
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully!');
+        return redirect('/admin/projects')->with('success', 'Project deleted successfully!');
     }
 
     // Employee CRUD Methods
@@ -181,7 +181,7 @@ class AdminController extends Controller
 
         Employee::create($validated);
 
-        return redirect()->route('admin.employees.index')->with('success', 'Employee created successfully!');
+        return redirect('/admin/employees')->with('success', 'Employee created successfully!');
     }
 
     public function employeeEdit($id)
@@ -207,7 +207,7 @@ class AdminController extends Controller
 
         $employee->update($validated);
 
-        return redirect()->route('admin.employees.index')->with('success', 'Employee updated successfully!');
+        return redirect('/admin/employees')->with('success', 'Employee updated successfully!');
     }
 
     public function employeeDestroy($id)
@@ -218,12 +218,12 @@ class AdminController extends Controller
         $projectCount = $employee->projects()->count();
         
         if ($projectCount > 0) {
-            return redirect()->route('admin.employees.index')
+            return redirect('/admin/employees')
                 ->with('error', "Cannot delete {$employee->nama}. This employee is managing {$projectCount} project(s). Please reassign the projects first.");
         }
         
         $employee->delete();
 
-        return redirect()->route('admin.employees.index')->with('success', 'Employee deleted successfully!');
+        return redirect('/admin/employees')->with('success', 'Employee deleted successfully!');
     }
 }

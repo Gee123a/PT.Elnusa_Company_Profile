@@ -11,7 +11,7 @@
         <nav aria-label="breadcrumb" data-aos="fade-right">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.dashboard') }}" class="text-warning text-decoration-none">
+                    <a href="/admin/dashboard" class="text-warning text-decoration-none">
                         <i class="bi bi-speedometer2 me-1"></i>Dashboard
                     </a>
                 </li>
@@ -30,10 +30,10 @@
             </div>
             <div class="col-lg-4 text-end" data-aos="fade-left">
                 <div class="d-flex flex-column gap-2">
-                    <a href="{{ route('admin.employees.create') }}" class="btn btn-warning btn-lg px-5 py-3">
+                    <a href="/admin/employees/create" class="btn btn-warning btn-lg px-5 py-3">
                         <i class="bi bi-plus-circle me-2"></i>Add New Employee
                     </a>
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light btn-lg px-5 py-2">
+                    <a href="/admin/dashboard" class="btn btn-outline-light btn-lg px-5 py-2">
                         <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
                     </a>
                 </div>
@@ -95,10 +95,10 @@
                         </td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
-                                <a href="{{ route('admin.employees.edit', $employee->id) }}" class="btn btn-sm btn-warning">
+                                <a href="/admin/employees/{{ $employee->id }}/edit" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
-                                <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST" class="d-inline"
+                                <form action="/admin/employees/{{ $employee->id }}" method="POST" class="d-inline"
                                     onsubmit="return confirm('Are you sure you want to delete {{ $employee->nama }}?');">
                                     @csrf
                                     @method('DELETE')

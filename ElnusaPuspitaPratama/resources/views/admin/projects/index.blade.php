@@ -11,7 +11,7 @@
         <nav aria-label="breadcrumb" data-aos="fade-right">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.dashboard') }}" class="text-warning text-decoration-none">
+                    <a href="/admin/dashboard" class="text-warning text-decoration-none">
                         <i class="bi bi-speedometer2 me-1"></i>Dashboard
                     </a>
                 </li>
@@ -30,10 +30,10 @@
             </div>
             <div class="col-lg-4 text-end" data-aos="fade-left">
                 <div class="d-flex flex-column gap-2">
-                    <a href="{{ route('admin.projects.create') }}" class="btn btn-warning btn-lg px-5 py-3">
+                    <a href="/admin/projects/create" class="btn btn-warning btn-lg px-5 py-3">
                         <i class="bi bi-plus-circle me-2"></i>Add New Project
                     </a>
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light btn-lg px-5 py-2">
+                    <a href="/admin/dashboard" class="btn btn-outline-light btn-lg px-5 py-2">
                         <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
                     </a>
                 </div>
@@ -50,6 +50,13 @@
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show mb-4" role="alert" data-aos="fade-down">
             <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert" data-aos="fade-down">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         @endif
@@ -91,10 +98,10 @@
                         <td>{{ $project->deadline->format('d M Y') }}</td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
-                                <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-sm btn-warning">
+                                <a href="/admin/projects/{{ $project->id }}/edit" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
-                                <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" class="d-inline"
+                                <form action="/admin/projects/{{ $project->id }}" method="POST" class="d-inline"
                                     onsubmit="return confirm('Are you sure you want to delete this project?');">
                                     @csrf
                                     @method('DELETE')
