@@ -34,6 +34,9 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="{{ asset('js/carousel.js') }}"></script>
+    <script src="{{ asset('js/projects/create.js') }}"></script>
+    <script src="{{ asset('js/projects/edit.js') }}"></script>
+
     <script>
         AOS.init();
         document.addEventListener('DOMContentLoaded', function() {
