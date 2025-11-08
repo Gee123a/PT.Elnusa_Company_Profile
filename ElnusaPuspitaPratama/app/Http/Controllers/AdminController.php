@@ -272,4 +272,28 @@ class AdminController extends Controller
 
         return redirect('/admin/employees')->with('success', 'Employee deleted successfully!');
     }
+
+    // Employee Search Method
+    public function employeeSearch(Request $request)
+    {
+        $search = $request->input('search', '');
+        
+        $employees = Employee::withCount('projects')
+            ->when($search, function($query, $search) {
+                return $query->where('nama', 'like', "%{$search}%")
+                    ->orWhere('position', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('specialization', 'like', "%{$search}%")
+                    ->orWhere('tingkatan', 'like', "%{$search}%");
+            })
+            ->orderBy('nama')
+            ->paginate(5)
+            ->withQueryString();
+        
+        return response()->json([
+            'html' => view('admin.employees.table-rows', compact('employees', 'search'))->render(),
+            'total' => $employees->total(),
+            'pagination' => view('admin.employees.pagination', compact('employees', 'search'))->render()
+        ]);
+    }
 }

@@ -64,40 +64,27 @@
         <!-- Search Form -->
         <div class="row mb-4">
             <div class="col-lg-8 mx-auto" data-aos="fade-up">
-                <form action="/admin/employees" method="GET" class="position-relative">
-                    <div class="p-4 rounded-3 shadow-lg"
-                        style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-lg-9">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text bg-dark border-warning text-warning">
-                                        <i class="bi bi-search"></i>
-                                    </span>
-                                    <input type="text" id="searchInput"
-                                        class="form-control form-control-lg bg-dark text-white border-warning" 
-                                        name="search" 
-                                        placeholder="Search by name, position, email, specialization, or level..."
-                                        value="{{ $search ?? '' }}"
-                                        style="border-left: none;">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-warning btn-lg">
-                                        <i class="bi bi-search me-2"></i>Search
-                                    </button>
-                                    @if($search ?? false)
-                                    <a href="/admin/employees" class="btn btn-outline-light">
-                                        <i class="bi bi-x-circle me-2"></i>Clear
-                                    </a>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                <div class="p-4 rounded-3 shadow-lg"
+                    style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-dark border-warning text-warning">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" 
+                            class="form-control form-control-lg bg-dark text-white border-warning search-input-centered" 
+                            id="searchInput"
+                            placeholder="Search employees..."
+                            value="{{ $search ?? '' }}"
+                            style="border-left: none;">
+                        @if($search)
+                        <a href="/admin/employees" class="btn btn-outline-light">
+                            <i class="bi bi-x-circle"></i>
+                        </a>
+                        @endif
                     </div>
-                </form>
+                </div>
                 
-                @if($search ?? false)
+                @if($search)
                 <div class="mt-3 text-center">
                     <p class="text-white text-opacity-75 mb-0">
                         <i class="bi bi-funnel-fill me-2"></i>
@@ -122,57 +109,8 @@
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @forelse($employees as $employee)
-                    <tr>
-                        <td class="fw-semibold">{{ $employee->nama }}</td>
-                        <td>{{ $employee->position }}</td>
-                        <td>
-                            <span class="badge bg-info px-3 py-2">{{ $employee->tingkatan }}</span>
-                        </td>
-                        <td>{{ $employee->email }}</td>
-                        <td>{{ $employee->phone }}</td>
-                        <td>
-                            @if($employee->projects_count > 0)
-                                <span class="badge bg-warning text-dark px-3 py-2">
-                                    {{ $employee->projects_count }} Project(s)
-                                </span>
-                            @else
-                                <span class="badge bg-secondary px-3 py-2">No Projects</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="d-flex gap-2 justify-content-center">
-                                <a href="/admin/employees/{{ $employee->id }}/edit" class="btn btn-sm btn-warning">
-                                    <i class="bi bi-pencil-fill"></i>
-                                </a>
-                                <form action="/admin/employees/{{ $employee->id }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Are you sure you want to delete {{ $employee->nama }}?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" 
-                                        @if($employee->projects_count > 0) 
-                                            title="Cannot delete - managing {{ $employee->projects_count }} project(s)"
-                                        @endif>
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center py-5">
-                            <i class="bi bi-inbox fs-1 text-white text-opacity-50 d-block mb-3"></i>
-                            @if($search ?? false)
-                                <h5 class="text-white mb-2">No employees found for "{{ $search }}"</h5>
-                                <p class="text-white text-opacity-75">Try different keywords or <a href="/admin/employees" class="text-warning">clear the search</a></p>
-                            @else
-                                <p class="text-white text-opacity-75">No employees found. Add your first team member!</p>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforelse
+                <tbody id="employeeTableBody">
+                    @include('admin.employees.table-rows', compact('employees', 'search'))
                 </tbody>
             </table>
         </div>
@@ -192,127 +130,84 @@
                 </div>
 
                 <!-- Custom Pagination Links -->
-                <nav aria-label="Employees pagination">
-                    <ul class="pagination pagination-lg mb-0">
-                        {{-- Previous Button --}}
-                        @if ($employees->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,193,7,0.3); color: rgba(255,255,255,0.3);">
-                                    <i class="bi bi-chevron-double-left"></i>
-                                </span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $employees->previousPageUrl() }}" 
-                                   style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,193,7,0.5); color: #ffc107;">
-                                    <i class="bi bi-chevron-double-left"></i>
-                                </a>
-                            </li>
-                        @endif
-
-                        {{-- Page Numbers --}}
-                        @foreach ($employees->getUrlRange(1, $employees->lastPage()) as $page => $url)
-                            @if ($page == $employees->currentPage())
-                                <li class="page-item active">
-                                    <span class="page-link fw-bold" 
-                                          style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); 
-                                                 border: 2px solid #ffc107; 
-                                                 color: #1a1410;
-                                                 box-shadow: 0 4px 15px rgba(255,193,7,0.4);">
-                                        {{ $page }}
-                                    </span>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $url }}" 
-                                       style="background: rgba(255,255,255,0.10); 
-                                              backdrop-filter: blur(10px); 
-                                              border: 1px solid rgba(255,193,7,0.3); 
-                                              color: #ffc107;
-                                              transition: all 0.3s ease;">
-                                        {{ $page }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-
-                        {{-- Next Button --}}
-                        @if ($employees->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $employees->nextPageUrl() }}" 
-                                   style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,193,7,0.5); color: #ffc107;">
-                                    <i class="bi bi-chevron-double-right"></i>
-                                </a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,193,7,0.3); color: rgba(255,255,255,0.3);">
-                                    <i class="bi bi-chevron-double-right"></i>
-                                </span>
-                            </li>
-                        @endif
-                    </ul>
-                </nav>
+                <div id="paginationContainer">
+                    @include('admin.employees.pagination', compact('employees', 'search'))
+                </div>
             </div>
         </div>
         @endif
     </div>
 </section>
 
+@endsection
+
 <script>
-// Live search functionality
-document.getElementById('searchInput')?.addEventListener('keyup', function() {
-    const searchTerm = this.value;
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
     
-    // Update URL without reloading
-    const url = new URL(window.location);
-    if (searchTerm) {
-        url.searchParams.set('search', searchTerm);
-    } else {
-        url.searchParams.delete('search');
+    if (!searchInput) {
+        console.error('Search input not found');
+        return;
     }
-    window.history.pushState({}, '', url);
-    
-    // Fetch filtered results
-    fetch(`/admin/employees?search=${encodeURIComponent(searchTerm)}`, {
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-    .then(response => response.text())
-    .then(html => {
-        // Create temporary container to parse response
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
+
+    // Live search on keyup
+    searchInput.addEventListener('keyup', function() {
+        const searchTerm = this.value;
         
-        // Update table body
-        const newTableBody = doc.querySelector('tbody');
-        if (newTableBody) {
-            document.querySelector('tbody').innerHTML = newTableBody.innerHTML;
-        }
-        
-        // Update pagination if exists
-        const newPagination = doc.querySelector('.pagination')?.closest('div');
-        const currentPagination = document.querySelector('.pagination')?.closest('div');
-        if (newPagination && currentPagination) {
-            currentPagination.innerHTML = newPagination.innerHTML;
-        }
-        
-        // Update search results info
-        const searchInfo = doc.querySelector('.mt-3.text-center');
-        const currentSearchInfo = document.querySelector('.mt-3.text-center');
-        if (searchInfo && currentSearchInfo) {
-            currentSearchInfo.innerHTML = searchInfo.innerHTML;
-        } else if (searchInfo) {
-            // Insert search info if it doesn't exist
-            document.querySelector('form').insertAdjacentHTML('afterend', searchInfo.outerHTML);
-        } else if (currentSearchInfo && !searchTerm) {
-            // Remove search info when search is cleared
-            currentSearchInfo.remove();
-        }
-    })
-    .catch(error => console.error('Error:', error));
+        fetch(`/admin/employees/search?search=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('employeeTableBody').innerHTML = data.html;
+                document.getElementById('paginationContainer').innerHTML = data.pagination;
+                
+                // Update the info text
+                const infoText = document.querySelector('.text-white.text-center.text-lg-start');
+                if (infoText && data.total) {
+                    infoText.innerHTML = `<i class="bi bi-info-circle me-2 text-warning"></i>
+                        Showing <span class="text-warning fw-bold">${data.firstItem || 0}</span> 
+                        to <span class="text-warning fw-bold">${data.lastItem || 0}</span> 
+                        of <span class="text-warning fw-bold">${data.total}</span> employees`;
+                }
+                
+                // Re-attach pagination click handlers
+                attachPaginationHandlers();
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    function attachPaginationHandlers() {
+        document.querySelectorAll('.pagination-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = new URL(this.href);
+                const page = url.searchParams.get('page');
+                const search = searchInput.value;
+                
+                fetch(`/admin/employees/search?search=${encodeURIComponent(search)}&page=${page}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('employeeTableBody').innerHTML = data.html;
+                        document.getElementById('paginationContainer').innerHTML = data.pagination;
+                        attachPaginationHandlers();
+                    });
+            });
+        });
+    }
+
+    // Initialize pagination handlers on page load
+    attachPaginationHandlers();
 });
 </script>
 
-@endsection
+<style>
+/* Center placeholder text but keep typed text left-aligned */
+.search-input-centered::placeholder {
+    text-align: center;
+    opacity: 0.6;
+}
+
+.search-input-centered:focus::placeholder {
+    opacity: 0.4;
+}
+</style>

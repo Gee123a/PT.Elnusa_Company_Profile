@@ -28,6 +28,7 @@ Route::prefix('admin')->group(function () {
     
     // Employees
     Route::get('/employees', [AdminController::class, 'employeeIndex'])->name('admin.employees.index');
+    Route::get('/employees/search', [AdminController::class, 'employeeSearch'])->name('admin.employees.search');
     Route::get('/employees/create', [AdminController::class, 'employeeCreate'])->name('admin.employees.create');
     Route::post('/employees', [AdminController::class, 'employeeStore'])->name('admin.employees.store');
     Route::get('/employees/{id}/edit', [AdminController::class, 'employeeEdit'])->name('admin.employees.edit');
