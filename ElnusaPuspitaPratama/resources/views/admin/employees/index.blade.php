@@ -73,7 +73,7 @@
                                     <span class="input-group-text bg-dark border-warning text-warning">
                                         <i class="bi bi-search"></i>
                                     </span>
-                                    <input type="text" 
+                                    <input type="text" id="searchInput"
                                         class="form-control form-control-lg bg-dark text-white border-warning" 
                                         name="search" 
                                         placeholder="Search by name, position, email, specialization, or level..."
@@ -258,5 +258,61 @@
         @endif
     </div>
 </section>
+
+<script>
+// Live search functionality
+document.getElementById('searchInput')?.addEventListener('keyup', function() {
+    const searchTerm = this.value;
+    
+    // Update URL without reloading
+    const url = new URL(window.location);
+    if (searchTerm) {
+        url.searchParams.set('search', searchTerm);
+    } else {
+        url.searchParams.delete('search');
+    }
+    window.history.pushState({}, '', url);
+    
+    // Fetch filtered results
+    fetch(`/admin/employees?search=${encodeURIComponent(searchTerm)}`, {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.text())
+    .then(html => {
+        // Create temporary container to parse response
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Update table body
+        const newTableBody = doc.querySelector('tbody');
+        if (newTableBody) {
+            document.querySelector('tbody').innerHTML = newTableBody.innerHTML;
+        }
+        
+        // Update pagination if exists
+        const newPagination = doc.querySelector('.pagination')?.closest('div');
+        const currentPagination = document.querySelector('.pagination')?.closest('div');
+        if (newPagination && currentPagination) {
+            currentPagination.innerHTML = newPagination.innerHTML;
+        }
+        
+        // Update search results info
+        const searchInfo = doc.querySelector('.mt-3.text-center');
+        const currentSearchInfo = document.querySelector('.mt-3.text-center');
+        if (searchInfo && currentSearchInfo) {
+            currentSearchInfo.innerHTML = searchInfo.innerHTML;
+        } else if (searchInfo) {
+            // Insert search info if it doesn't exist
+            document.querySelector('form').insertAdjacentHTML('afterend', searchInfo.outerHTML);
+        } else if (currentSearchInfo && !searchTerm) {
+            // Remove search info when search is cleared
+            currentSearchInfo.remove();
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
 
 @endsection

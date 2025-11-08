@@ -24,7 +24,7 @@
 <body class="d-flex flex-column min-vh-100">
     @include('layout.navigation')
 
-    <main class="flex-shrink-0">
+    <main class="shrink-0">
         @yield('content')
     </main>
 
