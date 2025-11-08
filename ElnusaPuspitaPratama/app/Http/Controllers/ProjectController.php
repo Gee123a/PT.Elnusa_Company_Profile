@@ -10,12 +10,9 @@ class ProjectController extends Controller
 
     public function index()
     {
-
-         $allProjects = Project::with('client', 'projectManager')
+        $allProjects = Project::with('client', 'projectManager')
             ->orderBy('created_at', 'desc')
             ->get();
-
-        
 
         // Tambahkan badgeColor untuk setiap project
         foreach ($allProjects as $project) {
@@ -31,28 +28,27 @@ class ProjectController extends Controller
             }
         }
 
-        $featuredProject = Project::orderByDesc('budget')->first();
-
-        // Ambil featured project hanya 1, project dengan budget paling mahal
-        $featuredProject = Project::with('client', 'projectManager')
+        // Ambil 3 featured projects dengan budget tertinggi
+        $featuredProjects = Project::with('client', 'projectManager')
             ->orderBy('budget', 'desc')
-            ->first();
+            ->take(3)
+            ->get();
 
-        // Tambahkan badgeColor untuk featuredProjects juga
-        if ($featuredProject) {
-            $status = strtolower($featuredProject->status);
+        // Tambahkan badgeColor untuk featuredProjects
+        foreach ($featuredProjects as $project) {
+            $status = strtolower($project->status);
             if ($status === 'planning') {
-                $featuredProject->badgeColor = 'bg-secondary';
+                $project->badgeColor = 'bg-secondary';
             } elseif ($status === 'on progress' || $status === 'in progress') {
-                $featuredProject->badgeColor = 'bg-warning text-dark';
+                $project->badgeColor = 'bg-warning text-dark';
             } elseif ($status === 'complete' || $status === 'completed') {
-                $featuredProject->badgeColor = 'bg-success';
+                $project->badgeColor = 'bg-success';
             } else {
-                $featuredProject->badgeColor = 'bg-secondary';
+                $project->badgeColor = 'bg-secondary';
             }
         }
 
-        return view('project', compact('allProjects', 'featuredProject'));
+        return view('project', compact('allProjects', 'featuredProjects'));
     }
 
     
@@ -60,7 +56,6 @@ class ProjectController extends Controller
     {
         $project = Project::with(['client', 'projectManager'])->findOrFail($id);
 
-        
         $status = strtolower($project->status);
         if ($status === 'planning') {
             $badgeColor = 'bg-secondary';
@@ -72,7 +67,6 @@ class ProjectController extends Controller
             $badgeColor = 'bg-secondary';
         }
 
-        
         $relatedProjects = Project::where('id', '!=', $project->id)->inRandomOrder()->take(3)->get();
         foreach ($relatedProjects as $rp) {
             $rpStatus = strtolower($rp->status);
