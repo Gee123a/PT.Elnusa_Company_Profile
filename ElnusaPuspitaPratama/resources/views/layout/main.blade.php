@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ asset('css/cardHover.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projectCard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/reviewCard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
+
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -31,6 +33,7 @@
         integrity="sha384-PJsz6Ctp1JQ2ChJt2LbHYXHt2MIEl/T0ZJj3QA5NjY5Di6lXzDL2bBLxZqRMfT0W" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="{{ asset('js/carousel.js') }}"></script>
     <script>
         AOS.init();
         document.addEventListener('DOMContentLoaded', function() {
