@@ -33,7 +33,7 @@
                     <a href="/admin/employees/create" class="btn btn-warning btn-lg px-5 py-3">
                         <i class="bi bi-plus-circle me-2"></i>Add New Employee
                     </a>
-                    <a href="/admin/dashboard" class="btn btn-outline-light btn-lg px-5 py-2">
+                    <a href="/admin" class="btn btn-outline-light btn-lg px-5 py-2">
                         <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
                     </a>
                 </div>
@@ -61,7 +61,55 @@
         </div>
         @endif
 
-        <div class="">
+        <!-- Search Form -->
+        <div class="row mb-4">
+            <div class="col-lg-8 mx-auto" data-aos="fade-up">
+                <form action="/admin/employees" method="GET" class="position-relative">
+                    <div class="p-4 rounded-3 shadow-lg"
+                        style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-lg-9">
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text bg-dark border-warning text-warning">
+                                        <i class="bi bi-search"></i>
+                                    </span>
+                                    <input type="text" 
+                                        class="form-control form-control-lg bg-dark text-white border-warning" 
+                                        name="search" 
+                                        placeholder="Search by name, position, email, specialization, or level..."
+                                        value="{{ $search ?? '' }}"
+                                        style="border-left: none;">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-warning btn-lg">
+                                        <i class="bi bi-search me-2"></i>Search
+                                    </button>
+                                    @if($search ?? false)
+                                    <a href="/admin/employees" class="btn btn-outline-light">
+                                        <i class="bi bi-x-circle me-2"></i>Clear
+                                    </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
+                @if($search ?? false)
+                <div class="mt-3 text-center">
+                    <p class="text-white text-opacity-75 mb-0">
+                        <i class="bi bi-funnel-fill me-2"></i>
+                        Search results for: <span class="text-warning fw-bold">"{{ $search }}"</span>
+                        <span class="badge bg-warning text-dark ms-2">{{ $employees->count() }} found</span>
+                    </p>
+                </div>
+                @endif
+            </div>
+        </div>
+
+        <div>
             <table class="table table-dark table-hover align-middle">
                 <thead class="table-warning">
                     <tr>
@@ -116,7 +164,12 @@
                     <tr>
                         <td colspan="7" class="text-center py-5">
                             <i class="bi bi-inbox fs-1 text-white text-opacity-50 d-block mb-3"></i>
-                            <p class="text-white text-opacity-75">No employees found. Add your first team member!</p>
+                            @if($search ?? false)
+                                <h5 class="text-white mb-2">No employees found for "{{ $search }}"</h5>
+                                <p class="text-white text-opacity-75">Try different keywords or <a href="/admin/employees" class="text-warning">clear the search</a></p>
+                            @else
+                                <p class="text-white text-opacity-75">No employees found. Add your first team member!</p>
+                            @endif
                         </td>
                     </tr>
                     @endforelse

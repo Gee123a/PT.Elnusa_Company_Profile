@@ -21,10 +21,26 @@ class AdminController extends Controller
     }
 
     // Project CRUD Methods
-    public function projectIndex()
+    public function projectIndex(Request $request)
     {
-        $projects = Project::with(['client', 'projectManager'])->orderBy('created_at', 'desc')->get();
-        return view('admin.projects.index', compact('projects'));
+        $search = $request->input('search');
+        
+        $projects = Project::with(['client', 'projectManager'])
+            ->when($search, function($query, $search) {
+                return $query->where('project_name', 'like', "%{$search}%")
+                    ->orWhere('address', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%")
+                    ->orWhereHas('client', function($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('projectManager', function($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
+        return view('admin.projects.index', compact('projects', 'search'));
     }
 
     public function projectCreate()
@@ -46,7 +62,7 @@ class AdminController extends Controller
             'status' => 'required|in:planning,in progress,completed',
             'description' => 'required|string',
             'address' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,jpg,png,gif,webp|max:5120' // Max 5MB
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif,webp|max:5120'
         ], [
             'image.required' => 'Project image is required.',
             'image.image' => 'The file must be an image.',
@@ -56,12 +72,10 @@ class AdminController extends Controller
             'budget.min' => 'Budget must be a positive number.'
         ]);
 
-        // Handle image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             
-            // Double check file size (5MB = 5120KB)
-            if ($image->getSize() > 5242880) { // 5MB in bytes
+            if ($image->getSize() > 5242880) {
                 return redirect()->back()
                     ->withInput()
                     ->withErrors(['image' => 'Image file is too large. Maximum size is 5MB.']);
@@ -72,9 +86,7 @@ class AdminController extends Controller
             $validated['image_url'] = 'images/projects/' . $imageName;
         }
 
-        // Remove 'image' from validated data since we use 'image_url'
         unset($validated['image']);
-
         Project::create($validated);
 
         return redirect('/admin/projects')->with('success', 'Project created successfully!');
@@ -102,7 +114,7 @@ class AdminController extends Controller
             'status' => 'required|in:planning,in progress,completed', 
             'description' => 'required|string',
             'address' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:5120' // Nullable untuk update
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:5120'
         ], [
             'image.image' => 'The file must be an image.',
             'image.mimes' => 'Only JPG, JPEG, PNG, GIF, and WEBP formats are allowed.',
@@ -111,18 +123,15 @@ class AdminController extends Controller
             'budget.min' => 'Budget must be a positive number.'
         ]);
 
-        // Handle image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             
-            // Double check file size (5MB = 5120KB)
-            if ($image->getSize() > 5242880) { // 5MB in bytes
+            if ($image->getSize() > 5242880) {
                 return redirect()->back()
                     ->withInput()
                     ->withErrors(['image' => 'Image file is too large. Maximum size is 5MB.']);
             }
             
-            // Delete old image if exists
             if ($project->image_url && file_exists(public_path($project->image_url))) {
                 unlink(public_path($project->image_url));
             }
@@ -132,9 +141,7 @@ class AdminController extends Controller
             $validated['image_url'] = 'images/projects/' . $imageName;
         }
 
-        // Remove 'image' from validated data
         unset($validated['image']);
-
         $project->update($validated);
 
         return redirect('/admin/projects')->with('success', 'Project updated successfully!');
@@ -144,7 +151,6 @@ class AdminController extends Controller
     {
         $project = Project::findOrFail($id);
         
-        // Delete image file if exists
         if ($project->image_url && file_exists(public_path($project->image_url))) {
             unlink(public_path($project->image_url));
         }
@@ -155,10 +161,22 @@ class AdminController extends Controller
     }
 
     // Employee CRUD Methods
-    public function employeeIndex()
+    public function employeeIndex(Request $request)
     {
-        $employees = Employee::withCount('projects')->orderBy('nama')->get();
-        return view('admin.employees.index', compact('employees'));
+        $search = $request->input('search');
+        
+        $employees = Employee::withCount('projects')
+            ->when($search, function($query, $search) {
+                return $query->where('nama', 'like', "%{$search}%")
+                    ->orWhere('position', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('specialization', 'like', "%{$search}%")
+                    ->orWhere('tingkatan', 'like', "%{$search}%");
+            })
+            ->orderBy('nama')
+            ->get();
+            
+        return view('admin.employees.index', compact('employees', 'search'));
     }
 
     public function employeeCreate()
@@ -214,7 +232,6 @@ class AdminController extends Controller
     {
         $employee = Employee::findOrFail($id);
         
-        // Cek apakah employee masih menjadi project manager
         $projectCount = $employee->projects()->count();
         
         if ($projectCount > 0) {
