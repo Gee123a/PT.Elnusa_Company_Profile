@@ -7,7 +7,24 @@
         style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920') center/cover no-repeat; z-index: -1;">
     </div>
     <div class="container">
-        <div class="row">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" data-aos="fade-right">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.dashboard') }}" class="text-warning text-decoration-none">
+                        <i class="bi bi-speedometer2 me-1"></i>Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.projects.index') }}" class="text-warning text-decoration-none">
+                        Manage Projects
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Create New Project</li>
+            </ol>
+        </nav>
+
+        <div class="row mt-3">
             <div class="col-lg-12 text-white">
                 <h1 class="display-3 fw-bold mb-3" data-aos="fade-right">
                     <i class="bi bi-plus-circle-fill text-warning me-3"></i>Create New Project
@@ -30,7 +47,7 @@
                 <div class="p-5 rounded-3 shadow-lg border border-warning border-opacity-25"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);" data-aos="fade-up">
                     
-                    <form action="{{ route('admin.projects.store') }}" method="POST">
+                    <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data" id="projectForm">
                         @csrf
                         
                         <div class="row g-4">
@@ -78,7 +95,7 @@
                                     <option value="">Select Manager</option>
                                     @foreach($employees as $employee)
                                         <option value="{{ $employee->id }}" {{ old('project_manager_id') == $employee->id ? 'selected' : '' }}>
-                                            {{ $employee->nama }}
+                                            {{ $employee->nama }} - {{ $employee->position }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -120,7 +137,8 @@
                                 </label>
                                 <input type="number" name="budget" step="0.01" 
                                     class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('budget') is-invalid @enderror" 
-                                    value="{{ old('budget') }}" required>
+                                    value="{{ old('budget') }}" 
+                                    placeholder="e.g., 50000000000" required>
                                 @error('budget')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -136,8 +154,8 @@
                                     required>
                                     <option value="">Select Status</option>
                                     <option value="planning" {{ old('status') == 'planning' ? 'selected' : '' }}>Planning</option>
-                                    <option value="on progress" {{ old('status') == 'on progress' ? 'selected' : '' }}>On Progress</option>
-                                    <option value="complete" {{ old('status') == 'complete' ? 'selected' : '' }}>Complete</option>
+                                    <option value="in progress" {{ old('status') == 'in progress' ? 'selected' : '' }}>In Progress</option>
+                                    <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
                                 </select>
                                 @error('status')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -147,37 +165,51 @@
                             <!-- Address -->
                             <div class="col-md-12">
                                 <label class="form-label text-white fw-semibold">
-                                    <i class="bi bi-geo-alt-fill text-warning me-2"></i>Address
+                                    <i class="bi bi-geo-alt-fill text-warning me-2"></i>Project Address
                                 </label>
                                 <input type="text" name="address" 
                                     class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('address') is-invalid @enderror" 
-                                    value="{{ old('address') }}" required>
+                                    value="{{ old('address') }}" 
+                                    placeholder="e.g., Jakarta, Indonesia" required>
                                 @error('address')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <!-- Image URL -->
+                            <!-- Project Image Upload -->
                             <div class="col-md-12">
                                 <label class="form-label text-white fw-semibold">
-                                    <i class="bi bi-image text-warning me-2"></i>Image URL
+                                    <i class="bi bi-image text-warning me-2"></i>Project Image
                                 </label>
-                                <input type="text" name="image_url" 
-                                    class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('image_url') is-invalid @enderror" 
-                                    value="{{ old('image_url') }}" 
-                                    placeholder="images/projects/project-name.jpg" required>
-                                @error('image_url')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <input type="file" name="image" id="imageInput"
+                                    class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('image') is-invalid @enderror" 
+                                    accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                                    onchange="validateAndPreviewImage(event)" required>
+                                <small class="text-white text-opacity-75 d-block mt-2">
+                                    <i class="bi bi-info-circle me-1"></i>Accepted formats: JPG, JPEG, PNG, GIF, WEBP (Max: 5MB)
+                                </small>
+                                @error('image')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
+                                <div id="fileSizeError" class="text-danger fw-semibold mt-2 d-none">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>File size exceeds 5MB! Please choose a smaller image.
+                                </div>
+                                
+                                <!-- Image Preview -->
+                                <div id="imagePreview" class="mt-3 d-none">
+                                    <p class="text-white fw-semibold mb-2">Preview:</p>
+                                    <img id="preview" src="" alt="Image Preview" class="img-fluid rounded-3 shadow" style="max-height: 300px;">
+                                </div>
                             </div>
 
                             <!-- Description -->
                             <div class="col-md-12">
                                 <label class="form-label text-white fw-semibold">
-                                    <i class="bi bi-file-text text-warning me-2"></i>Description
+                                    <i class="bi bi-file-text text-warning me-2"></i>Project Description
                                 </label>
                                 <textarea name="description" rows="5" 
                                     class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('description') is-invalid @enderror" 
+                                    placeholder="Describe the project details, scope, and objectives..." 
                                     required>{{ old('description') }}</textarea>
                                 @error('description')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -191,7 +223,7 @@
                             <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary btn-lg px-5">
                                 <i class="bi bi-x-circle me-2"></i>Cancel
                             </a>
-                            <button type="submit" class="btn btn-warning btn-lg px-5">
+                            <button type="submit" id="submitBtn" class="btn btn-warning btn-lg px-5">
                                 <i class="bi bi-check-circle me-2"></i>Create Project
                             </button>
                         </div>
@@ -201,5 +233,67 @@
         </div>
     </div>
 </section>
+
+<script>
+let isFileSizeValid = false;
+
+function validateAndPreviewImage(event) {
+    const preview = document.getElementById('preview');
+    const previewContainer = document.getElementById('imagePreview');
+    const fileSizeError = document.getElementById('fileSizeError');
+    const submitBtn = document.getElementById('submitBtn');
+    const imageInput = document.getElementById('imageInput');
+    const file = event.target.files[0];
+    
+    // Hide previous error
+    fileSizeError.classList.add('d-none');
+    imageInput.classList.remove('is-invalid');
+    
+    if (file) {
+        // Check file size (5MB = 5242880 bytes)
+        const maxSize = 5242880; // 5MB in bytes
+        
+        if (file.size > maxSize) {
+            // File too large
+            fileSizeError.classList.remove('d-none');
+            imageInput.classList.add('is-invalid');
+            previewContainer.classList.add('d-none');
+            imageInput.value = ''; // Clear the input
+            isFileSizeValid = false;
+            
+            // Show alert
+            alert('⚠️ File size is too large!\n\nSelected file: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB\nMaximum allowed: 5 MB\n\nPlease choose a smaller image.');
+            
+            return false;
+        }
+        
+        isFileSizeValid = true;
+        
+        // Show file size info
+        const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
+        console.log('File size: ' + fileSizeMB + ' MB');
+        
+        // Preview image
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.classList.remove('d-none');
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+// Prevent form submission if file size is invalid
+document.getElementById('projectForm').addEventListener('submit', function(e) {
+    const imageInput = document.getElementById('imageInput');
+    const file = imageInput.files[0];
+    
+    if (file && file.size > 5242880) {
+        e.preventDefault();
+        alert('⚠️ Cannot submit! Image file is too large. Maximum size is 5MB.');
+        return false;
+    }
+});
+</script>
 
 @endsection

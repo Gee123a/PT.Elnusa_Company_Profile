@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Employee;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -45,8 +46,34 @@ class AdminController extends Controller
             'status' => 'required|in:planning,in progress,completed',
             'description' => 'required|string',
             'address' => 'required|string',
-            'image_url' => 'required|string'
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif,webp|max:5120' // Max 5MB
+        ], [
+            'image.required' => 'Project image is required.',
+            'image.image' => 'The file must be an image.',
+            'image.mimes' => 'Only JPG, JPEG, PNG, GIF, and WEBP formats are allowed.',
+            'image.max' => 'Image size cannot exceed 5MB.',
+            'deadline.after' => 'Deadline must be after the start date.',
+            'budget.min' => 'Budget must be a positive number.'
         ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            
+            // Double check file size (5MB = 5120KB)
+            if ($image->getSize() > 5242880) { // 5MB in bytes
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['image' => 'Image file is too large. Maximum size is 5MB.']);
+            }
+            
+            $imageName = time() . '_' . str_replace(' ', '_', $request->project_name) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/projects'), $imageName);
+            $validated['image_url'] = 'images/projects/' . $imageName;
+        }
+
+        // Remove 'image' from validated data since we use 'image_url'
+        unset($validated['image']);
 
         Project::create($validated);
 
@@ -63,6 +90,8 @@ class AdminController extends Controller
 
     public function projectUpdate(Request $request, $id)
     {
+        $project = Project::findOrFail($id);
+        
         $validated = $request->validate([
             'project_name' => 'required|string|max:255',
             'client_id' => 'required|exists:clients,id',
@@ -73,10 +102,39 @@ class AdminController extends Controller
             'status' => 'required|in:planning,in progress,completed', 
             'description' => 'required|string',
             'address' => 'required|string',
-            'image_url' => 'required|string'
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:5120' // Nullable untuk update
+        ], [
+            'image.image' => 'The file must be an image.',
+            'image.mimes' => 'Only JPG, JPEG, PNG, GIF, and WEBP formats are allowed.',
+            'image.max' => 'Image size cannot exceed 5MB.',
+            'deadline.after' => 'Deadline must be after the start date.',
+            'budget.min' => 'Budget must be a positive number.'
         ]);
 
-        $project = Project::findOrFail($id);
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            
+            // Double check file size (5MB = 5120KB)
+            if ($image->getSize() > 5242880) { // 5MB in bytes
+                return redirect()->back()
+                    ->withInput()
+                    ->withErrors(['image' => 'Image file is too large. Maximum size is 5MB.']);
+            }
+            
+            // Delete old image if exists
+            if ($project->image_url && file_exists(public_path($project->image_url))) {
+                unlink(public_path($project->image_url));
+            }
+
+            $imageName = time() . '_' . str_replace(' ', '_', $request->project_name) . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images/projects'), $imageName);
+            $validated['image_url'] = 'images/projects/' . $imageName;
+        }
+
+        // Remove 'image' from validated data
+        unset($validated['image']);
+
         $project->update($validated);
 
         return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully!');
@@ -85,6 +143,12 @@ class AdminController extends Controller
     public function projectDestroy($id)
     {
         $project = Project::findOrFail($id);
+        
+        // Delete image file if exists
+        if ($project->image_url && file_exists(public_path($project->image_url))) {
+            unlink(public_path($project->image_url));
+        }
+        
         $project->delete();
 
         return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully!');

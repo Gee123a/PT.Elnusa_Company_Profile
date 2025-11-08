@@ -7,7 +7,24 @@
         style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920') center/cover no-repeat; z-index: -1;">
     </div>
     <div class="container">
-        <div class="row">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" data-aos="fade-right">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.dashboard') }}" class="text-warning text-decoration-none">
+                        <i class="bi bi-speedometer2 me-1"></i>Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.projects.index') }}" class="text-warning text-decoration-none">
+                        Manage Projects
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Edit Project</li>
+            </ol>
+        </nav>
+
+        <div class="row mt-3">
             <div class="col-lg-12 text-white">
                 <h1 class="display-3 fw-bold mb-3" data-aos="fade-right">
                     <i class="bi bi-pencil-fill text-warning me-3"></i>Edit Project
@@ -30,7 +47,7 @@
                 <div class="p-5 rounded-3 shadow-lg border border-warning border-opacity-25"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);" data-aos="fade-up">
                     
-                    <form action="{{ route('admin.projects.update', $project->id) }}" method="POST">
+                    <form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data" id="projectForm">
                         @csrf
                         @method('PUT')
                         
@@ -58,8 +75,7 @@
                                     required>
                                     <option value="">Select Client</option>
                                     @foreach($clients as $client)
-                                        <option value="{{ $client->id }}" 
-                                            {{ old('client_id', $project->client_id) == $client->id ? 'selected' : '' }}>
+                                        <option value="{{ $client->id }}" {{ old('client_id', $project->client_id) == $client->id ? 'selected' : '' }}>
                                             {{ $client->nama }}
                                         </option>
                                     @endforeach
@@ -79,9 +95,8 @@
                                     required>
                                     <option value="">Select Manager</option>
                                     @foreach($employees as $employee)
-                                        <option value="{{ $employee->id }}" 
-                                            {{ old('project_manager_id', $project->project_manager_id) == $employee->id ? 'selected' : '' }}>
-                                            {{ $employee->nama }}
+                                        <option value="{{ $employee->id }}" {{ old('project_manager_id', $project->project_manager_id) == $employee->id ? 'selected' : '' }}>
+                                            {{ $employee->nama }} - {{ $employee->position }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -150,7 +165,7 @@
                             <!-- Address -->
                             <div class="col-md-12">
                                 <label class="form-label text-white fw-semibold">
-                                    <i class="bi bi-geo-alt-fill text-warning me-2"></i>Address
+                                    <i class="bi bi-geo-alt-fill text-warning me-2"></i>Project Address
                                 </label>
                                 <input type="text" name="address" 
                                     class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('address') is-invalid @enderror" 
@@ -160,23 +175,51 @@
                                 @enderror
                             </div>
 
-                            <!-- Image URL -->
+                            <!-- Current Image Display -->
                             <div class="col-md-12">
                                 <label class="form-label text-white fw-semibold">
-                                    <i class="bi bi-image text-warning me-2"></i>Image URL
+                                    <i class="bi bi-image text-warning me-2"></i>Current Project Image
                                 </label>
-                                <input type="text" name="image_url" 
-                                    class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('image_url') is-invalid @enderror" 
-                                    value="{{ old('image_url', $project->image_url) }}" required>
-                                @error('image_url')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="p-3 rounded-3 border border-warning border-opacity-25 bg-dark bg-opacity-25">
+                                    @if($project->image_url && file_exists(public_path($project->image_url)))
+                                        <img src="{{ asset($project->image_url) }}" alt="{{ $project->project_name }}" 
+                                            class="img-fluid rounded-3 shadow" style="max-height: 250px;">
+                                    @else
+                                        <p class="text-white text-opacity-50 mb-0">No image available</p>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- New Image Upload -->
+                            <div class="col-md-12">
+                                <label class="form-label text-white fw-semibold">
+                                    <i class="bi bi-upload text-warning me-2"></i>Upload New Image (Optional)
+                                </label>
+                                <input type="file" name="image" id="imageInput"
+                                    class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('image') is-invalid @enderror" 
+                                    accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                                    onchange="validateAndPreviewImage(event)">
+                                <small class="text-white text-opacity-75 d-block mt-2">
+                                    <i class="bi bi-info-circle me-1"></i>Leave empty to keep current image. Accepted formats: JPG, JPEG, PNG, GIF, WEBP (Max: 5MB)
+                                </small>
+                                @error('image')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
+                                <div id="fileSizeError" class="text-danger fw-semibold mt-2 d-none">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>File size exceeds 5MB! Please choose a smaller image.
+                                </div>
+                                
+                                <!-- New Image Preview -->
+                                <div id="imagePreview" class="mt-3 d-none">
+                                    <p class="text-white fw-semibold mb-2">New Image Preview:</p>
+                                    <img id="preview" src="" alt="Image Preview" class="img-fluid rounded-3 shadow" style="max-height: 300px;">
+                                </div>
                             </div>
 
                             <!-- Description -->
                             <div class="col-md-12">
                                 <label class="form-label text-white fw-semibold">
-                                    <i class="bi bi-file-text text-warning me-2"></i>Description
+                                    <i class="bi bi-file-text text-warning me-2"></i>Project Description
                                 </label>
                                 <textarea name="description" rows="5" 
                                     class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('description') is-invalid @enderror" 
@@ -203,5 +246,61 @@
         </div>
     </div>
 </section>
+
+<script>
+function validateAndPreviewImage(event) {
+    const preview = document.getElementById('preview');
+    const previewContainer = document.getElementById('imagePreview');
+    const fileSizeError = document.getElementById('fileSizeError');
+    const imageInput = document.getElementById('imageInput');
+    const file = event.target.files[0];
+    
+    // Hide previous error
+    fileSizeError.classList.add('d-none');
+    imageInput.classList.remove('is-invalid');
+    
+    if (file) {
+        // Check file size (5MB = 5242880 bytes)
+        const maxSize = 5242880;
+        
+        if (file.size > maxSize) {
+            // File too large
+            fileSizeError.classList.remove('d-none');
+            imageInput.classList.add('is-invalid');
+            previewContainer.classList.add('d-none');
+            imageInput.value = ''; // Clear the input
+            
+            // Show alert
+            alert('⚠️ File size is too large!\n\nSelected file: ' + (file.size / 1024 / 1024).toFixed(2) + ' MB\nMaximum allowed: 5 MB\n\nPlease choose a smaller image.');
+            
+            return false;
+        }
+        
+        // Show file size info
+        const fileSizeMB = (file.size / 1024 / 1024).toFixed(2);
+        console.log('File size: ' + fileSizeMB + ' MB');
+        
+        // Preview image
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.classList.remove('d-none');
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
+// Prevent form submission if file size is invalid
+document.getElementById('projectForm').addEventListener('submit', function(e) {
+    const imageInput = document.getElementById('imageInput');
+    const file = imageInput.files[0];
+    
+    if (file && file.size > 5242880) {
+        e.preventDefault();
+        alert('⚠️ Cannot submit! Image file is too large. Maximum size is 5MB.');
+        return false;
+    }
+});
+</script>
 
 @endsection
