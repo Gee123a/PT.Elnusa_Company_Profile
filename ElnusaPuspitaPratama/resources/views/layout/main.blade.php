@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/projectCard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/reviewCard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
 
 </head>
 

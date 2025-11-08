@@ -33,7 +33,7 @@
                     <a href="/admin/projects/create" class="btn btn-warning btn-lg px-5 py-3">
                         <i class="bi bi-plus-circle me-2"></i>Add New Project
                     </a>
-                    <a href="/admin" class="btn btn-outline-light btn-lg px-5 py-2">
+                    <a href="/admin/dashboard" class="btn btn-outline-light btn-lg px-5 py-2">
                         <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
                     </a>
                 </div>
@@ -102,14 +102,14 @@
                     <p class="text-white text-opacity-75 mb-0">
                         <i class="bi bi-funnel-fill me-2"></i>
                         Search results for: <span class="text-warning fw-bold">"{{ $search }}"</span>
-                        <span class="badge bg-warning text-dark ms-2">{{ $projects->count() }} found</span>
+                        <span class="badge bg-warning text-dark ms-2">{{ $projects->total() }} found</span>
                     </p>
                 </div>
                 @endif
             </div>
         </div>
 
-        <div>
+        <div class="table-responsive">
             <table class="table table-dark table-hover align-middle">
                 <thead class="table-warning">
                     <tr>
@@ -124,7 +124,7 @@
                 </thead>
                 <tbody>
                     @forelse($projects as $project)
-                    <tr data-aos="fade-up">
+                    <tr>
                         <td class="fw-semibold">{{ $project->project_name }}</td>
                         <td>{{ $project->client->nama }}</td>
                         <td>{{ $project->projectManager->nama }}</td>
@@ -176,6 +176,86 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Custom Pagination -->
+        @if($projects->hasPages())
+        <div class="mt-4" data-aos="fade-up">
+            <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center gap-3 p-4 rounded-3 shadow-lg"
+                style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                
+                <!-- Pagination Info -->
+                <div class="text-white text-center text-lg-start">
+                    <i class="bi bi-info-circle me-2 text-warning"></i>
+                    Showing <span class="text-warning fw-bold">{{ $projects->firstItem() }}</span> 
+                    to <span class="text-warning fw-bold">{{ $projects->lastItem() }}</span> 
+                    of <span class="text-warning fw-bold">{{ $projects->total() }}</span> projects
+                </div>
+
+                <!-- Custom Pagination Links -->
+                <nav aria-label="Projects pagination">
+                    <ul class="pagination pagination-lg mb-0">
+                        {{-- Previous Button --}}
+                        @if ($projects->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,193,7,0.3); color: rgba(255,255,255,0.3);">
+                                    <i class="bi bi-chevron-double-left"></i>
+                                </span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $projects->previousPageUrl() }}" 
+                                   style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,193,7,0.5); color: #ffc107;">
+                                    <i class="bi bi-chevron-double-left"></i>
+                                </a>
+                            </li>
+                        @endif
+
+                        {{-- Page Numbers --}}
+                        @foreach ($projects->getUrlRange(1, $projects->lastPage()) as $page => $url)
+                            @if ($page == $projects->currentPage())
+                                <li class="page-item active">
+                                    <span class="page-link fw-bold" 
+                                          style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); 
+                                                 border: 2px solid #ffc107; 
+                                                 color: #1a1410;
+                                                 box-shadow: 0 4px 15px rgba(255,193,7,0.4);">
+                                        {{ $page }}
+                                    </span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $url }}" 
+                                       style="background: rgba(255,255,255,0.10); 
+                                              backdrop-filter: blur(10px); 
+                                              border: 1px solid rgba(255,193,7,0.3); 
+                                              color: #ffc107;
+                                              transition: all 0.3s ease;">
+                                        {{ $page }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+
+                        {{-- Next Button --}}
+                        @if ($projects->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $projects->nextPageUrl() }}" 
+                                   style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,193,7,0.5); color: #ffc107;">
+                                    <i class="bi bi-chevron-double-right"></i>
+                                </a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,193,7,0.3); color: rgba(255,255,255,0.3);">
+                                    <i class="bi bi-chevron-double-right"></i>
+                                </span>
+                            </li>
+                        @endif
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        @endif
     </div>
 </section>
 

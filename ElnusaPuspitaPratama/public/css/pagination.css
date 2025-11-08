@@ -1,0 +1,32 @@
+/* Custom Pagination Styles */
+.pagination .page-link {
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover:not(.active .page-link) {
+    background: rgba(255,193,7,0.2) !important;
+    border-color: rgba(255,193,7,0.8) !important;
+    color: #ffd54f !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255,193,7,0.3);
+}
+
+.pagination .page-item.active .page-link {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(255,193,7,0.4);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(255,193,7,0.6);
+    }
+}
+
+/* Glass Morphism Pagination Container */
+.pagination-container {
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}

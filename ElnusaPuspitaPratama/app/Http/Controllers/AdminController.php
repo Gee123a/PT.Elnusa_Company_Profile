@@ -38,7 +38,8 @@ class AdminController extends Controller
                     });
             })
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(5)
+            ->withQueryString();
             
         return view('admin.projects.index', compact('projects', 'search'));
     }
@@ -174,7 +175,8 @@ class AdminController extends Controller
                     ->orWhere('tingkatan', 'like', "%{$search}%");
             })
             ->orderBy('nama')
-            ->get();
+            ->paginate(5)
+            ->withQueryString();
             
         return view('admin.employees.index', compact('employees', 'search'));
     }
