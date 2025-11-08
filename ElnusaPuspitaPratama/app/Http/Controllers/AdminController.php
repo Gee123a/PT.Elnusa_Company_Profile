@@ -161,6 +161,33 @@ class AdminController extends Controller
         return redirect('/admin/projects')->with('success', 'Project deleted successfully!');
     }
 
+    public function projectSearch(Request $request)
+    {
+        $search = $request->input('search', '');
+        
+        $projects = Project::with(['client', 'projectManager'])
+            ->when($search, function($query, $search) {
+                return $query->where('project_name', 'like', "%{$search}%")
+                    ->orWhere('address', 'like', "%{$search}%")
+                    ->orWhere('status', 'like', "%{$search}%")
+                    ->orWhereHas('client', function($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('projectManager', function($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%");
+                    });
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5)
+            ->withQueryString();
+        
+        return response()->json([
+            'html' => view('admin.projects.table-rows', compact('projects', 'search'))->render(),
+            'total' => $projects->total(),
+            'pagination' => view('admin.projects.pagination', compact('projects', 'search'))->render()
+        ]);
+    }
+
     // Employee CRUD Methods
     public function employeeIndex(Request $request)
     {

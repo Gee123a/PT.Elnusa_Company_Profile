@@ -19,6 +19,7 @@ Route::prefix('admin')->group(function () {
     
     // Projects
     Route::get('/projects', [AdminController::class, 'projectIndex'])->name('admin.projects.index');
+    Route::get('/projects/search', [AdminController::class, 'projectSearch'])->name('admin.projects.search'); 
     Route::get('/projects/create', [AdminController::class, 'projectCreate'])->name('admin.projects.create');
     Route::post('/projects', [AdminController::class, 'projectStore'])->name('admin.projects.store');
     Route::get('/projects/{id}/edit', [AdminController::class, 'projectEdit'])->name('admin.projects.edit');

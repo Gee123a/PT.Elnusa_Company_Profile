@@ -33,7 +33,7 @@
                     <a href="/admin/projects/create" class="btn btn-warning btn-lg px-5 py-3">
                         <i class="bi bi-plus-circle me-2"></i>Add New Project
                     </a>
-                    <a href="/admin/dashboard" class="btn btn-outline-light btn-lg px-5 py-2">
+                    <a href="/admin/" class="btn btn-outline-light btn-lg px-5 py-2">
                         <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
                     </a>
                 </div>
@@ -64,38 +64,25 @@
         <!-- Search Form -->
         <div class="row mb-4">
             <div class="col-lg-8 mx-auto" data-aos="fade-up">
-                <form action="/admin/projects" method="GET" class="position-relative">
-                    <div class="p-4 rounded-3 shadow-lg"
-                        style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
-                        <div class="row g-3 align-items-center">
-                            <div class="col-lg-9">
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text bg-dark border-warning text-warning">
-                                        <i class="bi bi-search"></i>
-                                    </span>
-                                    <input type="text" 
-                                        class="form-control form-control-lg bg-dark text-white border-warning" 
-                                        name="search" 
-                                        placeholder="Search by project name, client, manager, address, or status..."
-                                        value="{{ $search ?? '' }}"
-                                        style="border-left: none;">
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-warning btn-lg">
-                                        <i class="bi bi-search me-2"></i>Search
-                                    </button>
-                                    @if($search)
-                                    <a href="/admin/projects" class="btn btn-outline-light">
-                                        <i class="bi bi-x-circle me-2"></i>Clear
-                                    </a>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
+                <div class="p-4 rounded-3 shadow-lg"
+                    style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bg-dark border-warning text-warning">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" 
+                            class="form-control form-control-lg bg-dark text-white border-warning search-input-centered" 
+                            id="searchInput"
+                            placeholder="Search projects..."
+                            value="{{ $search ?? '' }}"
+                            style="border-left: none;">
+                        @if($search)
+                        <a href="/admin/projects" class="btn btn-outline-light">
+                            <i class="bi bi-x-circle"></i>
+                        </a>
+                        @endif
                     </div>
-                </form>
+                </div>
                 
                 @if($search)
                 <div class="mt-3 text-center">
@@ -122,57 +109,8 @@
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @forelse($projects as $project)
-                    <tr>
-                        <td class="fw-semibold">{{ $project->project_name }}</td>
-                        <td>{{ $project->client->nama }}</td>
-                        <td>{{ $project->projectManager->nama }}</td>
-                        <td>
-                            @php
-                                $status = strtolower($project->status);
-                                $badgeColor = 'bg-secondary';
-                                if ($status === 'planning') {
-                                    $badgeColor = 'bg-secondary';
-                                } elseif ($status === 'on progress' || $status === 'in progress') {
-                                    $badgeColor = 'bg-warning text-dark';
-                                } elseif ($status === 'complete' || $status === 'completed') {
-                                    $badgeColor = 'bg-success';
-                                }
-                            @endphp
-                            <span class="badge {{ $badgeColor }} px-3 py-2">{{ ucfirst($project->status) }}</span>
-                        </td>
-                        <td class="text-success fw-semibold">Rp {{ number_format($project->budget / 1000000, 0) }}M</td>
-                        <td>{{ $project->deadline->format('d M Y') }}</td>
-                        <td>
-                            <div class="d-flex gap-2 justify-content-center">
-                                <a href="/admin/projects/{{ $project->id }}/edit" class="btn btn-sm btn-warning">
-                                    <i class="bi bi-pencil-fill"></i>
-                                </a>
-                                <form action="/admin/projects/{{ $project->id }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this project?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center py-5">
-                            <i class="bi bi-inbox fs-1 text-white text-opacity-50 d-block mb-3"></i>
-                            @if($search)
-                                <h5 class="text-white mb-2">No projects found for "{{ $search }}"</h5>
-                                <p class="text-white text-opacity-75">Try different keywords or <a href="/admin/projects" class="text-warning">clear the search</a></p>
-                            @else
-                                <p class="text-white text-opacity-75">No projects found. Create your first project!</p>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforelse
+                <tbody id="projectTableBody">
+                    @include('admin.projects.table-rows', compact('projects', 'search'))
                 </tbody>
             </table>
         </div>
@@ -192,67 +130,9 @@
                 </div>
 
                 <!-- Custom Pagination Links -->
-                <nav aria-label="Projects pagination">
-                    <ul class="pagination pagination-lg mb-0">
-                        {{-- Previous Button --}}
-                        @if ($projects->onFirstPage())
-                            <li class="page-item disabled">
-                                <span class="page-link" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,193,7,0.3); color: rgba(255,255,255,0.3);">
-                                    <i class="bi bi-chevron-double-left"></i>
-                                </span>
-                            </li>
-                        @else
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $projects->previousPageUrl() }}" 
-                                   style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,193,7,0.5); color: #ffc107;">
-                                    <i class="bi bi-chevron-double-left"></i>
-                                </a>
-                            </li>
-                        @endif
-
-                        {{-- Page Numbers --}}
-                        @foreach ($projects->getUrlRange(1, $projects->lastPage()) as $page => $url)
-                            @if ($page == $projects->currentPage())
-                                <li class="page-item active">
-                                    <span class="page-link fw-bold" 
-                                          style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); 
-                                                 border: 2px solid #ffc107; 
-                                                 color: #1a1410;
-                                                 box-shadow: 0 4px 15px rgba(255,193,7,0.4);">
-                                        {{ $page }}
-                                    </span>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $url }}" 
-                                       style="background: rgba(255,255,255,0.10); 
-                                              backdrop-filter: blur(10px); 
-                                              border: 1px solid rgba(255,193,7,0.3); 
-                                              color: #ffc107;
-                                              transition: all 0.3s ease;">
-                                        {{ $page }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-
-                        {{-- Next Button --}}
-                        @if ($projects->hasMorePages())
-                            <li class="page-item">
-                                <a class="page-link" href="{{ $projects->nextPageUrl() }}" 
-                                   style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px); border: 1px solid rgba(255,193,7,0.5); color: #ffc107;">
-                                    <i class="bi bi-chevron-double-right"></i>
-                                </a>
-                            </li>
-                        @else
-                            <li class="page-item disabled">
-                                <span class="page-link" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,193,7,0.3); color: rgba(255,255,255,0.3);">
-                                    <i class="bi bi-chevron-double-right"></i>
-                                </span>
-                            </li>
-                        @endif
-                    </ul>
-                </nav>
+                <div id="paginationContainer">
+                    @include('admin.projects.pagination', compact('projects', 'search'))
+                </div>
             </div>
         </div>
         @endif
@@ -260,3 +140,74 @@
 </section>
 
 @endsection
+
+<script>
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    
+    if (!searchInput) {
+        console.error('Search input not found');
+        return;
+    }
+
+    // Live search on keyup
+    searchInput.addEventListener('keyup', function() {
+        const searchTerm = this.value;
+        
+        fetch(`/admin/projects/search?search=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('projectTableBody').innerHTML = data.html;
+                document.getElementById('paginationContainer').innerHTML = data.pagination;
+                
+                // Update the info text
+                const infoText = document.querySelector('.text-white.text-center.text-lg-start');
+                if (infoText && data.total) {
+                    infoText.innerHTML = `<i class="bi bi-info-circle me-2 text-warning"></i>
+                        Showing <span class="text-warning fw-bold">${data.firstItem || 0}</span> 
+                        to <span class="text-warning fw-bold">${data.lastItem || 0}</span> 
+                        of <span class="text-warning fw-bold">${data.total}</span> projects`;
+                }
+                
+                // Re-attach pagination click handlers
+                attachPaginationHandlers();
+            })
+            .catch(error => console.error('Error:', error));
+    });
+
+    function attachPaginationHandlers() {
+        document.querySelectorAll('.pagination-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const url = new URL(this.href);
+                const page = url.searchParams.get('page');
+                const search = searchInput.value;
+                
+                fetch(`/admin/projects/search?search=${encodeURIComponent(search)}&page=${page}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('projectTableBody').innerHTML = data.html;
+                        document.getElementById('paginationContainer').innerHTML = data.pagination;
+                        attachPaginationHandlers();
+                    });
+            });
+        });
+    }
+
+    // Initialize pagination handlers on page load
+    attachPaginationHandlers();
+});
+</script>
+
+<style>
+/* Center placeholder text but keep typed text left-aligned */
+.search-input-centered::placeholder {
+    text-align: center;
+    opacity: 0.6;
+}
+
+.search-input-centered:focus::placeholder {
+    opacity: 0.4;
+}
+</style>
