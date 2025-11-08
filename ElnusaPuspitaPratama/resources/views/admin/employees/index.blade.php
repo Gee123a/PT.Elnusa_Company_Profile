@@ -7,7 +7,19 @@
         style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920') center/cover no-repeat; z-index: -1;">
     </div>
     <div class="container">
-        <div class="row align-items-center">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" data-aos="fade-right">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.dashboard') }}" class="text-warning text-decoration-none">
+                        <i class="bi bi-speedometer2 me-1"></i>Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Manage Employees</li>
+            </ol>
+        </nav>
+
+        <div class="row align-items-center mt-3">
             <div class="col-lg-8 text-white">
                 <h1 class="display-3 fw-bold mb-3" data-aos="fade-right">
                     <i class="bi bi-people-fill text-warning me-3"></i>Manage Employees
@@ -17,9 +29,14 @@
                 </p>
             </div>
             <div class="col-lg-4 text-end" data-aos="fade-left">
-                <a href="{{ route('admin.employees.create') }}" class="btn btn-warning btn-lg px-5 py-3">
-                    <i class="bi bi-plus-circle me-2"></i>Add New Employee
-                </a>
+                <div class="d-flex flex-column gap-2">
+                    <a href="{{ route('admin.employees.create') }}" class="btn btn-warning btn-lg px-5 py-3">
+                        <i class="bi bi-plus-circle me-2"></i>Add New Employee
+                    </a>
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light btn-lg px-5 py-2">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -37,15 +54,22 @@
         </div>
         @endif
 
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert" data-aos="fade-down">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        @endif
+
         <div class="">
             <table class="table table-dark table-hover align-middle">
                 <thead class="table-warning">
                     <tr>
                         <th>Name</th>
                         <th>Position</th>
+                        <th>Level</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Specialization</th>
                         <th>Projects</th>
                         <th class="text-center">Actions</th>
                     </tr>
@@ -54,14 +78,20 @@
                     @forelse($employees as $employee)
                     <tr data-aos="fade-up">
                         <td class="fw-semibold">{{ $employee->nama }}</td>
+                        <td>{{ $employee->position }}</td>
                         <td>
-                            <span class="badge bg-warning text-dark px-3 py-2">{{ $employee->position }}</span>
+                            <span class="badge bg-info px-3 py-2">{{ $employee->tingkatan }}</span>
                         </td>
                         <td>{{ $employee->email }}</td>
                         <td>{{ $employee->phone }}</td>
-                        <td>{{ $employee->specialization }}</td>
                         <td>
-                            <span class="badge bg-info px-3 py-2">{{ $employee->projects_count }} Projects</span>
+                            @if($employee->projects_count > 0)
+                                <span class="badge bg-warning text-dark px-3 py-2">
+                                    {{ $employee->projects_count }} Project(s)
+                                </span>
+                            @else
+                                <span class="badge bg-secondary px-3 py-2">No Projects</span>
+                            @endif
                         </td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
@@ -69,10 +99,13 @@
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
                                 <form action="{{ route('admin.employees.destroy', $employee->id) }}" method="POST" class="d-inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this employee?');">
+                                    onsubmit="return confirm('Are you sure you want to delete {{ $employee->nama }}?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">
+                                    <button type="submit" class="btn btn-sm btn-danger" 
+                                        @if($employee->projects_count > 0) 
+                                            title="Cannot delete - managing {{ $employee->projects_count }} project(s)"
+                                        @endif>
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
                                 </form>
@@ -83,7 +116,7 @@
                     <tr>
                         <td colspan="7" class="text-center py-5">
                             <i class="bi bi-inbox fs-1 text-white text-opacity-50 d-block mb-3"></i>
-                            <p class="text-white text-opacity-75">No employees found. Add your first employee!</p>
+                            <p class="text-white text-opacity-75">No employees found. Add your first team member!</p>
                         </td>
                     </tr>
                     @endforelse

@@ -42,7 +42,7 @@ class AdminController extends Controller
             'start_date' => 'required|date',
             'deadline' => 'required|date|after:start_date',
             'budget' => 'required|numeric|min:0',
-            'status' => 'required|in:planning,on progress,completed', // Ubah dari 'complete' ke 'completed'
+            'status' => 'required|in:planning,in progress,completed',
             'description' => 'required|string',
             'address' => 'required|string',
             'image_url' => 'required|string'
@@ -149,6 +149,15 @@ class AdminController extends Controller
     public function employeeDestroy($id)
     {
         $employee = Employee::findOrFail($id);
+        
+        // Cek apakah employee masih menjadi project manager
+        $projectCount = $employee->projects()->count();
+        
+        if ($projectCount > 0) {
+            return redirect()->route('admin.employees.index')
+                ->with('error', "Cannot delete {$employee->nama}. This employee is managing {$projectCount} project(s). Please reassign the projects first.");
+        }
+        
         $employee->delete();
 
         return redirect()->route('admin.employees.index')->with('success', 'Employee deleted successfully!');

@@ -7,7 +7,19 @@
         style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1920') center/cover no-repeat; z-index: -1;">
     </div>
     <div class="container">
-        <div class="row align-items-center">
+        <!-- Breadcrumb Navigation -->
+        <nav aria-label="breadcrumb" data-aos="fade-right">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('admin.dashboard') }}" class="text-warning text-decoration-none">
+                        <i class="bi bi-speedometer2 me-1"></i>Dashboard
+                    </a>
+                </li>
+                <li class="breadcrumb-item active text-white" aria-current="page">Manage Projects</li>
+            </ol>
+        </nav>
+
+        <div class="row align-items-center mt-3">
             <div class="col-lg-8 text-white">
                 <h1 class="display-3 fw-bold mb-3" data-aos="fade-right">
                     <i class="bi bi-briefcase-fill text-warning me-3"></i>Manage Projects
@@ -17,9 +29,14 @@
                 </p>
             </div>
             <div class="col-lg-4 text-end" data-aos="fade-left">
-                <a href="{{ route('admin.projects.create') }}" class="btn btn-warning btn-lg px-5 py-3">
-                    <i class="bi bi-plus-circle me-2"></i>Add New Project
-                </a>
+                <div class="d-flex flex-column gap-2">
+                    <a href="{{ route('admin.projects.create') }}" class="btn btn-warning btn-lg px-5 py-3">
+                        <i class="bi bi-plus-circle me-2"></i>Add New Project
+                    </a>
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light btn-lg px-5 py-2">
+                        <i class="bi bi-arrow-left me-2"></i>Back to Dashboard
+                    </a>
+                </div>
             </div>
         </div>
     </div>

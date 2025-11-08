@@ -65,10 +65,15 @@
                                 <label class="form-label text-white fw-semibold">
                                     <i class="bi bi-bar-chart-fill text-warning me-2"></i>Level
                                 </label>
-                                <input type="text" name="tingkatan" 
-                                    class="form-control form-control-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('tingkatan') is-invalid @enderror" 
-                                    value="{{ old('tingkatan') }}" 
-                                    placeholder="e.g., Senior, Junior, Manager" required>
+                                <select name="tingkatan" 
+                                    class="form-select form-select-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('tingkatan') is-invalid @enderror" 
+                                    required>
+                                    <option value="">Select Level</option>
+                                    <option value="Junior" {{ old('tingkatan') == 'Junior' ? 'selected' : '' }}>Junior</option>
+                                    <option value="Senior" {{ old('tingkatan') == 'Senior' ? 'selected' : '' }}>Senior</option>
+                                    <option value="Manager" {{ old('tingkatan') == 'Manager' ? 'selected' : '' }}>Manager</option>
+                                    <option value="Director" {{ old('tingkatan') == 'Director' ? 'selected' : '' }}>Director</option>
+                                </select>
                                 @error('tingkatan')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

@@ -115,9 +115,6 @@
                         <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-warning btn-lg">
                             <i class="bi bi-list-ul me-2"></i>View All Projects
                         </a>
-                        <a href="{{ route('admin.projects.create') }}" class="btn btn-warning btn-lg">
-                            <i class="bi bi-plus-circle me-2"></i>Add New Project
-                        </a>
                     </div>
                 </div>
             </div>
@@ -138,9 +135,6 @@
                     <div class="d-grid gap-2">
                         <a href="{{ route('admin.employees.index') }}" class="btn btn-outline-warning btn-lg">
                             <i class="bi bi-list-ul me-2"></i>View All Employees
-                        </a>
-                        <a href="{{ route('admin.employees.create') }}" class="btn btn-warning btn-lg">
-                            <i class="bi bi-plus-circle me-2"></i>Add New Employee
                         </a>
                     </div>
                 </div>
