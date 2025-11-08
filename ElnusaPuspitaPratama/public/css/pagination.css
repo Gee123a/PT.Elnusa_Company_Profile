@@ -1,13 +1,21 @@
-/* Custom Pagination Styles */
+/* Custom Pagination Styles with Consistent Sizing */
+.pagination {
+    --bs-pagination-padding-x: 0;
+    --bs-pagination-padding-y: 0;
+    --bs-pagination-font-size: 1rem;
+}
+
 .pagination .page-link {
     transition: all 0.3s ease;
+    border-radius: 0.5rem !important;
+    margin: 0;
 }
 
 .pagination .page-link:hover:not(.active .page-link) {
     background: rgba(255,193,7,0.2) !important;
     border-color: rgba(255,193,7,0.8) !important;
     color: #ffd54f !important;
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
     box-shadow: 0 4px 15px rgba(255,193,7,0.3);
 }
 
@@ -24,9 +32,79 @@
     }
 }
 
-/* Glass Morphism Pagination Container */
-.pagination-container {
-    background: rgba(255,255,255,0.10);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+/* Table Button Hover Effects */
+.table-dark tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table-dark tbody tr:hover {
+    background-color: rgba(255,193,7,0.1) !important;
+    transform: scale(1.01);
+    box-shadow: 0 4px 15px rgba(255,193,7,0.2);
+}
+
+/* Consistent Button Sizing for Table Actions */
+.table .btn {
+    transition: all 0.3s ease;
+}
+
+.table .btn:hover {
+    transform: translateY(-2px) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.btn-warning:hover {
+    background-color: #ffcd39 !important;
+    border-color: #ffcd39 !important;
+}
+
+.btn-danger:hover {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+/* Badge Pulse Animation */
+.badge {
+    transition: all 0.3s ease;
+}
+
+tr:hover .badge {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.table-responsive::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: rgba(255,193,7,0.5);
+    border-radius: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,193,7,0.7);
+}
+
+/* Empty State Buttons */
+.btn-outline-warning,
+.btn-warning {
+    transition: all 0.3s ease;
+}
+
+.btn-outline-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255,193,7,0.4);
 }
