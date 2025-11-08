@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/navigation.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cardHover.css') }}">
@@ -17,7 +19,6 @@
     <link rel="stylesheet" href="{{ asset('css/reviewCard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
-
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -29,40 +30,20 @@
 
     @include('layout.footer')
 
-
+    <!-- Bootstrap Bundle JS (includes Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-PJsz6Ctp1JQ2ChJt2LbHYXHt2MIEl/T0ZJj3QA5NjY5Di6lXzDL2bBLxZqRMfT0W" crossorigin="anonymous">
     </script>
+    
+    <!-- AOS Animation -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    
+    <!-- Custom JS Files -->
+    <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/alerts.js') }}"></script>
     <script src="{{ asset('js/carousel.js') }}"></script>
     <script src="{{ asset('js/projects/create.js') }}"></script>
     <script src="{{ asset('js/projects/edit.js') }}"></script>
-
-    <script>
-        AOS.init();
-        document.addEventListener('DOMContentLoaded', function() {
-            const navbarToggler = document.querySelector('.navbar-toggler');
-            if (navbarToggler) {
-                navbarToggler.addEventListener('click', function() {
-                    const target = document.querySelector(this.getAttribute('data-bs-target'));
-                    if (target) {
-                        target.classList.toggle('show');
-                    }
-                });
-            }
-
-            window.addEventListener('scroll', function() {
-                const navbar = document.getElementById('mainNav');
-                if (navbar) {
-                    if (window.scrollY > 50) {
-                        navbar.classList.add('scrolled');
-                    } else {
-                        navbar.classList.remove('scrolled');
-                    }
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>
