@@ -61,7 +61,7 @@ class AdminController extends Controller
             'client_email' => 'required|email',
             'client_phone' => 'required|string|max:20',
             'client_address' => 'required|string',
-            'company_type' => 'required|in:Individual,Corporate,Government', // ✅ Update ini
+            'company_type' => 'required|in:Individual,Corporate,Government', 
             'registration_date' => 'required|date',
             'project_manager_id' => 'required|exists:employees,id',
             'start_date' => 'required|date',
