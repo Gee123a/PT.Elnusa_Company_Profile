@@ -1,8 +1,7 @@
-{{-- filepath: resources/views/layout/adminNavigation.blade.php --}}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-90 fixed-top border-bottom border-warning border-opacity-50"
     id="adminNav" style="backdrop-filter: blur(10px);">
     <div class="container-fluid">
-        <a class="navbar-brand fw-bold fs-4" href="{{ route('admin.dashboard') }}" style="letter-spacing: 1px;">
+        <a class="navbar-brand fw-bold fs-4" href="/admin" style="letter-spacing: 1px;">
             <i class="bi bi-speedometer2 text-warning me-2"></i>
             <span class="text-warning">{{ strtoupper(Auth::user()->role) }}</span> Dashboard
         </a>
@@ -16,7 +15,7 @@
             <ul class="navbar-nav ms-auto align-items-lg-center">
                 <li class="nav-item mx-2">
                     <a class="nav-link fw-medium {{ Request::is('admin') && !Request::is('admin/*') ? 'active text-warning' : 'text-white-50' }}"
-                        href="{{ route('admin.dashboard') }}">
+                        href="/admin">
                         <i class="bi bi-house-fill me-1"></i>Dashboard
                     </a>
                 </li>
@@ -24,7 +23,7 @@
                 {{-- Projects: Admin & Manager --}}
                 <li class="nav-item mx-2">
                     <a class="nav-link fw-medium {{ Request::is('admin/projects*') ? 'active text-warning' : 'text-white-50' }}"
-                        href="{{ route('admin.projects.index') }}">
+                        href="/admin/projects">
                         <i class="bi bi-briefcase-fill me-1"></i>Projects
                     </a>
                 </li>
@@ -33,7 +32,7 @@
                 @if(Auth::user()->isManager())
                 <li class="nav-item mx-2">
                     <a class="nav-link fw-medium {{ Request::is('admin/employees*') ? 'active text-warning' : 'text-white-50' }}"
-                        href="{{ route('admin.employees.index') }}">
+                        href="/admin/employees">
                         <i class="bi bi-people-fill me-1"></i>Employees
                     </a>
                 </li>
@@ -42,7 +41,7 @@
                 {{-- Reviews: Admin & Manager --}}
                 <li class="nav-item mx-2">
                     <a class="nav-link fw-medium {{ Request::is('admin/reviews*') ? 'active text-warning' : 'text-white-50' }}"
-                        href="{{ route('admin.reviews.index') }}">
+                        href="/admin/reviews">
                         <i class="bi bi-chat-quote-fill me-1"></i>Reviews
                     </a>
                 </li>
@@ -58,7 +57,7 @@
                     </a>
                 </li>
                 <li class="nav-item mx-2">
-                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                    <form method="POST" action="/logout" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger btn-sm">
                             <i class="bi bi-box-arrow-right me-1"></i>Logout
