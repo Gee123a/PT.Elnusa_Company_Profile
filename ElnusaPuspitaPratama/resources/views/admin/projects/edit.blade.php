@@ -11,12 +11,12 @@
         <nav aria-label="breadcrumb" data-aos="fade-right">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.dashboard') }}" class="text-warning text-decoration-none">
+                    <a href="/admin" class="text-warning text-decoration-none">
                         <i class="bi bi-speedometer2 me-1"></i>Dashboard
                     </a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('admin.projects.index') }}" class="text-warning text-decoration-none">
+                    <a href="/admin/projects" class="text-warning text-decoration-none">
                         Manage Projects
                     </a>
                 </li>
@@ -47,7 +47,7 @@
                 <div class="p-5 rounded-3 shadow-lg border border-warning border-opacity-25"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);" data-aos="fade-up">
                     
-                    <form action="{{ route('admin.projects.update', $project->id) }}" method="POST" enctype="multipart/form-data" id="projectForm">
+                    <form action="/admin/projects/{{ $project->id }}" method="POST" enctype="multipart/form-data" id="projectForm">
                         @csrf
                         @method('PUT')
                         
@@ -65,28 +65,24 @@
                                 @enderror
                             </div>
 
-                            <!-- Client -->
-                            <div class="col-md-6">
+                            <!-- Client (Readonly - Cannot be changed) -->
+                            <div class="col-md-12">
                                 <label class="form-label text-white fw-semibold">
                                     <i class="bi bi-building text-warning me-2"></i>Client
                                 </label>
-                                <select name="client_id" 
-                                    class="form-select form-select-lg bg-dark bg-opacity-50 text-white border-warning border-opacity-25 @error('client_id') is-invalid @enderror" 
-                                    required>
-                                    <option value="">Select Client</option>
-                                    @foreach($clients as $client)
-                                        <option value="{{ $client->id }}" {{ old('client_id', $project->client_id) == $client->id ? 'selected' : '' }}>
-                                            {{ $client->nama }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('client_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                <input type="text" 
+                                    class="form-control form-control-lg bg-secondary bg-opacity-25 text-white border-secondary border-opacity-50" 
+                                    value="{{ $project->client->nama }}" 
+                                    readonly>
+                                <small class="text-white text-opacity-50 d-block mt-2">
+                                    <i class="bi bi-lock-fill me-1"></i>Client cannot be changed after project creation
+                                </small>
+                                <!-- Hidden input to maintain client_id -->
+                                <input type="hidden" name="client_id" value="{{ $project->client_id }}">
                             </div>
 
                             <!-- Project Manager -->
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label class="form-label text-white fw-semibold">
                                     <i class="bi bi-person-fill text-warning me-2"></i>Project Manager
                                 </label>
@@ -233,7 +229,7 @@
                         <hr class="my-4 border-warning border-opacity-25">
 
                         <div class="d-flex gap-3 justify-content-end">
-                            <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary btn-lg px-5">
+                            <a href="/admin/projects" class="btn btn-outline-secondary btn-lg px-5">
                                 <i class="bi bi-x-circle me-2"></i>Cancel
                             </a>
                             <button type="submit" class="btn btn-warning btn-lg px-5">
@@ -246,5 +242,36 @@
         </div>
     </div>
 </section>
+
+<script>
+function validateAndPreviewImage(event) {
+    const file = event.target.files[0];
+    const fileSizeError = document.getElementById('fileSizeError');
+    const imagePreview = document.getElementById('imagePreview');
+    const preview = document.getElementById('preview');
+    const submitButton = document.querySelector('button[type="submit"]');
+    
+    fileSizeError.classList.add('d-none');
+    imagePreview.classList.add('d-none');
+    
+    if (file) {
+        if (file.size > 5242880) {
+            fileSizeError.classList.remove('d-none');
+            event.target.value = '';
+            submitButton.disabled = true;
+            return;
+        }
+        
+        submitButton.disabled = false;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            imagePreview.classList.remove('d-none');
+        }
+        reader.readAsDataURL(file);
+    }
+}
+</script>
 
 @endsection

@@ -56,7 +56,13 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'project_name' => 'required|string|max:255',
-            'client_id' => 'required|exists:clients,id',
+            'client_name' => 'required|string|max:255',
+            'contact_person' => 'required|string|max:255',
+            'client_email' => 'required|email',
+            'client_phone' => 'required|string|max:20',
+            'client_address' => 'required|string',
+            'company_type' => 'required|in:Individual,Corporate,Government', // ✅ Update ini
+            'registration_date' => 'required|date',
             'project_manager_id' => 'required|exists:employees,id',
             'start_date' => 'required|date',
             'deadline' => 'required|date|after:start_date',
@@ -65,15 +71,22 @@ class AdminController extends Controller
             'description' => 'required|string',
             'address' => 'required|string',
             'image' => 'required|image|mimes:jpeg,jpg,png,gif,webp|max:5120'
-        ], [
-            'image.required' => 'Project image is required.',
-            'image.image' => 'The file must be an image.',
-            'image.mimes' => 'Only JPG, JPEG, PNG, GIF, and WEBP formats are allowed.',
-            'image.max' => 'Image size cannot exceed 5MB.',
-            'deadline.after' => 'Deadline must be after the start date.',
-            'budget.min' => 'Budget must be a positive number.'
         ]);
 
+        // 1. CREATE OR FIND CLIENT
+        $client = Client::firstOrCreate(
+            ['email' => $validated['client_email']], // Check by email
+            [
+                'nama' => $validated['client_name'],
+                'contact_person' => $validated['contact_person'],
+                'phone' => $validated['client_phone'],
+                'alamat' => $validated['client_address'],
+                'company_type' => $validated['company_type'],
+                'registration_date' => $validated['registration_date']
+            ]
+        );
+
+        // 2. HANDLE IMAGE UPLOAD
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             
@@ -85,11 +98,22 @@ class AdminController extends Controller
             
             $imageName = time() . '_' . str_replace(' ', '_', $request->project_name) . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('images/projects'), $imageName);
-            $validated['image_url'] = 'images/projects/' . $imageName;
+            $imageUrl = 'images/projects/' . $imageName;
         }
 
-        unset($validated['image']);
-        Project::create($validated);
+        // 3. CREATE PROJECT
+        Project::create([
+            'project_name' => $validated['project_name'],
+            'client_id' => $client->id,
+            'project_manager_id' => $validated['project_manager_id'],
+            'start_date' => $validated['start_date'],
+            'deadline' => $validated['deadline'],
+            'budget' => $validated['budget'],
+            'status' => $validated['status'],
+            'description' => $validated['description'],
+            'address' => $validated['address'],
+            'image_url' => $imageUrl
+        ]);
 
         return redirect('/admin/projects')->with('success', 'Project created successfully!');
     }

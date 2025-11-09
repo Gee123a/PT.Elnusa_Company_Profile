@@ -12,7 +12,7 @@ class ReviewSeeder extends Seeder
         Review::insert([
             [
                 'deskripsi' => 'Pelayanan Elnusa sangat profesional dan hasil pekerjaan sangat memuaskan. Timnya responsif, ramah, dan selalu memberikan solusi terbaik untuk setiap kebutuhan kami. Proses pengerjaan proyek berjalan lancar dan sesuai dengan jadwal yang telah disepakati.',
-                'nama_client' => 'Anonymous',
+                'nama_client' => 'Stevanus Ivan Santoso',
                 'jabatan' => '-',
                 'perusahaan' => '-',
             ],
