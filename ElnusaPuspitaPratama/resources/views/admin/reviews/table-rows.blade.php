@@ -1,8 +1,7 @@
 {{-- filepath: resources/views/admin/reviews/table-rows.blade.php --}}
 @forelse($reviews as $review)
 <tr style="transition: all 0.3s ease;">
-    <td class="fw-semibold text-white">{{ $review->nama_client }}</td>
-    <td class="text-white text-opacity-85">{{ $review->jabatan }}</td>
+    <td class="text-white fw-semibold">{{ $review->nama_client }}</td>
     <td class="text-white text-opacity-85">{{ $review->perusahaan }}</td>
     <td class="text-white text-opacity-85">
         {{ Str::limit($review->deskripsi, 100) }}
@@ -32,7 +31,7 @@
 </tr>
 @empty
 <tr>
-    <td colspan="5" class="text-center py-5">
+    <td colspan="4" class="text-center py-5">
         <div class="py-4">
             <i class="bi bi-inbox fs-1 text-warning d-block mb-3" style="opacity: 0.5;"></i>
             @if($search ?? false)
@@ -44,7 +43,7 @@
                 </a>
             @else
                 <h5 class="text-white mb-2">No reviews found</h5>
-                <p class="text-white text-opacity-75 mb-3">Start by adding your first client review</p>
+                <p class="text-white text-opacity-75 mb-3">Start by adding your first review</p>
                 <a href="/admin/reviews/create" class="btn btn-warning"
                    style="height: 42px; min-width: 160px; display: inline-flex; align-items: center; justify-content: center;">
                     <i class="bi bi-plus-circle me-2"></i>Add New Review

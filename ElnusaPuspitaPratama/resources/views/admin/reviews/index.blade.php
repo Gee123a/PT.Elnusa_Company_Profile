@@ -100,7 +100,6 @@
                 <thead class="table-warning">
                     <tr>
                         <th>Client Name</th>
-                        <th>Position</th>
                         <th>Company</th>
                         <th>Review</th>
                         <th class="text-center">Actions</th>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Employee;
 use App\Models\Client;
-use App\Models\Review; // Add this line
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -329,7 +329,6 @@ class AdminController extends Controller
         
         $reviews = Review::when($search, function($query, $search) {
                 return $query->where('nama_client', 'like', "%{$search}%")
-                    ->orWhere('jabatan', 'like', "%{$search}%")
                     ->orWhere('perusahaan', 'like', "%{$search}%")
                     ->orWhere('deskripsi', 'like', "%{$search}%");
             })
@@ -389,16 +388,16 @@ class AdminController extends Controller
         return redirect('/admin/reviews')->with('success', 'Review deleted successfully!');
     }
 
-    // Review Search Method
+    // Review Search Method - PERBAIKAN DI SINI
     public function reviewSearch(Request $request)
     {
         $search = $request->input('search', '');
         
         $reviews = Review::when($search, function($query, $search) {
                 return $query->where('nama_client', 'like', "%{$search}%")
-                    ->orWhere('jabatan', 'like', "%{$search}%")
                     ->orWhere('perusahaan', 'like', "%{$search}%")
                     ->orWhere('deskripsi', 'like', "%{$search}%");
+                    // 'jabatan' DIHAPUS - INI YANG MENYEBABKAN ERROR
             })
             ->orderBy('created_at', 'desc')
             ->paginate(5)
@@ -407,6 +406,8 @@ class AdminController extends Controller
         return response()->json([
             'html' => view('admin.reviews.table-rows', compact('reviews', 'search'))->render(),
             'total' => $reviews->total(),
+            'firstItem' => $reviews->firstItem(), // TAMBAHKAN INI
+            'lastItem' => $reviews->lastItem(),   // TAMBAHKAN INI
             'pagination' => view('admin.reviews.pagination', compact('reviews', 'search'))->render()
         ]);
     }
