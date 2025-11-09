@@ -1,11 +1,11 @@
+{{-- filepath: resources/views/layout/adminMain.blade.php --}}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title')</title>
+    <title>@yield('title') - Admin Panel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -13,28 +13,17 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/navigation.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cardHover.css') }}">
     <link rel="stylesheet" href="{{ asset('css/projectCard.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/reviewCard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
 </head>
 
-<body class="d-flex flex-column min-vh-100">
-    {{-- Conditionally show admin or public navigation --}}
-    @if(Request::is('admin*'))
-        @include('layout.adminNavigation')
-    @else
-        @include('layout.navigation')
-    @endif
+<body class="d-flex flex-column min-vh-100 bg-dark">
+    @include('layout.adminNavigation')
 
-    <main class="flex-grow-1">
+    <main class="flex-grow-1 pt-5 mt-3">
         @yield('content')
     </main>
-
-    {{-- Only show footer on public pages --}}
-    @if(!Request::is('admin*'))
-        @include('layout.footer')
-    @endif
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
@@ -47,9 +36,7 @@
     <!-- Custom JS Files -->
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/alerts.js') }}"></script>
-    <script src="{{ asset('js/carousel.js') }}"></script>
     <script src="{{ asset('js/projects/create.js') }}"></script>
     <script src="{{ asset('js/projects/edit.js') }}"></script>
 </body>
-
 </html>

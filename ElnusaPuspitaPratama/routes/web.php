@@ -6,15 +6,16 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/','home');
-Route::get('/project',[ProjectController::class, 'index']);
-Route::get('/project/{id}', [ProjectController::class, 'show']);
-Route::get('/team', [EmployeeController::class, 'index']);
-Route::get('/clients', [ClientController::class, 'index']);
-Route::view('/contact', 'contact');
+// Public routes (no auth required)
+Route::view('/','home')->name('home');
+Route::get('/project',[ProjectController::class, 'index'])->name('projects.index');
+Route::get('/project/{id}', [ProjectController::class, 'show'])->name('projects.show');
+Route::get('/team', [EmployeeController::class, 'index'])->name('team');
+Route::get('/clients', [ClientController::class, 'index'])->name('clients');
+Route::view('/contact', 'contact')->name('contact');
 
-// Admin Routes
-Route::prefix('admin')->group(function () {
+// Admin Routes (protected with auth middleware)
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     
     // Projects
@@ -34,4 +35,16 @@ Route::prefix('admin')->group(function () {
     Route::get('/employees/{id}/edit', [AdminController::class, 'employeeEdit'])->name('admin.employees.edit');
     Route::put('/employees/{id}', [AdminController::class, 'employeeUpdate'])->name('admin.employees.update');
     Route::delete('/employees/{id}', [AdminController::class, 'employeeDestroy'])->name('admin.employees.destroy');
+    
+    // Reviews
+    Route::get('/reviews', [AdminController::class, 'reviewIndex'])->name('admin.reviews.index');
+    Route::get('/reviews/search', [AdminController::class, 'reviewSearch'])->name('admin.reviews.search');
+    Route::get('/reviews/create', [AdminController::class, 'reviewCreate'])->name('admin.reviews.create');
+    Route::post('/reviews', [AdminController::class, 'reviewStore'])->name('admin.reviews.store');
+    Route::get('/reviews/{id}/edit', [AdminController::class, 'reviewEdit'])->name('admin.reviews.edit');
+    Route::put('/reviews/{id}', [AdminController::class, 'reviewUpdate'])->name('admin.reviews.update');
+    Route::delete('/reviews/{id}', [AdminController::class, 'reviewDestroy'])->name('admin.reviews.destroy');
 });
+
+// Breeze auth routes are auto-included from routes/auth.php
+require __DIR__.'/auth.php';

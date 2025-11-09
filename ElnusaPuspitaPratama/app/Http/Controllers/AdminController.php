@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Employee;
 use App\Models\Client;
+use App\Models\Review; // Add this line
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +18,7 @@ class AdminController extends Controller
         $totalClients = Client::count();
         $ongoingProjects = Project::whereIn('status', ['on progress', 'in progress'])->count();
         
-        return view('dashboard', compact('totalProjects', 'totalEmployees', 'totalClients', 'ongoingProjects'));
+        return view('admin.dashboard', compact('totalProjects', 'totalEmployees', 'totalClients', 'ongoingProjects'));
     }
 
     // Project CRUD Methods
@@ -294,6 +295,95 @@ class AdminController extends Controller
             'html' => view('admin.employees.table-rows', compact('employees', 'search'))->render(),
             'total' => $employees->total(),
             'pagination' => view('admin.employees.pagination', compact('employees', 'search'))->render()
+        ]);
+    }
+
+    // Review CRUD Methods
+    public function reviewIndex(Request $request)
+    {
+        $search = $request->input('search');
+        
+        $reviews = Review::when($search, function($query, $search) {
+                return $query->where('nama_client', 'like', "%{$search}%")
+                    ->orWhere('jabatan', 'like', "%{$search}%")
+                    ->orWhere('perusahaan', 'like', "%{$search}%")
+                    ->orWhere('deskripsi', 'like', "%{$search}%");
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5)
+            ->withQueryString();
+            
+        return view('admin.reviews.index', compact('reviews', 'search'));
+    }
+
+    public function reviewCreate()
+    {
+        return view('admin.reviews.create');
+    }
+
+    public function reviewStore(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_client' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255',
+            'perusahaan' => 'required|string|max:255',
+            'deskripsi' => 'required|string|min:20'
+        ]);
+
+        Review::create($validated);
+
+        return redirect('/admin/reviews')->with('success', 'Review created successfully!');
+    }
+
+    public function reviewEdit($id)
+    {
+        $review = Review::findOrFail($id);
+        return view('admin.reviews.edit', compact('review'));
+    }
+
+    public function reviewUpdate(Request $request, $id)
+    {
+        $review = Review::findOrFail($id);
+        
+        $validated = $request->validate([
+            'nama_client' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255',
+            'perusahaan' => 'required|string|max:255',
+            'deskripsi' => 'required|string|min:20'
+        ]);
+
+        $review->update($validated);
+
+        return redirect('/admin/reviews')->with('success', 'Review updated successfully!');
+    }
+
+    public function reviewDestroy($id)
+    {
+        $review = Review::findOrFail($id);
+        $review->delete();
+
+        return redirect('/admin/reviews')->with('success', 'Review deleted successfully!');
+    }
+
+    // Review Search Method
+    public function reviewSearch(Request $request)
+    {
+        $search = $request->input('search', '');
+        
+        $reviews = Review::when($search, function($query, $search) {
+                return $query->where('nama_client', 'like', "%{$search}%")
+                    ->orWhere('jabatan', 'like', "%{$search}%")
+                    ->orWhere('perusahaan', 'like', "%{$search}%")
+                    ->orWhere('deskripsi', 'like', "%{$search}%");
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5)
+            ->withQueryString();
+        
+        return response()->json([
+            'html' => view('admin.reviews.table-rows', compact('reviews', 'search'))->render(),
+            'total' => $reviews->total(),
+            'pagination' => view('admin.reviews.pagination', compact('reviews', 'search'))->render()
         ]);
     }
 }
