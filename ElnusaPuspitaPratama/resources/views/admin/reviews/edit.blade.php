@@ -67,7 +67,7 @@
                                 </label>
                                 <input type="text" 
                                     class="form-control form-control-lg bg-secondary bg-opacity-25 text-white border-secondary border-opacity-50" 
-                                    value="{{ $review->client->nama ?? $review->perusahaan }}" 
+                                    value="{{ $review->client ? $review->client->nama : $review->perusahaan }}" 
                                     readonly>
                                 <small class="text-white text-opacity-50 d-block mt-2">
                                     <i class="bi bi-lock-fill me-1"></i>This field is locked and cannot be changed
@@ -75,7 +75,7 @@
                             </div>
 
                             <!-- Client Name (Locked) -->
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label class="form-label text-white fw-semibold">
                                     <i class="bi bi-person-fill text-warning me-2"></i>Client Name
                                 </label>
@@ -86,28 +86,11 @@
                                 <small class="text-white text-opacity-50 d-block mt-1">
                                     <i class="bi bi-lock-fill me-1"></i>Locked
                                 </small>
-                                <!-- Hidden input to maintain value -->
                                 <input type="hidden" name="nama_client" value="{{ $review->nama_client }}">
                             </div>
 
-                            <!-- Position (Locked) -->
-                            <div class="col-md-4">
-                                <label class="form-label text-white fw-semibold">
-                                    <i class="bi bi-briefcase-fill text-warning me-2"></i>Position
-                                </label>
-                                <input type="text" 
-                                    class="form-control form-control-lg bg-secondary bg-opacity-25 text-white border-secondary border-opacity-50" 
-                                    value="{{ $review->jabatan }}" 
-                                    readonly>
-                                <small class="text-white text-opacity-50 d-block mt-1">
-                                    <i class="bi bi-lock-fill me-1"></i>Locked
-                                </small>
-                                <!-- Hidden input to maintain value -->
-                                <input type="hidden" name="jabatan" value="{{ $review->jabatan }}">
-                            </div>
-
                             <!-- Company (Locked) -->
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label class="form-label text-white fw-semibold">
                                     <i class="bi bi-building text-warning me-2"></i>Company
                                 </label>
@@ -118,14 +101,13 @@
                                 <small class="text-white text-opacity-50 d-block mt-1">
                                     <i class="bi bi-lock-fill me-1"></i>Locked
                                 </small>
-                                <!-- Hidden input to maintain value -->
                                 <input type="hidden" name="perusahaan" value="{{ $review->perusahaan }}">
                                 @if($review->client_id)
                                     <input type="hidden" name="client_id" value="{{ $review->client_id }}">
                                 @endif
                             </div>
 
-                            <!-- Review Description (EDITABLE - Only this field can be changed) -->
+                            <!-- Review Description (EDITABLE) -->
                             <div class="col-12">
                                 <label class="form-label text-white fw-semibold">
                                     <i class="bi bi-chat-quote-fill text-warning me-2"></i>Client Review / Testimonial

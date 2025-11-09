@@ -1,4 +1,3 @@
-{{-- filepath: resources/views/admin/reviews/create.blade.php --}}
 @extends('layout.main')
 @section('title', 'Create New Review')
 @section('content')
@@ -64,16 +63,14 @@
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}" 
                                             data-contact="{{ $client->contact_person }}"
-
                                             data-company="{{ $client->nama }}"
-
                                             {{ old('client_id') == $client->id ? 'selected' : '' }}>
                                             {{ $client->nama }} - {{ $client->contact_person }}
                                         </option>
                                     @endforeach
                                 </select>
                                 <small class="text-white text-opacity-75 d-block mt-2">
-                                    <i class="bi bi-info-circle me-1"></i>Select the client who provided this review. All fields below will be auto-filled.
+                                    <i class="bi bi-info-circle me-1"></i>Select the client who provided this review. Fields below will be auto-filled.
                                 </small>
                                 @error('client_id')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -81,14 +78,14 @@
                             </div>
 
                             <!-- Client Name (Auto-filled, readonly) -->
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label class="form-label text-white fw-semibold">
                                     <i class="bi bi-person-fill text-warning me-2"></i>Client Name
                                 </label>
                                 <input type="text" name="nama_client" id="namaClient"
                                     class="form-control form-control-lg bg-secondary bg-opacity-25 text-white border-secondary border-opacity-50 @error('nama_client') is-invalid @enderror" 
                                     value="{{ old('nama_client') }}" 
-                                    placeholder="Auto-filled"
+                                    placeholder="Auto-filled from selected client"
                                     readonly
                                     required>
                                 @error('nama_client')
@@ -96,34 +93,15 @@
                                 @enderror
                             </div>
 
-                            <!-- Position (Auto-filled, readonly) -->
-                            <div class="col-md-4">
-                                <label class="form-label text-white fw-semibold">
-                                    <i class="bi bi-briefcase-fill text-warning me-2"></i>Position
-                                </label>
-                                <input type="text" name="jabatan" id="jabatan"
-                                    class="form-control form-control-lg bg-secondary bg-opacity-25 text-white border-secondary border-opacity-50 @error('jabatan') is-invalid @enderror" 
-                                    value="{{ old('jabatan') }}" 
-                                    placeholder="Auto-filled"
-                                    readonly
-                                    required>
-                                <small class="text-white text-opacity-50 d-block mt-1">
-                                    <i class="bi bi-info-circle me-1"></i>Based on contact person
-                                </small>
-                                @error('jabatan')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
                             <!-- Company (Auto-filled, readonly) -->
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label class="form-label text-white fw-semibold">
                                     <i class="bi bi-building text-warning me-2"></i>Company
                                 </label>
                                 <input type="text" name="perusahaan" id="perusahaan"
                                     class="form-control form-control-lg bg-secondary bg-opacity-25 text-white border-secondary border-opacity-50 @error('perusahaan') is-invalid @enderror" 
                                     value="{{ old('perusahaan') }}" 
-                                    placeholder="Auto-filled"
+                                    placeholder="Auto-filled from selected client"
                                     readonly
                                     required>
                                 @error('perusahaan')
@@ -152,7 +130,7 @@
                             <div class="col-12">
                                 <div class="alert alert-info border-info bg-info bg-opacity-10 text-white">
                                     <i class="bi bi-lightbulb-fill me-2 text-info"></i>
-                                    <strong>Note:</strong> Client information (name, position, company) is automatically filled based on your client selection. You only need to write the review content.
+                                    <strong>Note:</strong> Client information (name and company) is automatically filled based on your client selection. You only need to write the review content.
                                 </div>
                             </div>
                         </div>
@@ -163,7 +141,7 @@
                             <a href="/admin/reviews" class="btn btn-outline-secondary btn-lg px-5">
                                 <i class="bi bi-x-circle me-2"></i>Cancel
                             </a>
-                            <button type="submit" class="btn btn-warning btn-lg px-5" id="submitBtn" disabled>
+                            <button type="submit" class="btn btn-warning btn-lg px-5" id="submitBtn">
                                 <i class="bi bi-check-circle me-2"></i>Create Review
                             </button>
                         </div>
@@ -178,38 +156,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     const clientSelect = document.getElementById('clientSelect');
     const namaClientInput = document.getElementById('namaClient');
-    const jabatanInput = document.getElementById('jabatan');
     const perusahaanInput = document.getElementById('perusahaan');
-    const submitBtn = document.getElementById('submitBtn');
     
-    clientSelect.addEventListener('change', function() {
-        const selectedOption = this.options[this.selectedIndex];
+    function updateFields() {
+        const selectedOption = clientSelect.options[clientSelect.selectedIndex];
         
-        if (this.value) {
+        if (clientSelect.value) {
             const contactPerson = selectedOption.getAttribute('data-contact');
             const company = selectedOption.getAttribute('data-company');
             
-            // Fill the fields
             namaClientInput.value = contactPerson;
-            jabatanInput.value = 'Contact Person'; // Default position
             perusahaanInput.value = company;
-            
-            // Enable submit button
-            submitBtn.disabled = false;
         } else {
-            // Clear fields
             namaClientInput.value = '';
-            jabatanInput.value = '';
             perusahaanInput.value = '';
-            
-            // Disable submit button
-            submitBtn.disabled = true;
         }
-    });
+    }
     
-    // Check if there's old input (after validation error)
+    clientSelect.addEventListener('change', updateFields);
+    
+    // Initialize if there's old input
     if (clientSelect.value) {
-        submitBtn.disabled = false;
+        updateFields();
     }
 });
 </script>

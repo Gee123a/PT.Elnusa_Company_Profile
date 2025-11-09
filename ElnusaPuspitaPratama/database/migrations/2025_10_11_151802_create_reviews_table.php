@@ -13,16 +13,11 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->string('nama_client');
-            $table->string('jabatan');
             $table->string('perusahaan');
             $table->text('deskripsi');
             $table->timestamps();
-        });
-
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->unsignedBigInteger('client_id')->nullable()->after('id');
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('set null');
         });
     }
 

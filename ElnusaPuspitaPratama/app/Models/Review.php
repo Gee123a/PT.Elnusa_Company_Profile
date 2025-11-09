@@ -12,13 +12,12 @@ class Review extends Model
     protected $fillable = [
         'client_id',
         'nama_client',
-        'jabatan',
         'perusahaan',
-        'deskripsi'
+        'deskripsi',
     ];
 
     public function client()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(Client::class);
     }
 }

@@ -351,7 +351,6 @@ class AdminController extends Controller
         $validated = $request->validate([
             'client_id' => 'required|exists:clients,id',
             'nama_client' => 'required|string|max:255',
-            'jabatan' => 'required|string|max:255',
             'perusahaan' => 'required|string|max:255',
             'deskripsi' => 'required|string|min:20'
         ]);
@@ -373,12 +372,10 @@ class AdminController extends Controller
         
         $validated = $request->validate([
             'nama_client' => 'required|string|max:255',
-            'jabatan' => 'required|string|max:255',
             'perusahaan' => 'required|string|max:255',
             'deskripsi' => 'required|string|min:20'
         ]);
 
-        // Only update deskripsi, keep other fields same via hidden inputs
         $review->update($validated);
 
         return redirect('/admin/reviews')->with('success', 'Review updated successfully!');

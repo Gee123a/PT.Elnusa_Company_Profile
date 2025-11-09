@@ -2,44 +2,45 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Review;
+use App\Models\Client;
 
 class ReviewSeeder extends Seeder
 {
+    /**
+     * Run the database seeder.
+     */
     public function run(): void
     {
-        Review::insert([
+        $clients = Client::all();
+
+        $reviewsData = [
             [
-                'deskripsi' => 'Pelayanan Elnusa sangat profesional dan hasil pekerjaan sangat memuaskan. Timnya responsif, ramah, dan selalu memberikan solusi terbaik untuk setiap kebutuhan kami. Proses pengerjaan proyek berjalan lancar dan sesuai dengan jadwal yang telah disepakati.',
-                'nama_client' => 'Stevanus Ivan Santoso',
-                'jabatan' => '-',
-                'perusahaan' => '-',
+                'nama_client' => 'John Anderson',
+                'perusahaan' => 'Tech Innovations Ltd',
+                'deskripsi' => 'Outstanding service and professional team. The project was completed ahead of schedule with exceptional quality. Highly recommended for any construction needs.'
             ],
             [
-                'deskripsi' => 'Kami sangat merekomendasikan Elnusa untuk proyek konstruksi. Hasil akhir sangat rapi, komunikasi dengan tim sangat baik, dan setiap detail pekerjaan diperhatikan dengan teliti. Kami merasa nyaman dan percaya selama proses berlangsung.',
-                'nama_client' => 'Rudi Hartono',
-                'jabatan' => 'Manager Proyek',
-                'perusahaan' => 'PT Nusantara Jaya',
+                'nama_client' => 'Sarah Williams',
+                'perusahaan' => 'Global Enterprises',
+                'deskripsi' => 'Excellent work quality and attention to detail. The team was very responsive and professional throughout the entire project. Very satisfied with the results.'
             ],
             [
-                'deskripsi' => 'Tim Elnusa sangat berpengalaman dan mampu menyelesaikan proyek tepat waktu. Setiap kendala di lapangan dapat diatasi dengan cepat dan profesional. Kami puas dengan hasil kerja dan pelayanan yang diberikan.',
-                'nama_client' => 'Siti Aminah',
-                'jabatan' => 'HR Staff',
-                'perusahaan' => 'CV Maju Bersama',
+                'nama_client' => 'Michael Chen',
+                'perusahaan' => 'Asia Pacific Holdings',
+                'deskripsi' => 'Very professional and reliable construction company. They delivered exactly what we needed within budget and on time. Will definitely work with them again.'
             ],
-            [
-                'deskripsi' => 'Elnusa memberikan hasil pekerjaan yang berkualitas tinggi dan sesuai dengan harapan kami. Proses komunikasi sangat lancar dan transparan, sehingga kami merasa aman selama proyek berlangsung.',
-                'nama_client' => 'Andi Wijaya',
-                'jabatan' => 'Site Engineer',
-                'perusahaan' => 'PT Teknologi Global',
-            ],
-            [
-                'deskripsi' => 'Kami sangat puas dengan kerjasama bersama Elnusa. Setiap anggota tim sangat berdedikasi dan selalu memberikan update perkembangan proyek. Hasil akhir sangat memuaskan dan sesuai dengan spesifikasi.',
-                'nama_client' => 'Dewi Sartika',
-                'jabatan' => 'Finance Staff',
-                'perusahaan' => 'PT Sumber Rejeki',
-            ],
-        ]);
+        ];
+
+        foreach ($reviewsData as $index => $reviewData) {
+            Review::create([
+                'client_id' => $clients[$index % $clients->count()]->id,
+                'nama_client' => $reviewData['nama_client'],
+                'perusahaan' => $reviewData['perusahaan'],
+                'deskripsi' => $reviewData['deskripsi'],
+            ]);
+        }
     }
 }
