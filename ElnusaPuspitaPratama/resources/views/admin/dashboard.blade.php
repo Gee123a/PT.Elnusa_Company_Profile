@@ -35,8 +35,8 @@
                             <h6 class="text-white text-opacity-75 mb-2">Total Projects</h6>
                             <h2 class="fw-bold text-white mb-0">{{ $totalProjects }}</h2>
                         </div>
-                        <div class="rounded-circle d-flex align-items-center justify-content-center"
-                            style="width:60px;height:60px;background:rgba(255,193,7,0.2);">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width: 60px; height: 60px; min-width: 60px; background: rgba(255,193,7,0.2);">
                             <i class="bi bi-briefcase-fill fs-3 text-warning"></i>
                         </div>
                     </div>
@@ -51,8 +51,8 @@
                             <h6 class="text-white text-opacity-75 mb-2">Ongoing Projects</h6>
                             <h2 class="fw-bold text-warning mb-0">{{ $ongoingProjects }}</h2>
                         </div>
-                        <div class="rounded-circle d-flex align-items-center justify-content-center"
-                            style="width:60px;height:60px;background:rgba(255,193,7,0.2);">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width: 60px; height: 60px; min-width: 60px; background: rgba(255,193,7,0.2);">
                             <i class="bi bi-hourglass-split fs-3 text-warning"></i>
                         </div>
                     </div>
@@ -67,8 +67,8 @@
                             <h6 class="text-white text-opacity-75 mb-2">Total Employees</h6>
                             <h2 class="fw-bold text-white mb-0">{{ $totalEmployees }}</h2>
                         </div>
-                        <div class="rounded-circle d-flex align-items-center justify-content-center"
-                            style="width:60px;height:60px;background:rgba(255,193,7,0.2);">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width: 60px; height: 60px; min-width: 60px; background: rgba(255,193,7,0.2);">
                             <i class="bi bi-people-fill fs-3 text-warning"></i>
                         </div>
                     </div>
@@ -83,8 +83,8 @@
                             <h6 class="text-white text-opacity-75 mb-2">Total Clients</h6>
                             <h2 class="fw-bold text-white mb-0">{{ $totalClients }}</h2>
                         </div>
-                        <div class="rounded-circle d-flex align-items-center justify-content-center"
-                            style="width:60px;height:60px;background:rgba(255,193,7,0.2);">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width: 60px; height: 60px; min-width: 60px; background: rgba(255,193,7,0.2);">
                             <i class="bi bi-building fs-3 text-warning"></i>
                         </div>
                     </div>
@@ -98,42 +98,42 @@
                 @include('layout.sectionTitle', ['title' => 'QUICK ACTIONS'])
             </div>
             
-            <div class="col-lg-6" data-aos="fade-up">
-                <div class="p-5 rounded-3 shadow-lg border border-warning border-opacity-25 h-100"
+            <div class="col-lg-4" data-aos="fade-up">
+                <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100 d-flex flex-column"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                            style="width:70px;height:70px;background:rgba(255,193,7,0.2);">
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0"
+                            style="width: 70px; height: 70px; min-width: 70px; background: rgba(255,193,7,0.2);">
                             <i class="bi bi-briefcase-fill fs-2 text-warning"></i>
                         </div>
-                        <div>
-                            <h3 class="fw-bold mb-1 text-white">Manage Projects</h3>
-                            <p class="text-white text-opacity-75 mb-0">Create, edit, and manage all projects</p>
+                        <div class="flex-grow-1">
+                            <h4 class="fw-bold mb-2 text-white">Manage Projects</h4>
+                            <p class="text-white text-opacity-75 mb-0 small">Create, edit, and manage all construction projects</p>
                         </div>
                     </div>
-                    <div class="d-grid gap-2">
-                        <a href="/admin/projects" class="btn btn-outline-warning btn-lg">
+                    <div class="mt-auto">
+                        <a href="/admin/projects" class="btn btn-outline-warning btn-lg w-100">
                             <i class="bi bi-list-ul me-2"></i>View All Projects
                         </a>
                     </div>
                 </div>
             </div>
             
-            <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="p-5 rounded-3 shadow-lg border border-warning border-opacity-25 h-100"
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100 d-flex flex-column"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                            style="width:70px;height:70px;background:rgba(255,193,7,0.2);">
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0"
+                            style="width: 70px; height: 70px; min-width: 70px; background: rgba(255,193,7,0.2);">
                             <i class="bi bi-people-fill fs-2 text-warning"></i>
                         </div>
-                        <div>
-                            <h3 class="fw-bold mb-1 text-white">Manage Employees</h3>
-                            <p class="text-white text-opacity-75 mb-0">Create, edit, and manage team members</p>
+                        <div class="flex-grow-1">
+                            <h4 class="fw-bold mb-2 text-white">Manage Employees</h4>
+                            <p class="text-white text-opacity-75 mb-0 small">Create, edit, and manage team members</p>
                         </div>
                     </div>
-                    <div class="d-grid gap-2">
-                        <a href="/admin/employees" class="btn btn-outline-warning btn-lg">
+                    <div class="mt-auto">
+                        <a href="/admin/employees" class="btn btn-outline-warning btn-lg w-100">
                             <i class="bi bi-list-ul me-2"></i>View All Employees
                         </a>
                     </div>
@@ -141,20 +141,20 @@
             </div>
             
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="p-5 rounded-3 shadow-lg border border-warning border-opacity-25 h-100"
+                <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100 d-flex flex-column"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
-                    <div class="d-flex align-items-center mb-4">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                            style="width:70px;height:70px;background:rgba(255,193,7,0.2);">
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0"
+                            style="width: 70px; height: 70px; min-width: 70px; background: rgba(255,193,7,0.2);">
                             <i class="bi bi-chat-quote-fill fs-2 text-warning"></i>
                         </div>
-                        <div>
-                            <h3 class="fw-bold mb-1 text-white">Manage Reviews</h3>
-                            <p class="text-white text-opacity-75 mb-0">Create, edit, and manage client reviews</p>
+                        <div class="flex-grow-1">
+                            <h4 class="fw-bold mb-2 text-white">Manage Reviews</h4>
+                            <p class="text-white text-opacity-75 mb-0 small">Create, edit, and manage client reviews</p>
                         </div>
                     </div>
-                    <div class="d-grid gap-2">
-                        <a href="/admin/reviews" class="btn btn-outline-warning btn-lg">
+                    <div class="mt-auto">
+                        <a href="/admin/reviews" class="btn btn-outline-warning btn-lg w-100">
                             <i class="bi bi-list-ul me-2"></i>View All Reviews
                         </a>
                     </div>

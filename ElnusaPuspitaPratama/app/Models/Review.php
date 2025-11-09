@@ -10,9 +10,15 @@ class Review extends Model
     use HasFactory;
 
     protected $fillable = [
-        'deskripsi',     
-        'nama_client',   
-        'jabatan',      
-        'perusahaan',     
+        'client_id',
+        'nama_client',
+        'jabatan',
+        'perusahaan',
+        'deskripsi'
     ];
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
 }

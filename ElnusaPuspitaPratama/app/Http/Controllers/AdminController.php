@@ -342,12 +342,14 @@ class AdminController extends Controller
 
     public function reviewCreate()
     {
-        return view('admin.reviews.create');
+        $clients = Client::orderBy('nama')->get();
+        return view('admin.reviews.create', compact('clients'));
     }
 
     public function reviewStore(Request $request)
     {
         $validated = $request->validate([
+            'client_id' => 'required|exists:clients,id',
             'nama_client' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'perusahaan' => 'required|string|max:255',
@@ -361,7 +363,7 @@ class AdminController extends Controller
 
     public function reviewEdit($id)
     {
-        $review = Review::findOrFail($id);
+        $review = Review::with('client')->findOrFail($id);
         return view('admin.reviews.edit', compact('review'));
     }
 
@@ -376,6 +378,7 @@ class AdminController extends Controller
             'deskripsi' => 'required|string|min:20'
         ]);
 
+        // Only update deskripsi, keep other fields same via hidden inputs
         $review->update($validated);
 
         return redirect('/admin/reviews')->with('success', 'Review updated successfully!');

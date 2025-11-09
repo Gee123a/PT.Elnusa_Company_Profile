@@ -1,5 +1,4 @@
-{{-- filepath: resources/views/layout/adminMain.blade.php --}}
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,4 +38,4 @@
     <script src="{{ asset('js/projects/create.js') }}"></script>
     <script src="{{ asset('js/projects/edit.js') }}"></script>
 </body>
-</html>
+</html> --}}

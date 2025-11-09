@@ -1,4 +1,3 @@
-{{-- filepath: resources/views/admin/reviews/index.blade.php --}}
 @extends('layout.main')
 @section('title', 'Manage Reviews')
 @section('content')

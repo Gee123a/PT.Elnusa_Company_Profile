@@ -19,6 +19,11 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->timestamps();
         });
+
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->unsignedBigInteger('client_id')->nullable()->after('id');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('set null');
+        });
     }
 
     /**
