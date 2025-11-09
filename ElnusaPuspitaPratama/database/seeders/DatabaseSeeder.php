@@ -13,9 +13,16 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin Elnusa',
             'email' => 'admin@elnusa.com',
+            'role' => 'admin', // Admin: manage projects & reviews only
         ]);
 
-        
+        // Buat user manager
+        User::factory()->create([
+            'name' => 'Manager Elnusa',
+            'email' => 'manager@elnusa.com',
+            'role' => 'manager', // Manager: manage all (projects, reviews, employees)
+        ]);
+
         $this->call([
             ClientSeeder::class,      
             EmployeeSeeder::class,    

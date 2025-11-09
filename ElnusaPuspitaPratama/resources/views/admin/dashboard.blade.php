@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Admin Dashboard')
+@section('title', Auth::user()->isAdmin() ? 'Admin Dashboard' : 'Manager Dashboard')
 @section('content')
 
 <section class="position-relative d-flex align-items-center overflow-hidden pt-5" style="min-height: 40vh;">
@@ -10,10 +10,14 @@
         <div class="row">
             <div class="col-lg-12 text-white">
                 <h1 class="display-3 fw-bold mb-3" data-aos="fade-right">
-                    <i class="bi bi-speedometer2 text-warning me-3"></i>Admin Dashboard
+                    <i class="bi bi-speedometer2 text-warning me-3"></i>{{ ucfirst(Auth::user()->role) }} Dashboard
                 </h1>
                 <p class="lead" data-aos="fade-right" data-aos-delay="100">
-                    Manage your projects and team members efficiently
+                    @if(Auth::user()->isAdmin())
+                        Manage your projects and client reviews efficiently
+                    @else
+                        Manage all aspects of your business: projects, reviews, and team members
+                    @endif
                 </p>
             </div>
         </div>
@@ -26,7 +30,8 @@
     </div>
     <div class="container py-5">
         <!-- Statistics Cards -->
-        <div class="row g-4 mb-5">
+        <div class="row g-4 mb-5 {{ Auth::user()->isAdmin() ? 'justify-content-center' : '' }}">
+            {{-- Projects Stats: Admin & Manager --}}
             <div class="col-lg-3 col-md-6" data-aos="fade-up">
                 <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
@@ -58,24 +63,8 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100"
-                    style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h6 class="text-white text-opacity-75 mb-2">Total Employees</h6>
-                            <h2 class="fw-bold text-white mb-0">{{ $totalEmployees }}</h2>
-                        </div>
-                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
-                            style="width: 60px; height: 60px; min-width: 60px; background: rgba(255,193,7,0.2);">
-                            <i class="bi bi-people-fill fs-3 text-warning"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
                     <div class="d-flex align-items-center justify-content-between">
@@ -90,6 +79,25 @@
                     </div>
                 </div>
             </div>
+            
+            {{-- Employees Stats: Manager Only --}}
+            @if(Auth::user()->isManager())
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100"
+                    style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <h6 class="text-white text-opacity-75 mb-2">Total Employees</h6>
+                            <h2 class="fw-bold text-white mb-0">{{ $totalEmployees }}</h2>
+                        </div>
+                        <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                            style="width: 60px; height: 60px; min-width: 60px; background: rgba(255,193,7,0.2);">
+                            <i class="bi bi-people-fill fs-3 text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
 
         <!-- Quick Actions -->
@@ -98,7 +106,8 @@
                 @include('layout.sectionTitle', ['title' => 'QUICK ACTIONS'])
             </div>
             
-            <div class="col-lg-4" data-aos="fade-up">
+            {{-- Manage Projects: Admin & Manager --}}
+            <div class="col-lg-{{ Auth::user()->isManager() ? '4' : '6' }}" data-aos="fade-up">
                 <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100 d-flex flex-column"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
                     <div class="d-flex align-items-start mb-4">
@@ -119,28 +128,8 @@
                 </div>
             </div>
             
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100 d-flex flex-column"
-                    style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
-                    <div class="d-flex align-items-start mb-4">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0"
-                            style="width: 70px; height: 70px; min-width: 70px; background: rgba(255,193,7,0.2);">
-                            <i class="bi bi-people-fill fs-2 text-warning"></i>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h4 class="fw-bold mb-2 text-white">Manage Employees</h4>
-                            <p class="text-white text-opacity-75 mb-0 small">Create, edit, and manage team members</p>
-                        </div>
-                    </div>
-                    <div class="mt-auto">
-                        <a href="/admin/employees" class="btn btn-outline-warning btn-lg w-100">
-                            <i class="bi bi-list-ul me-2"></i>View All Employees
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            {{-- Manage Reviews: Admin & Manager --}}
+            <div class="col-lg-{{ Auth::user()->isManager() ? '4' : '6' }}" data-aos="fade-up" data-aos-delay="100">
                 <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100 d-flex flex-column"
                     style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
                     <div class="d-flex align-items-start mb-4">
@@ -160,6 +149,30 @@
                     </div>
                 </div>
             </div>
+            
+            {{-- Manage Employees: Manager Only --}}
+            @if(Auth::user()->isManager())
+            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-4 rounded-3 shadow-lg border border-warning border-opacity-25 h-100 d-flex flex-column"
+                    style="background: rgba(255,255,255,0.10); backdrop-filter: blur(10px);">
+                    <div class="d-flex align-items-start mb-4">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center me-3 flex-shrink-0"
+                            style="width: 70px; height: 70px; min-width: 70px; background: rgba(255,193,7,0.2);">
+                            <i class="bi bi-people-fill fs-2 text-warning"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h4 class="fw-bold mb-2 text-white">Manage Employees</h4>
+                            <p class="text-white text-opacity-75 mb-0 small">Create, edit, and manage team members</p>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <a href="/admin/employees" class="btn btn-outline-warning btn-lg w-100">
+                            <i class="bi bi-list-ul me-2"></i>View All Employees
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>

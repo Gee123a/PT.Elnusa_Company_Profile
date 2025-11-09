@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <a class="navbar-brand fw-bold fs-4" href="{{ route('admin.dashboard') }}" style="letter-spacing: 1px;">
             <i class="bi bi-speedometer2 text-warning me-2"></i>
-            <span class="text-warning">ADMIN</span> Dashboard
+            <span class="text-warning">{{ strtoupper(Auth::user()->role) }}</span> Dashboard
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar"
@@ -20,24 +20,33 @@
                         <i class="bi bi-house-fill me-1"></i>Dashboard
                     </a>
                 </li>
+
+                {{-- Projects: Admin & Manager --}}
                 <li class="nav-item mx-2">
                     <a class="nav-link fw-medium {{ Request::is('admin/projects*') ? 'active text-warning' : 'text-white-50' }}"
                         href="{{ route('admin.projects.index') }}">
                         <i class="bi bi-briefcase-fill me-1"></i>Projects
                     </a>
                 </li>
+
+                {{-- Employees: Manager Only --}}
+                @if(Auth::user()->isManager())
                 <li class="nav-item mx-2">
                     <a class="nav-link fw-medium {{ Request::is('admin/employees*') ? 'active text-warning' : 'text-white-50' }}"
                         href="{{ route('admin.employees.index') }}">
                         <i class="bi bi-people-fill me-1"></i>Employees
                     </a>
                 </li>
+                @endif
+
+                {{-- Reviews: Admin & Manager --}}
                 <li class="nav-item mx-2">
                     <a class="nav-link fw-medium {{ Request::is('admin/reviews*') ? 'active text-warning' : 'text-white-50' }}"
                         href="{{ route('admin.reviews.index') }}">
                         <i class="bi bi-chat-quote-fill me-1"></i>Reviews
                     </a>
                 </li>
+
                 <li class="nav-item mx-2">
                     <span class="nav-link text-white-50">
                         <i class="bi bi-person-circle me-1"></i>{{ Auth::user()->name }}
