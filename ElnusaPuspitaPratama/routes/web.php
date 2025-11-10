@@ -46,5 +46,5 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::delete('/reviews/{id}', [AdminController::class, 'reviewDestroy'])->name('admin.reviews.destroy');
 });
 
-// Breeze auth routes are auto-included from routes/auth.php
+
 require __DIR__.'/auth.php';
