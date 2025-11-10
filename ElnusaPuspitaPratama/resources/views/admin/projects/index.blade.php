@@ -142,7 +142,7 @@
 @endsection
 
 <script>
-// Wait for DOM to be ready`
+
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     

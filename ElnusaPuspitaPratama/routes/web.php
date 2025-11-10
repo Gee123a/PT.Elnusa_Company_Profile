@@ -18,7 +18,7 @@ Route::view('/contact', 'contact')->name('contact');
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
     
-    // Projects
+    // Projects - Both Admin & Manager
     Route::get('/projects', [AdminController::class, 'projectIndex'])->name('admin.projects.index');
     Route::get('/projects/search', [AdminController::class, 'projectSearch'])->name('admin.projects.search'); 
     Route::get('/projects/create', [AdminController::class, 'projectCreate'])->name('admin.projects.create');
@@ -27,16 +27,18 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::put('/projects/{id}', [AdminController::class, 'projectUpdate'])->name('admin.projects.update');
     Route::delete('/projects/{id}', [AdminController::class, 'projectDestroy'])->name('admin.projects.destroy');
     
-    // Employees
-    Route::get('/employees', [AdminController::class, 'employeeIndex'])->name('admin.employees.index');
-    Route::get('/employees/search', [AdminController::class, 'employeeSearch'])->name('admin.employees.search');
-    Route::get('/employees/create', [AdminController::class, 'employeeCreate'])->name('admin.employees.create');
-    Route::post('/employees', [AdminController::class, 'employeeStore'])->name('admin.employees.store');
-    Route::get('/employees/{id}/edit', [AdminController::class, 'employeeEdit'])->name('admin.employees.edit');
-    Route::put('/employees/{id}', [AdminController::class, 'employeeUpdate'])->name('admin.employees.update');
-    Route::delete('/employees/{id}', [AdminController::class, 'employeeDestroy'])->name('admin.employees.destroy');
+    // Employees - Manager ONLY
+    Route::middleware(['role:manager'])->group(function () {
+        Route::get('/employees', [AdminController::class, 'employeeIndex'])->name('admin.employees.index');
+        Route::get('/employees/search', [AdminController::class, 'employeeSearch'])->name('admin.employees.search');
+        Route::get('/employees/create', [AdminController::class, 'employeeCreate'])->name('admin.employees.create');
+        Route::post('/employees', [AdminController::class, 'employeeStore'])->name('admin.employees.store');
+        Route::get('/employees/{id}/edit', [AdminController::class, 'employeeEdit'])->name('admin.employees.edit');
+        Route::put('/employees/{id}', [AdminController::class, 'employeeUpdate'])->name('admin.employees.update');
+        Route::delete('/employees/{id}', [AdminController::class, 'employeeDestroy'])->name('admin.employees.destroy');
+    });
     
-    // Reviews
+    // Reviews - Both Admin & Manager
     Route::get('/reviews', [AdminController::class, 'reviewIndex'])->name('admin.reviews.index');
     Route::get('/reviews/search', [AdminController::class, 'reviewSearch'])->name('admin.reviews.search');
     Route::get('/reviews/create', [AdminController::class, 'reviewCreate'])->name('admin.reviews.create');
