@@ -405,8 +405,8 @@ class AdminController extends Controller
         return response()->json([
             'html' => view('admin.reviews.table-rows', compact('reviews', 'search'))->render(),
             'total' => $reviews->total(),
-            'firstItem' => $reviews->firstItem(), // TAMBAHKAN INI
-            'lastItem' => $reviews->lastItem(),   // TAMBAHKAN INI
+            'firstItem' => $reviews->firstItem(), 
+            'lastItem' => $reviews->lastItem(),  
             'pagination' => view('admin.reviews.pagination', compact('reviews', 'search'))->render()
         ]);
     }
