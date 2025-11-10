@@ -142,7 +142,7 @@
 @endsection
 
 <script>
-// Wait for DOM to be ready
+// Wait for DOM to be ready`
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
     
@@ -169,8 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         to <span class="text-warning fw-bold">${data.lastItem || 0}</span> 
                         of <span class="text-warning fw-bold">${data.total}</span> projects`;
                 }
-                
-                // Re-attach pagination click handlers
                 attachPaginationHandlers();
             })
             .catch(error => console.error('Error:', error));
