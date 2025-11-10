@@ -397,7 +397,6 @@ class AdminController extends Controller
                 return $query->where('nama_client', 'like', "%{$search}%")
                     ->orWhere('perusahaan', 'like', "%{$search}%")
                     ->orWhere('deskripsi', 'like', "%{$search}%");
-                    // 'jabatan' DIHAPUS - INI YANG MENYEBABKAN ERROR
             })
             ->orderBy('created_at', 'desc')
             ->paginate(5)
